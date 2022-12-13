@@ -1,0 +1,33 @@
+body .demo-class .layui-layer-content {
+    overflow: visible;
+}
+.layui-input-block {
+    margin-left: 0px!important;
+    min-height: 36px;
+}
+body{
+    min-height: 600px;
+    padding-top: 50px;
+}
+.serchebox{
+    margin-left:110px!important;
+}
+.layui-unselect dl {
+    top: 42px;
+    bottom: unset;
+}
+.toleft{
+    margin-left: 20px!important;
+}
+.row{
+    margin-top: 5px;
+}
+.layui-form-item{
+    margin-bottom: 0px;
+}
+body .layui-table  th,td{
+    text-align: center;
+    font-weight: 400;
+}
+/*下拉框滚动条*/
+.layui-form-select dl { max-height:160px; }

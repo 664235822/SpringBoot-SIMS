@@ -1,0 +1,45 @@
+body .demo-class .layui-layer-content {
+    overflow: visible;
+}
+body{
+    padding-top: 50px!important;
+    min-height: 600px;
+}
+body .layui-table  th,td{
+    text-align: center;
+    font-weight: 400;
+}
+.leaveTop {
+    margin-top: 19px;
+}
+.moveleft{
+    margin-left: 15px;
+}
+p{
+    margin: 0px;
+}
+.forms{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.addtea{
+    height: 50px;
+    line-height: 50px;
+}
+.layui-form-label{
+    width: 110px;
+    text-align: left;
+}
+.backToLeft{
+    margin-left: 0px;
+}
+.layui-btn-aa{
+    background: #009688;
+}
+.ine{
+    margin-top: 15px;
+}
+.layui-form-label {
+    width: 110px;
+    text-align: center;
+}

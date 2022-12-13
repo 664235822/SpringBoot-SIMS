@@ -1,0 +1,16 @@
+body .layui-table th,td{
+    text-align: center;
+    font-weight: 400;
+}
+body{
+    padding-top: 50px!important;
+}
+.layui-tab {
+     margin:  0!important;
+}
+.layui-table{
+     margin: 0!important;
+}
+.layui-tab-content {
+    padding: 0px!important;
+}

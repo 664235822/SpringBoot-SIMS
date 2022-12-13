@@ -1,0 +1,49 @@
+body {
+    overflow-y: hidden;
+}
+
+a{
+    text-decoration: none !important;
+}
+.pointer a:hover{
+    cursor: pointer !important;
+}
+/*左边菜单栏*/
+.layui-nav-tree .layui-this>a,.layui-nav-tree .layui-this{
+    background: white !important;
+    color: rgb(56, 62, 73) !important;
+}
+/*顶部导航栏*/
+#topnav  .layui-this:after{
+    background: rgb(56,62,73)!important;
+    color: rgba(255,255,255,.7);
+}
+#topnav  .layui-this a{
+    color: rgba(255,255,255,.7);
+}
+#about:hover{
+    cursor: pointer;
+}
+
+.layui-nav-child dd{
+padding: 5px 0px!important;
+}
+.menu, .layui-body {
+margin-top: 60px;
+}
+
+.layui-logo img {
+height: 50px;
+margin: 0px;
+padding: 0px;
+}
+
+/*主体内ifram框架*/
+.ifm {
+    border: none;
+    width: 100%;
+    overflow: hidden;
+}
+.layui-nav-child dd{
+    cursor: pointer;
+}
