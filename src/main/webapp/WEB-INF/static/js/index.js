@@ -287,5 +287,5 @@ function getProjectUrl(){
         pathName.substr(1).indexOf('/') + 2);
 //获取根路径，如：http://localhost:8080/project/
     baseURL = localhostPath + projectName;
-    return baseURL;
+    return projectName;
 }
