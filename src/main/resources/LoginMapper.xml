@@ -3,13 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mapper.UsersMapper">
-    <resultMap id="user" type="com.sims.springbootsims.entity.LoginBean">
-        <id column="id" property="id" javaType="int"/>
-        <result column="code" property="code" javaType="String"/>
-        <result column="pwd" property="pwd" javaType="String"/>
-        <result column="stateId" property="stateId" javaType="int"/>
-    </resultMap>
+<mapper namespace="com.sims.springbootsims.mapper.LoginMapper">
     <select id="queryLogin" parameterType="com.sims.springbootsims.entity.LoginBean" resultType="com.sims.springbootsims.entity.LoginBean">
         select * from Login
         <where>
