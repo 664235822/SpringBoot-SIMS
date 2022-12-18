@@ -268,97 +268,23 @@ public class SelectDao {
      * @param subjectId 科目编号
      * @param currentPage 当前页号
      * @return BaseBean 返回学生成绩信息
-     * @throws SQLException
      */
     public BaseBean selectResult(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws
             Exception {
-//        String sql = "select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re " +
-//                "inner join Student st on re.sid=st.id " +
-//                "inner join Class cl on st.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join Subject su on re.subId=su.id " +
-//                "where 1=1 ";
-//        if (!code.isEmpty()) {
-//            sql += "and st.code like '%" + code + "%' ";
-//        }
-//        if (!name.isEmpty()) {
-//            sql += "and st.name like '%" + name + "%' ";
-//        }
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += "order by id desc ";
-//        if (currentPage != 0) {
-//            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
-//        }
-//        sql += ";";
-//
-//        ResultSet rs = querySelect(sql);
-//
         BaseBean result = new BaseBean();
-//        TableBean table = new TableBean();
-//        List<ResultBean> list = new ArrayList<>();
-//
-//        while (rs.next()) {
-//            ResultBean _result = new ResultBean();
-//            _result.setId(rs.getInt("id"));
-//            _result.setSubId(rs.getInt("subId"));
-//            _result.setsId(rs.getInt("sId"));
-//            _result.setTime(rs.getDate("time").toString());
-//            _result.setResult(rs.getDouble("result"));
-//            _result.setGradeName(rs.getString("gradeName"));
-//            _result.setClassName(rs.getString("className"));
-//            _result.setCode(rs.getString("code"));
-//            _result.setName(rs.getString("name"));
-//            _result.setSubjectName(rs.getString("subjectName"));
-//
-//            list.add(_result);
-//        }
-//
-//        table.setList(list);
-//
-//        sql = "select count(*) as count from Result re " +
-//                "inner join Student st on re.sid=st.id " +
-//                "inner join Class cl on st.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join Subject su on re.subId=su.id " +
-//                "where 1=1 ";
-//        if (!code.isEmpty()) {
-//            sql += "and st.code like '%" + code + "%' ";
-//        }
-//        if (!name.isEmpty()) {
-//            sql += "and st.name like '%" + name + "%' ";
-//        }
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += ";";
-//        rs = querySelect(sql);
-//        int dataCount = 0;
-//        int pageCount = 0;
-//        if (rs.next()) {
-//            dataCount = rs.getInt("count");
-//            pageCount = (dataCount + 10 - 1) / 10;
-//        }
-//        table.setDataCount(dataCount);
-//        table.setPageCount(pageCount);
-//
-//        result.setCode(BaseBean.SUCCESS);
-//        result.setData(table);
-//        result.setMessage("查看学生成绩成功");
-//        destroy(rs);
+        TableBean table = new TableBean();
+        List<ResultBean> list = selectMapper.queryResultList(code, name, gradeId, classId, subjectId, currentPage);
+
+        table.setList(list);
+
+        int count = selectMapper.queryResultCount(code, name, gradeId, classId, subjectId);
+
+        table.setDataCount(count);
+        table.setPageCount((count + 10 - 1) / 10);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看学生成绩成功");
 
         return result;
     }
@@ -370,80 +296,22 @@ public class SelectDao {
      * @param subjectId 科目编号
      * @param currentPage 当前页号
      * @return BaseBean 返回添加学生成绩信息
-     * @throws SQLException
      */
     public BaseBean selectAddResult(int gradeId, int classId, int subjectId, int currentPage) throws Exception {
-//        String sql = "select st.id,su.id subjectId,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Student st " +
-//                "inner join Class cl on st.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join TeacherClass tec on tec.classId=cl.id " +
-//                "inner join Subject su on tec.subId=su.id " +
-//                "where 1=1 ";
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += "order by id desc ";
-//        if (currentPage != 0) {
-//            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
-//        }
-//        sql += ";";
-//        ResultSet rs = querySelect(sql);
-//
         BaseBean result = new BaseBean();
-//        TableBean table = new TableBean();
-//        List<ResultBean> list = new ArrayList<>();
-//
-//        while (rs.next()) {
-//            ResultBean _result = new ResultBean();
-//            _result.setsId(rs.getInt("id"));
-//            _result.setSubId(rs.getInt("subjectId"));
-//            _result.setGradeName(rs.getString("gradeName"));
-//            _result.setClassName(rs.getString("className"));
-//            _result.setCode(rs.getString("code"));
-//            _result.setName(rs.getString("name"));
-//            _result.setSubjectName(rs.getString("subjectName"));
-//
-//            list.add(_result);
-//        }
-//
-//        table.setList(list);
-//
-//        sql = "select count(*) as count from Student st " +
-//                "inner join Class cl on st.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join TeacherClass tec on tec.classId=cl.id " +
-//                "inner join Subject su on tec.subId=su.id " +
-//                "where 1=1 ";
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += ";";
-//        rs = querySelect(sql);
-//        int dataCount = 0;
-//        int pageCount = 0;
-//        if (rs.next()) {
-//            dataCount = rs.getInt("count");
-//            pageCount = (dataCount + 10 - 1) / 10;
-//        }
-//        table.setDataCount(dataCount);
-//        table.setPageCount(pageCount);
-//
-//        result.setCode(BaseBean.SUCCESS);
-//        result.setData(table);
-//        result.setMessage("查看添加学生成绩信息成功");
-//        destroy(rs);
+        TableBean table = new TableBean();
+        List<StudentBean> list = selectMapper.queryAddResultList(gradeId, classId, subjectId, currentPage);
+
+        table.setList(list);
+
+        int count = selectMapper.queryAddResultCount(gradeId, classId, subjectId);
+
+        table.setDataCount(count);
+        table.setPageCount((count + 10 - 1) / 10);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看添加学生成绩信息成功");
 
         return result;
     }
@@ -457,7 +325,6 @@ public class SelectDao {
      * @param subjectId 科目编号
      * @param currentPage 当前页号
      * @return BaseBean 返回考勤信息
-     * @throws SQLException
      */
     public BaseBean selectAttendance(String code, String name, int gradeId, int classId, int subjectId,
                                      int currentPage) throws Exception {
@@ -553,7 +420,7 @@ public class SelectDao {
     }
 
     /*
-     * 查看考勤信息
+     * 查看添加考勤信息
      * @param code 查询学生编号
      * @param name 查询学生姓名
      * @param gradeId 年级编号

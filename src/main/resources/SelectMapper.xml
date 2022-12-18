@@ -138,6 +138,98 @@
             and su.id = #{subjectId}
         </if>
     </select>
+    <select id="queryResultList" resultType="com.sims.springbootsims.entity.ResultBean">
+        select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re
+        inner join Student st on re.sid = st.id
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join Subject su on re.subId = su.id
+        <where>
+            <if test="code != null and code != ''">
+                and st.code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name != ''">
+                and st.name like "%"#{name}"%"
+            </if>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+        </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit (#{currentPage} - 1) * 10 , 10
+        </if>
+    </select>
+    <select id="queryResultCount" resultType="Integer">
+        select count(*) as count from Result re
+        inner join Student st on re.sid = st.id
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join Subject su on re.subId=su.id
+        <where>
+            <if test="code != null and code != ''">
+                and st.code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name != ''">
+                and st.name like "%"#{name}"%"
+            </if>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+        </where>
+    </select>
+    <select id="queryAddResultList" resultType="com.sims.springbootsims.entity.StudentBean">
+        select st.id sId,su.id subId,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Student st
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join TeacherClass tec on tec.classId = cl.id
+        inner join Subject su on tec.subId = su.id
+        <where>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+        </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit (#{currentPage} - 1) * 10 , 10
+        </if>
+    </select>
+    <select id="queryAddResultCount" resultType="Integer">
+        select count(*) as count from Student st
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join TeacherClass tec on tec.classId = cl.id
+        inner join Subject su on tec.subId = su.id
+        <where>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+        </where>
+    </select>
     <select id="queryPwd" parameterType="String" resultType="com.sims.springbootsims.entity.LoginBean">
         select * from Login
         <where>

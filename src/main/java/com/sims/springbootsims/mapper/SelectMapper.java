@@ -28,6 +28,14 @@ public interface SelectMapper {
 
     public int queryTeacherClassCount(int gradeId, int classId, int subjectId);
 
+    public List<ResultBean> queryResultList(String code, String name, int gradeId, int classId, int subjectId, int currentPage);
+
+    public int queryResultCount(String code, String name, int gradeId, int classId, int subjectId);
+
+    public List<StudentBean> queryAddResultList(int gradeId, int classId, int subjectId, int currentPage);
+
+    public int queryAddResultCount(int gradeId, int classId, int subjectId);
+
     public LoginBean queryPwd(String code);
 
     public int queryCount(String tableName, String code, String name);
