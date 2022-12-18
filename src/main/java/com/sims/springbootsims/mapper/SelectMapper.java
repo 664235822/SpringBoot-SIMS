@@ -36,6 +36,17 @@ public interface SelectMapper {
 
     public int queryAddResultCount(int gradeId, int classId, int subjectId);
 
+    public List<AttendanceBean> queryAttendanceList(String code, String name, int gradeId, int classId, int subjectId,
+                                                    int currentPage);
+
+    public int queryAttendanceCount(String code, String name, int gradeId, int classId, int subjectId);
+
+    public List<StudentBean> queryAddAttendanceList(int gradeId, int classId, int subjectId, int currentPage);
+
+    public int queryAddAttendanceCount(int gradeId, int classId, int subjectId);
+
+    public HabitBean queryHabit(String code);
+
     public LoginBean queryPwd(String code);
 
     public int queryCount(String tableName, String code, String name);

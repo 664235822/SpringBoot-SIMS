@@ -328,93 +328,20 @@ public class SelectDao {
      */
     public BaseBean selectAttendance(String code, String name, int gradeId, int classId, int subjectId,
                                      int currentPage) throws Exception {
-//        String sql = "select at.id,st.code,st.name,gr.gradeName,cl.className,su.subjectName,att.AttendanceType,at.AttendanceTime from Attendance at " +
-//                "inner join Student st on at.sId=st.id " +
-//                "inner join Subject su on at.subId=su.id " +
-//                "inner join Class cl on at.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join AttendanceType att on at.AttendanceType=att.id " +
-//                "where 1=1 ";
-//        if (!code.isEmpty()) {
-//            sql += "and st.code like '%" + code + "%' ";
-//        }
-//        if (!name.isEmpty()) {
-//            sql += "and st.name like '%" + name + "%' ";
-//        }
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += "order by id desc ";
-//        if (currentPage != 0) {
-//            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
-//        }
-//        sql += ";";
-//
-//        ResultSet rs = querySelect(sql);
-//
         BaseBean result = new BaseBean();
-//        TableBean table = new TableBean();
-//        List<AttendanceBean> list = new ArrayList<>();
-//
-//        while (rs.next()) {
-//            AttendanceBean attendance = new AttendanceBean();
-//            attendance.setId(rs.getInt("id"));
-//            attendance.setCode(rs.getString("code"));
-//            attendance.setName(rs.getString("name"));
-//            attendance.setGradeName(rs.getString("gradeName"));
-//            attendance.setClassName(rs.getString("className"));
-//            attendance.setSubjectName(rs.getString("subjectName"));
-//            attendance.setType(rs.getString("AttendanceType"));
-//            attendance.setTime(rs.getDate("AttendanceTime").toString());
-//
-//            list.add(attendance);
-//        }
-//
-//        table.setList(list);
-//
-//        sql = "select count(*) as count from Attendance at " +
-//                "inner join Student st on at.sId=st.id " +
-//                "inner join Subject su on at.subId=su.id " +
-//                "inner join Class cl on at.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join AttendanceType att on at.AttendanceType=att.id " +
-//                "where 1=1 ";
-//        if (!code.isEmpty()) {
-//            sql += "and st.code like '%" + code + "%' ";
-//        }
-//        if (!name.isEmpty()) {
-//            sql += "and st.name like '%" + name + "%' ";
-//        }
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += ";";
-//        rs = querySelect(sql);
-//        int dataCount = 0;
-//        int pageCount = 0;
-//        if (rs.next()) {
-//            dataCount = rs.getInt("count");
-//            pageCount = (dataCount + 10 - 1) / 10;
-//        }
-//        table.setDataCount(dataCount);
-//        table.setPageCount(pageCount);
-//
-//        result.setCode(BaseBean.SUCCESS);
-//        result.setData(table);
-//        result.setMessage("查看考勤信息成功");
-//        destroy(rs);
+        TableBean table = new TableBean();
+        List<AttendanceBean> list = selectMapper.queryAttendanceList(code, name, gradeId, classId, subjectId, currentPage);
+
+        table.setList(list);
+
+        int count = selectMapper.queryAttendanceCount(code, name, gradeId, classId, subjectId);
+
+        table.setDataCount(count);
+        table.setPageCount((count + 10 - 1) / 10);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看考勤信息成功");
 
         return result;
     }
@@ -428,81 +355,22 @@ public class SelectDao {
      * @param subjectId 科目编号
      * @param currentPage 当前页号
      * @return BaseBean 返回考勤信息
-     * @throws SQLException
      */
     public BaseBean selectAddAttendance(int gradeId, int classId, int subjectId, int currentPage) throws Exception {
-//        String sql = "select st.id,su.id subjectId,gr.gradeName,cl.id classId,cl.className,st.code,st.name,su.subjectName from Student st " +
-//                "inner join Class cl on st.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join TeacherClass tec on tec.classId=cl.id " +
-//                "inner join Subject su on tec.subId=su.id " +
-//                "where 1=1 ";
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += "order by id desc ";
-//        if (currentPage != 0) {
-//            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
-//        }
-//        sql += ";";
-//        ResultSet rs = querySelect(sql);
-//
         BaseBean result = new BaseBean();
-//        TableBean table = new TableBean();
-//        List<AttendanceBean> list = new ArrayList<>();
-//
-//        while (rs.next()) {
-//            AttendanceBean attendance = new AttendanceBean();
-//            attendance.setsId(rs.getInt("id"));
-//            attendance.setSubId(rs.getInt("subjectId"));
-//            attendance.setClassId(rs.getInt("classId"));
-//            attendance.setGradeName(rs.getString("gradeName"));
-//            attendance.setClassName(rs.getString("className"));
-//            attendance.setCode(rs.getString("code"));
-//            attendance.setName(rs.getString("name"));
-//            attendance.setSubjectName(rs.getString("subjectName"));
-//
-//            list.add(attendance);
-//        }
-//
-//        table.setList(list);
-//
-//        sql = "select count(*) as count from Student st " +
-//                "inner join Class cl on st.classId=cl.id " +
-//                "inner join Grade gr on cl.gradeId=gr.id " +
-//                "inner join TeacherClass tec on tec.classId=cl.id " +
-//                "inner join Subject su on tec.subId=su.id " +
-//                "where 1=1 ";
-//        if (gradeId != 0) {
-//            sql += "and gr.id='" + gradeId + "' ";
-//        }
-//        if (classId != 0) {
-//            sql += "and cl.id='" + classId + "' ";
-//        }
-//        if (subjectId != 0) {
-//            sql += "and su.id='" + subjectId + "' ";
-//        }
-//        sql += ";";
-//        rs = querySelect(sql);
-//        int dataCount = 0;
-//        int pageCount = 0;
-//        if (rs.next()) {
-//            dataCount = rs.getInt("count");
-//            pageCount = (dataCount + 10 - 1) / 10;
-//        }
-//        table.setDataCount(dataCount);
-//        table.setPageCount(pageCount);
-//
-//        result.setCode(BaseBean.SUCCESS);
-//        result.setData(table);
-//        result.setMessage("查看添加考勤信息成功");
-//        destroy(rs);
+        TableBean table = new TableBean();
+        List<StudentBean> list = selectMapper.queryAddAttendanceList(gradeId, classId, subjectId, currentPage);
+
+        table.setList(list);
+
+        int count = selectMapper.queryAddAttendanceCount(gradeId, classId, subjectId);
+
+        table.setDataCount(count);
+        table.setPageCount((count + 10 - 1) / 10);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看添加考勤信息成功");
 
         return result;
     }
@@ -511,30 +379,27 @@ public class SelectDao {
      * 查看个性化设置
      * @param code 用户名
      * @return BaseBean 返回个性化设置
-     * @throws SQLException
      */
     public BaseBean selectHabit(String code) throws Exception {
-//        String sql = "select * from Habit where code='" + code + "';";
-//        ResultSet rs = querySelect(sql);
-//
         BaseBean result = new BaseBean();
-//        HabitBean habit = null;
-//
-//        if (rs.next()) {
-//            habit = new HabitBean();
-//            habit.setCode(code);
-//            int[] cols = new int[7];
-//            for (int i = 0; i < 7; i++) {
-//                cols[i] = rs.getInt("col" + (i + 1));
-//            }
-//            habit.setCols(cols);
-//        }
-//
-//        result.setCode(BaseBean.SUCCESS);
-//        result.setData(habit);
-//        result.setMessage("获取个性化设置成功");
-//
-//        destroy(rs);
+        HabitBean habit = selectMapper.queryHabit(code);
+
+        int[] cols = new int[8];
+        cols[0] = habit.getCol0();
+        cols[1] = habit.getCol1();
+        cols[2] = habit.getCol2();
+        cols[3] = habit.getCol3();
+        cols[4] = habit.getCol4();
+        cols[5] = habit.getCol5();
+        cols[6] = habit.getCol6();
+        cols[7] = habit.getCol7();
+
+        habit.setCols(cols);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(habit);
+        result.setMessage("获取个性化设置成功");
+
         return result;
     }
 
@@ -545,7 +410,6 @@ public class SelectDao {
      * @param 查询账号
      * @param 查询用户名
      * @param 返回表格实体类
-     * @throws SQLException
      */
     void selectCount(String tableName, String code, String name, TableBean obj) throws SQLException {
         int count = selectMapper.queryCount(tableName, code, name);
