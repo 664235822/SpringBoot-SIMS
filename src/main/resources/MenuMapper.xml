@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sims.springbootsims.mapper.MenuMapper">
+    <select id="queryMenu" parameterType="String" resultType="com.sims.springbootsims.entity.MenuBean">
+        select *
+        from Menu
+        where menuId in (select menuid
+                         from #{character});
+    </select>
+    <select id="queryMenuTable" parameterType="Integer" resultType="com.sims.springbootsims.entity.MenuBean">
+        select *
+        from Menu
+        <if test="currentPage != 0">
+            limit (#{currentPage} - 1) * 10 , 10
+        </if>
+    </select>
+    <select id="queryMenuCount" resultType="Integer">
+        select count(*) as count
+        from Menu
+    </select>
+    <select id="queryMenuId" parameterType="String" resultType="Integer">
+        select menuId
+        from #{character}
+    </select>
+    <insert id="insertMenu">
+        insert into #{character} (menuId)
+        values (#{menuId})
+    </insert>
+    <delete id="deleteMenu">
+        delete
+        from #{character}
+        where menuId = {menuId}
+    </delete>
+</mapper>

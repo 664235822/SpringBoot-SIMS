@@ -13,6 +13,8 @@ public class MenuBean {
     private int parent;
     //菜单地址
     private String url;
+    //图标
+    private String icon;
 
     public int getMenuId() {
         return menuId;
@@ -44,5 +46,13 @@ public class MenuBean {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
