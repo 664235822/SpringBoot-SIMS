@@ -63,7 +63,6 @@ public class InsertDao {
      * @param info 年级信息
      */
     public void insertGrade(GradeBean info) throws Exception {
-
         int gradeCode = insertMapper.queryGradeCode();
         gradeCode++;
         info.setGradeCode(String.valueOf(gradeCode));

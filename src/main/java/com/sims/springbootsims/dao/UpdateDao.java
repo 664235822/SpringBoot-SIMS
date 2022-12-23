@@ -34,8 +34,8 @@ public class UpdateDao {
      * @param classList 要转班的学生信息列表
      */
     public void updateClassId(List<StudentBean> classList) throws Exception {
-        for (int i = 0; i < classList.size(); i++) {
-            updateMapper.updateClassId(classList.get(i).getCode(), classList.get(i).getClassId());
+        for (StudentBean studentBean : classList) {
+            updateMapper.updateClassId(studentBean.getCode(), studentBean.getClassId());
         }
     }
 
@@ -44,8 +44,8 @@ public class UpdateDao {
      * @param classList 要转班的学生信息列表
      */
     public void updateGradeId(List<ClassBean> gradeList) throws Exception {
-        for (int i = 0; i < gradeList.size(); i++) {
-            updateMapper.updateGradeId(gradeList.get(i).getClassCode(), gradeList.get(i).getGradeId());
+        for (ClassBean classBean : gradeList) {
+            updateMapper.updateGradeId(classBean.getClassCode(), classBean.getGradeId());
         }
     }
 
@@ -54,8 +54,8 @@ public class UpdateDao {
      * @param gradeList 要转年级的科目信息列表
      */
     public void updateSubjectId(List<SubjectBean> gradeList) throws Exception {
-        for (int i = 0; i < gradeList.size(); i++) {
-            updateMapper.updateSubjectId(gradeList.get(i).getSubjectCode(), gradeList.get(i).getGradeId());
+        for (SubjectBean subjectBean : gradeList) {
+            updateMapper.updateSubjectId(subjectBean.getSubjectCode(), subjectBean.getGradeId());
         }
     }
 
@@ -64,8 +64,8 @@ public class UpdateDao {
      * @param attendanceList 要更新的考勤信息列表
      */
     public void updateAttendanceType(List<AttendanceBean> attendanceList) throws Exception {
-        for (int i = 0; i < attendanceList.size(); i++) {
-            updateMapper.updateAttendanceType(attendanceList.get(i).getId(), attendanceList.get(i).getType());
+        for (AttendanceBean attendanceBean : attendanceList) {
+            updateMapper.updateAttendanceType(attendanceBean.getId(), attendanceBean.getType());
         }
     }
 

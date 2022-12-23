@@ -20,17 +20,17 @@ public class DeleteDao {
      * @param 要删除行的账号字段列表
      */
     public void deleteTeacher(List<Integer> codeList) throws Exception {
-        for (int i = 0; i < codeList.size(); i++) {
-            int id = deleteMapper.queryTeacherId(codeList.get(i));
+        for (Integer code : codeList) {
+            int id = deleteMapper.queryTeacherId(code);
 
             TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(0, id, 0, 0);
             if (teacherClassBean != null) {
                 deleteMapper.deleteTeacherClassBytId(id);
             }
 
-            deleteMapper.deleteTeacher(codeList.get(i));
+            deleteMapper.deleteTeacher(code);
 
-            deleteMapper.deleteLogin(codeList.get(i));
+            deleteMapper.deleteLogin(code);
         }
     }
 
@@ -39,18 +39,17 @@ public class DeleteDao {
      * @param 要删除行的账号字段列表
      */
     public void deleteStudent(List<Integer> codeList) throws Exception {
-        for (int i = 0; i < codeList.size(); i++) {
-
-            int id = deleteMapper.queryStudentId(codeList.get(i));
+        for (Integer code : codeList) {
+            int id = deleteMapper.queryStudentId(code);
 
             ResultBean resultBean = deleteMapper.queryResult(id, 0);
             if (resultBean != null) {
                 deleteMapper.deleteResult(id, 0);
             }
 
-            deleteMapper.deleteStudent(codeList.get(i));
+            deleteMapper.deleteStudent(code);
 
-            deleteMapper.deleteLogin(codeList.get(i));
+            deleteMapper.deleteLogin(code);
         }
     }
 
@@ -59,15 +58,15 @@ public class DeleteDao {
      * @param 要删除行的班级编号字段列表
      */
     public void deleteClass(List<Integer> codeList) throws Exception {
-        for (int i = 0; i < codeList.size(); i++) {
-            int id = deleteMapper.queryClassId(codeList.get(i));
+        for (Integer code : codeList) {
+            int id = deleteMapper.queryClassId(code);
 
             TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(0, 0, id, 0);
             if (teacherClassBean != null) {
                 deleteMapper.deleteTeacherClassByClassId(id);
             }
 
-            deleteMapper.deleteClass(codeList.get(i));
+            deleteMapper.deleteClass(code);
         }
     }
 
@@ -76,10 +75,8 @@ public class DeleteDao {
      * @param 要删除行的班级编号字段列表
      */
     public void deleteSubject(List<Integer> codeList) throws Exception {
-        for (int i = 0; i < codeList.size(); i++) {
-
-
-            int id = deleteMapper.querySubjectId(codeList.get(i));
+        for (Integer code : codeList) {
+            int id = deleteMapper.querySubjectId(code);
 
             TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(0, 0, 0, id);
             if (teacherClassBean != null) {
@@ -96,7 +93,7 @@ public class DeleteDao {
                 deleteMapper.deleteAttendance(id);
             }
 
-            deleteMapper.deleteSubject(codeList.get(i));
+            deleteMapper.deleteSubject(code);
         }
 
     }
@@ -106,10 +103,10 @@ public class DeleteDao {
      * @param 要删除行的id字段列表
      */
     public void deleteTeacherClass(List<Integer> idList) throws Exception {
-        for (int i = 0; i < idList.size(); i++) {
-            TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(idList.get(i), 0, 0, 0);
+        for (Integer id : idList) {
+            TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(id, 0, 0, 0);
             if (teacherClassBean != null) {
-                deleteMapper.deleteTeacherClassById(idList.get(i));
+                deleteMapper.deleteTeacherClassById(id);
             }
         }
     }

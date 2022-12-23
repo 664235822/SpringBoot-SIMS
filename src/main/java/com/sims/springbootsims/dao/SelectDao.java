@@ -27,8 +27,8 @@ public class SelectDao {
         TableBean table = new TableBean();
         List<TeacherBean> list = selectMapper.queryTeacherList(code, name, currentPage);
 
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).setPwd(selectPwd(list.get(i).getCode()));
+        for (TeacherBean teacherBean : list) {
+            teacherBean.setPwd(selectPwd(teacherBean.getCode()));
         }
 
         table.setList(list);
@@ -77,8 +77,8 @@ public class SelectDao {
         TableBean table = new TableBean();
         List<StudentBean> list = selectMapper.queryStudentList(code, name, currentPage);
 
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).setPwd(selectPwd(list.get(i).getCode()));
+        for (StudentBean studentBean : list) {
+            studentBean.setPwd(selectPwd(studentBean.getCode()));
         }
 
         table.setList(list);
@@ -189,10 +189,10 @@ public class SelectDao {
                 gradeId = _class.getGradeId();
             }
 
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getId() == gradeId) {
+            for (GradeBean gradeBean : list) {
+                if (gradeBean.getId() == gradeId) {
                     _class.setSubjects(new ArrayList<>());
-                    list.get(i).getClasses().add(_class);
+                    gradeBean.getClasses().add(_class);
                 }
             }
         }
@@ -200,9 +200,9 @@ public class SelectDao {
         List<TeacherClassBean> teacherClassList = new ArrayList<>();
         List<TeacherClassBean> tempTeacherClassList = selectMapper.queryTeacherClassOnlyList();
         for (TeacherClassBean teacherClass : tempTeacherClassList) {
-            for (int i = 0; i < list.size(); i++) {
-                for (int j = 0; j < list.get(i).getClasses().size(); j++) {
-                    if (teacherClass.getClassId() == list.get(i).getClasses().get(j).getId()) {
+            for (GradeBean gradeBean : list) {
+                for (int j = 0; j < gradeBean.getClasses().size(); j++) {
+                    if (teacherClass.getClassId() == gradeBean.getClasses().get(j).getId()) {
                         teacherClassList.add(teacherClass);
                         break;
                     }
