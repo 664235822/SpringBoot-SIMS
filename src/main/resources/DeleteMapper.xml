@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sims.springbootsims.mapper.DeleteMapper">
+    <select id="queryTeacherId" parameterType="Integer" resultType="Integer">
+        select id
+        from Teacher
+        where code = #{code}
+    </select>
+    <select id="queryTeacherClass" resultType="com.sims.springbootsims.entity.TeacherClassBean">
+        select *
+        from TeacherClass
+        <where>
+            <if test="id != 0">
+                and id = #{id}
+            </if>
+            <if test="tId != 0">
+                and tId = #{tId}
+            </if>
+            <if test="classId != 0">
+                and classId = #{classId}
+            </if>
+            <if test="subId != 0">
+                and subId = #{subId}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteTeacherClassBytId" parameterType="Integer">
+        delete
+        from TeacherClass
+        where tId = #{id}
+    </delete>
+    <delete id="deleteTeacher" parameterType="Integer">
+        delete
+        from Teacher
+        where code = #{code}
+    </delete>
+    <delete id="deleteLogin" parameterType="Integer">
+        delete
+        from Login
+        where code = #{code}
+    </delete>
+    <select id="queryStudentId" parameterType="Integer" resultType="Integer">
+        select id
+        from Student
+        where code = #{code}
+    </select>
+    <select id="queryResult" resultType="com.sims.springbootsims.entity.ResultBean">
+        select *
+        from Result
+        <where>
+            <if test="sId != 0">
+                and sId = #{sId}
+            </if>
+            <if test="subId != 0">
+                and subId = #{subId}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteResult">
+        delete
+        from Result
+        <where>
+            <if test="sId != 0">
+                and sId = #{sId}
+            </if>
+            <if test="subId != 0">
+                and subId = #{subId}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteStudent" parameterType="Integer">
+        delete
+        from Student
+        where code = #{code}
+    </delete>
+    <select id="queryClassId" parameterType="Integer" resultType="Integer">
+        select id
+        from Class
+        where classCode = #{code}
+    </select>
+    <delete id="deleteTeacherClassByClassId" parameterType="Integer">
+        delete
+        from TeacherClass
+        where classId = #{id}
+    </delete>
+    <delete id="deleteClass" parameterType="Integer">
+        delete
+        from Class
+        where classCode = #{code}
+    </delete>
+    <select id="querySubjectId" parameterType="Integer" resultType="Integer">
+        select id
+        from Subject
+        where subjectCode = #{code}
+    </select>
+    <update id="deleteTeacherClassBySubId" parameterType="Integer">
+        update TeacherClass
+        set subId = null
+        where subId = #{id}
+    </update>
+    <select id="queryAttendance" parameterType="Integer" resultType="com.sims.springbootsims.entity.AttendanceBean">
+        select *
+        from Attendance
+        where subId = #{id}
+    </select>
+    <delete id="deleteAttendance" parameterType="Integer">
+        delete
+        from Attendance
+        where subId = #{id}
+    </delete>
+    <delete id="deleteSubject" parameterType="Integer">
+        delete
+        from Subject
+        where subjectCode = #{code}
+    </delete>
+    <delete id="deleteTeacherClassById" parameterType="Integer">
+        delete
+        from TeacherClass
+        where id = #{id}
+    </delete>
+</mapper>

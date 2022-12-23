@@ -1,41 +1,37 @@
 package com.sims.springbootsims.dao;
 
+import com.sims.springbootsims.entity.AttendanceBean;
+import com.sims.springbootsims.entity.ResultBean;
+import com.sims.springbootsims.entity.TeacherClassBean;
+import com.sims.springbootsims.mapper.DeleteMapper;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Repository
 public class DeleteDao {
+
+    @Resource
+    private DeleteMapper deleteMapper;
 
     /*
      * 删除教师信息
      * @param 要删除行的账号字段列表
      */
     public void deleteTeacher(List<Integer> codeList) throws Exception {
-//        for (int i = 0; i < codeList.size(); i++) {
-//            String sql = "select id from Teacher where code='" + codeList.get(i) + "';";
-//            ResultSet rs = querySelect(sql);
-//            int id = 0;
-//            if (rs.next()) {
-//                id = rs.getInt("id");
-//            }
-//
-//            sql = "select * from TeacherClass where tId='" + id + "';";
-//            rs = querySelect(sql);
-//            if (rs.next()) {
-//                sql = "delete from TeacherClass where tId='" + id + "';";
-//                queryUpdate(sql);
-//            }
-//            rs.close();
-//
-//            sql = "delete from Teacher where code='" + codeList.get(i) + "';";
-//            queryUpdate(sql);
-//
-//            sql = "delete from Login where code='" + codeList.get(i) + "';";
-//            queryUpdate(sql);
-//        }
-//
-//        destroy(null);
+        for (int i = 0; i < codeList.size(); i++) {
+            int id = deleteMapper.queryTeacherId(codeList.get(i));
+
+            TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(0, id, 0, 0);
+            if (teacherClassBean != null) {
+                deleteMapper.deleteTeacherClassBytId(id);
+            }
+
+            deleteMapper.deleteTeacher(codeList.get(i));
+
+            deleteMapper.deleteLogin(codeList.get(i));
+        }
     }
 
     /*
@@ -43,30 +39,19 @@ public class DeleteDao {
      * @param 要删除行的账号字段列表
      */
     public void deleteStudent(List<Integer> codeList) throws Exception {
-//        for (int i = 0; i < codeList.size(); i++) {
-//            String sql = "select id from Student where code='" + codeList.get(i) + "';";
-//            ResultSet rs = querySelect(sql);
-//            int id = 0;
-//            if (rs.next()) {
-//                id = rs.getInt("id");
-//            }
-//
-//            sql = "select * from Result where sId='" + id + "';";
-//            rs = querySelect(sql);
-//            if (rs.next()) {
-//                sql = "delete from Result where sId='" + id + "';";
-//                queryUpdate(sql);
-//            }
-//            rs.close();
-//
-//            sql = "delete from Student where code='" + codeList.get(i) + "';";
-//            queryUpdate(sql);
-//
-//            sql = "delete from Login where code='" + codeList.get(i) + "';";
-//            queryUpdate(sql);
-//        }
-//
-//        destroy(null);
+        for (int i = 0; i < codeList.size(); i++) {
+
+            int id = deleteMapper.queryStudentId(codeList.get(i));
+
+            ResultBean resultBean = deleteMapper.queryResult(id, 0);
+            if (resultBean != null) {
+                deleteMapper.deleteResult(id, 0);
+            }
+
+            deleteMapper.deleteStudent(codeList.get(i));
+
+            deleteMapper.deleteLogin(codeList.get(i));
+        }
     }
 
     /*
@@ -74,27 +59,16 @@ public class DeleteDao {
      * @param 要删除行的班级编号字段列表
      */
     public void deleteClass(List<Integer> codeList) throws Exception {
-//        for (int i = 0; i < codeList.size(); i++) {
-//            String sql = "select id from Class where classCode='" + codeList.get(i) + "';";
-//            ResultSet rs = querySelect(sql);
-//            int id = 0;
-//            if (rs.next()) {
-//                id = rs.getInt("id");
-//            }
-//
-//            sql = "select * from TeacherClass where classId='" + id + "';";
-//            rs = querySelect(sql);
-//            if (rs.next()) {
-//                sql = "delete from TeacherClass where classId='" + id + "';";
-//                queryUpdate(sql);
-//            }
-//            rs.close();
-//
-//            sql = "delete from Class where classCode='" + codeList.get(i) + "';";
-//            queryUpdate(sql);
-//        }
-//
-//        destroy(null);
+        for (int i = 0; i < codeList.size(); i++) {
+            int id = deleteMapper.queryClassId(codeList.get(i));
+
+            TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(0, 0, id, 0);
+            if (teacherClassBean != null) {
+                deleteMapper.deleteTeacherClassByClassId(id);
+            }
+
+            deleteMapper.deleteClass(codeList.get(i));
+        }
     }
 
     /*
@@ -102,42 +76,29 @@ public class DeleteDao {
      * @param 要删除行的班级编号字段列表
      */
     public void deleteSubject(List<Integer> codeList) throws Exception {
-//        for (int i = 0; i < codeList.size(); i++) {
-//            String sql = "select id from Subject where subjectCode='" + codeList.get(i) + "';";
-//            ResultSet rs = querySelect(sql);
-//            int id = 0;
-//            if (rs.next()) {
-//                id = rs.getInt("id");
-//            }
-//
-//            sql = "select * from TeacherClass where subId='" + id + "';";
-//            rs = querySelect(sql);
-//            if (rs.next()) {
-//                sql = "update TeacherClass set subId=null where subId='" + id + "';";
-//                queryUpdate(sql);
-//            }
-//
-//            sql = "select * from Result where subId='" + id + "';";
-//            rs = querySelect(sql);
-//            if (rs.next()) {
-//                sql = "delete from Result where subId='" + id + "';";
-//                queryUpdate(sql);
-//            }
-//
-//            sql = "select * from Attendance where subId='" + id + "';";
-//            rs = querySelect(sql);
-//            if (rs.next()) {
-//                sql = "delete from Attendance where subId='" + id + "';";
-//                queryUpdate(sql);
-//            }
-//
-//            sql = "delete from Subject where subjectCode='" + codeList.get(i) + "';";
-//            queryUpdate(sql);
-//
-//            rs.close();
-//        }
-//
-//        destroy(null);
+        for (int i = 0; i < codeList.size(); i++) {
+
+
+            int id = deleteMapper.querySubjectId(codeList.get(i));
+
+            TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(0, 0, 0, id);
+            if (teacherClassBean != null) {
+                deleteMapper.deleteTeacherClassBySubId(id);
+            }
+
+            ResultBean resultBean = deleteMapper.queryResult(0, id);
+            if (resultBean != null) {
+                deleteMapper.deleteResult(0, id);
+            }
+
+            AttendanceBean attendanceBean = deleteMapper.queryAttendance(id);
+            if (attendanceBean != null) {
+                deleteMapper.deleteAttendance(id);
+            }
+
+            deleteMapper.deleteSubject(codeList.get(i));
+        }
+
     }
 
     /*
@@ -145,17 +106,11 @@ public class DeleteDao {
      * @param 要删除行的id字段列表
      */
     public void deleteTeacherClass(List<Integer> idList) throws Exception {
-//        for (int i = 0; i < idList.size(); i++) {
-//            String sql = "select * from TeacherClass where id='" + idList.get(i) + "';";
-//            ResultSet rs = querySelect(sql);
-//            if (rs.next()) {
-//                sql = "delete from TeacherClass where id='" + idList.get(i) + "';";
-//                queryUpdate(sql);
-//            }
-//
-//            rs.close();
-//        }
-//
-//        destroy(null);
+        for (int i = 0; i < idList.size(); i++) {
+            TeacherClassBean teacherClassBean = deleteMapper.queryTeacherClass(idList.get(i), 0, 0, 0);
+            if (teacherClassBean != null) {
+                deleteMapper.deleteTeacherClassById(idList.get(i));
+            }
+        }
     }
 }
