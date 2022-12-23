@@ -3,6 +3,7 @@ package com.sims.springbootsims.controller;
 import com.sims.springbootsims.entity.BaseBean;
 import com.sims.springbootsims.entity.LoginBean;
 import com.sims.springbootsims.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +13,7 @@ import javax.annotation.Resource;
 @Controller
 public class LoginController {
 
-    @Resource
+    @Autowired
     private LoginService loginService;
 
     @RequestMapping("/login")

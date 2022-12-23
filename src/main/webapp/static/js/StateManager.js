@@ -79,7 +79,7 @@ function StateIf(index) {
  * @return data  访问到的数据
  */
 function getPage(data) {
-    var url = getProjectUrl()+"/menu";
+    var url = "/menu";
     var table = Ajax(url, data);
     return table;
 }
@@ -105,7 +105,7 @@ function Page(id,limit,count) {
                 //首次不执行
                 if(!first){
                     var data = {"character":"AdminMenu","currentPage":obj.curr,"getId":'false'};
-                    var url = getProjectUrl()+"/menu";
+                    var url = "/menu";
                     var table = Ajax(url, data);
                     if (table.code == 1) {
                         StateTable(table.data,obj.curr);
@@ -150,7 +150,7 @@ function State(menuId,index,Switch) {
     var open={};//开
     close.update=false;
     open.update=true;
-    var url = getProjectUrl()+"/menu";
+    var url = "/menu";
     var str={};
     str.currentPage=0;
     str.getId='false';
@@ -277,7 +277,7 @@ function Close(menu,menuId,close) {
  */
 function AjaxAsync(data) {
     $.ajax({
-        url:getProjectUrl()+"/updateMenu",
+        url:"/updateMenu",
         data:data,
         type: "post",
         dataType: "json",

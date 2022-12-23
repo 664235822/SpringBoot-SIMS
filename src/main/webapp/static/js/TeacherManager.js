@@ -48,7 +48,7 @@ function UpTeacher() {
     Info.introduction = Serch("tIntorduction");
     Info.pwd = Serch("tPwd");
     data.info = JSON.stringify(Info);
-    var url = getProjectUrl()+"/insert";
+    var url = "/insert";
     var Menu = Ajax(url, data);
     if (Menu.code == 1) {
         //成功的
@@ -82,7 +82,7 @@ function Serch(id) {
  *
  * **/
 function ShowTeachers() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {"tableName": "Teacher", "code": "", "name": "", "currentPage": 1};
     var table = getPage(data);
     if (table.code == 1) {
@@ -99,7 +99,7 @@ function ShowTeachers() {
  * @return table 查询到的数据
  * **/
 function getPage(data) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var table = Ajax(url, data);
     return table;
 }
@@ -239,7 +239,7 @@ function Delete(codeList) {
         var data = {}
         data.tableName = 'Teacher';
         data.codeList = JSON.stringify(codeList);
-        var url = getProjectUrl()+"/delete";
+        var url = "/delete";
         var Delete = Ajax(url, data);
         DeleteEnd(Delete);
         layer.close(index);
@@ -277,7 +277,7 @@ function Move(codeList) {
         shade: [0.1, '#ffffff'],
         yes: function (index) {
             var data = {};
-            var url = getProjectUrl()+"/insert";
+            var url = "/insert";
             data.tableName = "ClassTeacher";
             var info = {};
             info.teacherId = codeList;

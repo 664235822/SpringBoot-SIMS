@@ -36,7 +36,7 @@ function StuInfo() {
  * @description 获取班级年级科目数据
  * **/
 function getClassList() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll"});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll"});
 }
 
 /**
@@ -56,7 +56,7 @@ function UpStudent() {
     Info.address = Serch("tAddress");
     Info.pwd = Serch("tPwd");
     data.info = JSON.stringify(Info);
-    var url = getProjectUrl()+"/insert";
+    var url = "/insert";
     var Menu = Ajax(url, data);
     if (Menu.code == 1) {
         //成功的
@@ -185,7 +185,7 @@ function StuMoveClass() {
  * @return table 查询到的数据
  * **/
 function getPage(data) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var table = Ajax(url, data);
     return table;
 }
@@ -285,7 +285,7 @@ function Delete(codeList) {
         var data = {}
         data.tableName = 'Student';
         data.codeList = JSON.stringify(codeList);
-        var url = getProjectUrl()+"/delete";
+        var url = "/delete";
         var Delete = Ajax(url, data);
         MoveEnd(Delete);
         layer.close(index);
@@ -327,7 +327,7 @@ function Move(codeList) {
                 obj.classId = classId;
                 list.push(obj);
             }
-            var url = getProjectUrl()+"/update";
+            var url = "/update";
             data.tableName = "ClassId";
             data.info = JSON.stringify(list);
             var table = Ajax(url, data);

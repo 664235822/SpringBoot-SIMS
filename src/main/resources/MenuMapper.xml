@@ -7,8 +7,7 @@
     <select id="queryMenu" parameterType="String" resultType="com.sims.springbootsims.entity.MenuBean">
         select *
         from Menu
-        where menuId in (select menuid
-                         from #{character});
+        where menuId in (select menuId from ${character});
     </select>
     <select id="queryMenuTable" parameterType="Integer" resultType="com.sims.springbootsims.entity.MenuBean">
         select *
@@ -23,15 +22,15 @@
     </select>
     <select id="queryMenuId" parameterType="String" resultType="Integer">
         select menuId
-        from #{character}
+        from ${character}
     </select>
     <insert id="insertMenu">
-        insert into #{character} (menuId)
+        insert into ${character} (menuId)
         values (#{menuId})
     </insert>
     <delete id="deleteMenu">
         delete
-        from #{character}
-        where menuId = {menuId}
+        from ${character}
+        where menuId = #{menuId}
     </delete>
 </mapper>

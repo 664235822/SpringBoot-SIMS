@@ -1,9 +1,11 @@
+
 /**
- * @description 新增教师页面重置按钮会重启数据并自动生成账号方法的
+ * @description 新增学生页面重置按钮会重启数据并自动生成账号方法的
  *
  */
 $(function () {
-    $("#chongzhi").click(function () {
+    //监听重置按钮
+    $("#Reset").click(function () {
         $("#tName").val("");
         $("#tAge").val("");
         $("#tGoodAt").val("");
@@ -11,25 +13,26 @@ $(function () {
         $("#tQQ").val("");
         $("#tEmail").val("");
         $("#tAddress").val("");
-        $("#tIntorduction").val("");
-        $("#tPwd").val("");
-        $("#tEducation option").eq(0).prop("selected",true);
+        $("#tPwd").val("123456");
+        $("#tGrade option").eq(0).prop("selected",true);
+        $("#tClass option").eq(0).prop("selected",true);
         Refresh();
     })
 });
 
 /**
- * @description 在页面加载完成就自动生成教师账号
+ * @description 在页面加载完成就自动生成学生账号
  * **/
 function addCode(){
     //获取1970到现在的时间（毫秒显示）
     var mydate= new Date();
-   //截取后六位
-    var Code = mydate.getTime().toString().slice(5,11);
+    //截取后六位
+    var Code = mydate.getTime().toString().slice(1,10);
+    var scode= mydate.getFullYear();
     //获取教师账号标签
     var TeacherCode = document.getElementById("tCode");
     //添加生成随机账号
-    TeacherCode.value="t"+Code;
+    TeacherCode.value="S"+scode+Code;
 }
 
 /**
@@ -40,7 +43,7 @@ layui.use(['form'], function () {
     //     //仅输入中文
     var reg = /^[\u4e00-\u9fa5\u3001]+$/;
     //密码必须包含数字和字母，长度6-16！
-    var regs = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+    var regs = /^[0-9a-zA-Z]{6,16}$/;
     //QQ账号
     var regQQ = /^[1-9][0-9]{5,16}$/;
     //年龄
@@ -56,7 +59,7 @@ layui.use(['form'], function () {
         },
         pwd: function (value) {
             if (value == "") {
-                return '密码不能为空！';
+                return '必填项不能为空！';
             }
             else {
                 if (regs.test(value)) {
@@ -81,54 +84,49 @@ layui.use(['form'], function () {
                 return '请输入正确的QQ号';
             }
         }
-    });
 
+    });
+    //监听提交按钮
     form.on('submit(component-form-element)', function(data){
-        var Judge=UpTeacher();
-        if(Judge){
-            addCode();
-            $("#chongzhi").click();
-        }
+        UpStudent();
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
-    //监听修改教师页面的提交按钮
+    //监听修改学生页面的提交按钮
     form.on('submit(modify)', function(data){
         var data = {};
         var Info = {};
-        data.tableName = "Teacher";
+        data.tableName = "Student";
         Info.code = Serch("tCode");
         Info.name = Serch("tName");
         Info.sex = $("input[type='radio']:checked").val();
         Info.age = Serch("tAge");
-        Info.education = $("#tEducation option:selected").text();
-        Info.goodAt = Serch("tGoodAt");
+        Info.classId = $("#tClass option:selected").val();
         Info.phone = Serch("tPone");
         Info.QQ = Serch("tQQ");
-        Info.email = Serch("tEmail");
         Info.address = Serch("tAddress");
-        Info.introduction = Serch("tIntorduction");
         Info.pwd = Serch("tPwd");
         data.info = JSON.stringify(Info);
-        var url = getProjectUrl()+"/update";
+        var url = "/update";
         var Menu = Ajax(url, data);
         if (Menu.code == 1) {
             //成功的
-            parent.layer.msg(Menu.message, {
+            parent.layer.msg("修改成功", {
                 icon: 1
-                , time: 2000
+                , time: 1000
             });
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
+            //在对父级页面的查询进行点击
             parent.$("#Select").click();
         } else {
-            parent.layer.msg(Menu.message, {
+
+            parent.layer.msg("修改失败", {
                 icon: 5
                 , anim: 6
-                , time: 2000
+                , time: 1000
             });
 
         }
-
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
 

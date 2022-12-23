@@ -21,7 +21,7 @@ function GradeInfo() {
  * @return data  访问到的数据
  */
 function getGrade(page) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var data = Ajax(url, {'tableName': 'Grade', "gradeId": "", 'currentPage': page});
     return data;
 }
@@ -32,7 +32,7 @@ function getGrade(page) {
  * @return data  访问到的数据
  */
 function getClass(page) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var data = Ajax(url, {'tableName': 'Class','code':"",'name':"", "gradeId": "", 'currentPage': page});
     return data;
 }
@@ -52,7 +52,7 @@ function gradeFunction() {
             Info.CreateMessage = JSON.parse(localStorage.Login).name;
             data.info = JSON.stringify(Info);
             data.tableName = "Grade";
-            var grande = Ajax(getProjectUrl()+"/insert", data);
+            var grande = Ajax("/insert", data);
             Callback(grande);
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });

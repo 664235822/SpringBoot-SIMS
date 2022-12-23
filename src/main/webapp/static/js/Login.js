@@ -64,7 +64,7 @@ $(function () {
         }
         if(randomcode==random&&username!=""&&password!="") {
             var str = {"code": username, "pwd": password, "stateId": state};
-            var url = getProjectUrl()+"/login";
+            var url = "/login";
             var Menu = Ajax(url, str);
             if (Menu.code==1) {
                 CheckSave(username,password,state,Menu.data.username);

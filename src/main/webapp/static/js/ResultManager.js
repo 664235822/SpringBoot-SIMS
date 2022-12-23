@@ -20,7 +20,7 @@ var name = "";
  *
  */
 function ShowResult() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     Admin();
     var data = {
         "tableName": "Result",
@@ -100,7 +100,7 @@ function Admin() {
  *
  */
 function ResultInfo() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {
         "tableName": "AddResult",
         "gradeId": gradeId,
@@ -205,7 +205,7 @@ function AddPage(id, limit, count) {
  * @param  data 请求的数据
  */
 function getPage(data) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var table = Ajax(url, data);
     return table;
 }
@@ -456,7 +456,7 @@ function SubmitResult() {
         "tableName": "Result",
         "info": JSON.stringify(list)
     }
-    var url = getProjectUrl()+"/insert"
+    var url = "/insert"
     var Menu = Ajax(url, data);
     if (Menu.code == 1) {
         //操作成功的提示

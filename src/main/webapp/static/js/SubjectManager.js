@@ -45,7 +45,7 @@ function showteachifo() {
  * @description 获取班级年级科目数据
  * **/
 function getClassList() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll"});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll"});
 }
 
 /**
@@ -54,7 +54,7 @@ function getClassList() {
  * @return data 查询到的数据
  * **/
 function getpage(data) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var data = Ajax(url, data,);
     return data;
 }
@@ -118,7 +118,7 @@ function addSubject(geaid) {
         });
     } else {
         var data = {};
-        var url = getProjectUrl()+"/insert";
+        var url = "/insert";
         data.tableName = "Subject";
         var info = {};
         info.SubjectName = classname;
@@ -421,7 +421,7 @@ function SubTeacher(subid) {
  */
 function DistributionClass(tid, classId, subid) {
     var data = {};
-    var url = getProjectUrl()+"/insert";
+    var url = "/insert";
     data.tableName = "TeacherClass";
     var info = {};
     info.teacherId = tid;
@@ -445,7 +445,7 @@ function Delsub(codeList) {
         var data = {}
         data.tableName = 'Subject';
         data.codeList = JSON.stringify(codeList);
-        var url = getProjectUrl()+"/delete";
+        var url = "/delete";
         var Delete = Ajax(url, data);
         DeleteEnd(Delete);
         layer.close(index);

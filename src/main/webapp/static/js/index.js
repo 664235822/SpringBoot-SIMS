@@ -21,7 +21,7 @@ $(function () {
             });
         });
 
-        location.href = getProjectUrl()+"/";
+        location.href = "/";
     }
     var CharacterMenu = null;
     switch (obj.stateId) {
@@ -40,11 +40,11 @@ $(function () {
     $("nav ul.layui-nav li:first-of-type>a").html(name);
     LogOut();
     var str = {"character": CharacterMenu, "currentPage": "0", "getId": 'false'};
-    var url = getProjectUrl()+"/menu";
+    var url = "/menu";
     var menu = Ajax(url, str);
     Menu(menu);
     $("a.userlist").click(function () {
-        var url = getProjectUrl()+"/static/html/" + $(this).attr("name");
+        var url = "/static/html/" + $(this).attr("name");
         if ($(this).attr("name") != undefined) {
             $(".layui-body>iframe").attr("src", url);
         } else {
@@ -214,7 +214,7 @@ function RequiredPwd(OldPassword,NewPassword,ConfirmPassword) {
         var json2 = localStorage.Login;
         var obj = JSON.parse(json2);
         var data = {};
-        var url = getProjectUrl()+"/changePwd";
+        var url = "/changePwd";
         data.code = obj.accout;
         data.pwd = OldPassword;
         data.newPwd = ConfirmPassword;
@@ -271,21 +271,4 @@ function About() {
             });
         })
     })
-}
-
-function getProjectUrl(){
-    var baseURL = "../../";
-// 获取当前网址，如：http://localhost:8080/project/modules/map/index.html
-    var curWwwPath = window.document.location.href;
-// 获取主机地址之后的目录，如： /project/modules/map/index.html
-    var pathName = window.document.location.pathname;
-    var pos = curWwwPath.indexOf(pathName);
-// 获取主机地址，如： http://localhost:8080
-    var localhostPath = curWwwPath.substring(0, pos);
-// 获取带"/"的项目名，如：/project/
-    var projectName = pathName.substring(0,
-        pathName.substr(1).indexOf('/') + 2);
-//获取根路径，如：http://localhost:8080/project/
-    baseURL = localhostPath + projectName;
-    return projectName;
 }

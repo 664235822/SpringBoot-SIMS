@@ -411,7 +411,7 @@ public class SelectDao {
      * @param 查询用户名
      * @param 返回表格实体类
      */
-    void selectCount(String tableName, String code, String name, TableBean obj) throws SQLException {
+    void selectCount(String tableName, String code, String name, TableBean obj) throws Exception {
         int count = selectMapper.queryCount(tableName, code, name);
 
         obj.setDataCount(count);

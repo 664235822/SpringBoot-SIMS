@@ -40,7 +40,7 @@ function ClassInfo() {
  *
  */
 function AddClass() {
-    var GradeAll = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    var GradeAll = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     var gradeId = -1;
     var num = -1;
     var text = "";
@@ -109,7 +109,7 @@ function erifydata(ClassName, GradeAll, gradeId, num) {
         Info.CreateMessage = JSON.parse(localStorage.Login).name;
         data.info = JSON.stringify(Info);
         data.tableName = "Class";
-        var grande = Ajax(getProjectUrl()+"/insert", data);
+        var grande = Ajax("/insert", data);
         if (grande.code == 1) {
             ClassInfo();
             layer.msg(grande.message, {
@@ -133,7 +133,7 @@ function erifydata(ClassName, GradeAll, gradeId, num) {
  * @param data  访问到的数据
  */
 function getGrade(page) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var data = Ajax(url, {'tableName': 'Grade', "gradeId": "", 'currentPage': page});
     return data;
 }
@@ -146,7 +146,7 @@ function getGrade(page) {
  * @param data  访问到的数据
  */
 function getClass(page, code, name) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var data = Ajax(url, {'tableName': 'Class', 'code': code, 'name': name, "gradeId": "", 'currentPage': page});
     return data;
 }
@@ -236,7 +236,7 @@ function ClassFunction() {
  * @param  codeList 年级编号数组
  */
 function Move(codeList) {
-    var GradeAll = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    var GradeAll = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     var gradeId = 0;
     var text = "";
     text += " <div class=\"layui-form\">";
@@ -263,7 +263,7 @@ function Move(codeList) {
                 obj.gradeId = gradeId;
                 list.push(obj);
             }
-            var url = getProjectUrl()+"/update";
+            var url = "/update";
             data.tableName = "GradeId";
             data.info = JSON.stringify(list);
             var table = Ajax(url, data);
@@ -321,7 +321,7 @@ function ShowModify(code) {
         shade: [0.1, '#ffffff'],
         yes: function (index) {
             var data = {};
-            var url = getProjectUrl()+"/update";
+            var url = "/update";
             data.tableName = "Class";
             var info = {};
             info.classCode = Class.data.list[0].classCode;
@@ -364,7 +364,7 @@ function Delete(codeList) {
         var data = {}
         data.tableName = 'Class';
         data.codeList = JSON.stringify(codeList);
-        var url = getProjectUrl()+"/delete";
+        var url = "/delete";
         var Delete = Ajax(url, data);
         Callback(Delete);
         layer.close(index);

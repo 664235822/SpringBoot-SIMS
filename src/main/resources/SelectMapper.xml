@@ -13,11 +13,11 @@
             <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
-            order by id desc
-            <if test="currentPage != 0">
-                limit (#{currentPage} - 1) * 10 , 10
-            </if>
         </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
     </select>
     <select id="queryStudentOnlyList" resultType="com.sims.springbootsims.entity.StudentBean">
         select * from Student
@@ -28,11 +28,11 @@
             <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
-            order by id desc
-            <if test="currentPage != 0">
-                limit (#{currentPage} - 1) * 10 , 10
-            </if>
         </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
     </select>
     <select id="queryStudentList" resultType="com.sims.springbootsims.entity.StudentBean">
         select st.id,st.code,st.name,st.age,st.sex,st.QQ,st.phone,st.address,st.classId,cl.className,gr.gradeName,tea.name teacherName from Class cl
@@ -47,23 +47,23 @@
             <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
-            order by id desc
-            <if test="currentPage != 0">
-                limit (#{currentPage} - 1) * 10 , 10
-            </if>
         </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
     </select>
     <select id="queryGradeList" resultType="com.sims.springbootsims.entity.GradeBean">
         select * from Grade
         <where>
-            <if test="gradeId != null and gradeId != ''">
+            <if test="gradeId != 0">
                 and id = #{gradeId}
             </if>
-            order by id desc
-            <if test="currentPage != 0">
-                limit (#{currentPage} - 1) * 10 , 10
-            </if>
         </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
     </select>
     <select id="queryClassList" resultType="com.sims.springbootsims.entity.ClassBean">
         select * from Class
@@ -74,11 +74,11 @@
             <if test="name != null and name != ''">
                 and className like "%"#{name}"%"
             </if>
-            order by id desc
-            <if test="currentPage != 0">
-                limit (#{currentPage} - 1) * 10 , 10
-            </if>
         </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
     </select>
     <select id="querySubjectList" resultType="com.sims.springbootsims.entity.SubjectBean">
         select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,su.gradeId,gr.gradeName from Subject su
@@ -90,17 +90,20 @@
             <if test="name != null and name != ''">
                 and subjectName like "%"#{name}"%"
             </if>
-            order by id desc
-            <if test="currentPage != 0">
-                limit (#{currentPage} - 1) * 10 , 10
-            </if>
         </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
     </select>
     <select id="queryTeacherClassOnlyList" resultType="com.sims.springbootsims.entity.TeacherClassBean">
-        select * from TeacherClass
+        select *
+        from TeacherClass
     </select>
     <select id="querySubjectById" parameterType="Integer" resultType="com.sims.springbootsims.entity.SubjectBean">
-        select * from Subject where id = #{id}
+        select *
+        from Subject
+        where id = #{id}
     </select>
     <select id="queryTeacherClassList" resultType="com.sims.springbootsims.entity.TeacherClassBean">
         select tec.id,su.subjectCode,su.subjectName,gr.gradeName,cl.className,te.code,te.name from TeacherClass tec
@@ -108,35 +111,39 @@
         inner join Teacher te on tec.tId = te.id
         inner join Class cl on tec.classId = cl.id
         inner join Grade gr on cl.gradeId = gr.id
-        <if test="gradeId != 0">
-            and gr.id = #{gradeId}
-        </if>
-        <if test="classId != 0">
-            and cl.id = #{classId}
-        </if>
-        <if test="subjectId != 0">
-            and su.id = #{subjectId}
-        </if>
+        <where>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+        </where>
         order by id desc
         <if test="currentPage != 0">
-            limit (#{currentPage} - 1) * 10 , 10
+            limit ${(currentPage - 1) * 10} , 10
         </if>
     </select>
     <select id="queryTeacherClassCount" resultType="Integer">
         select count(*) as count from TeacherClass tec
         left join Subject su on tec.subId = su.id
         inner join Teacher te on tec.tId = te.id
-        inner join Class cl on tec.classId=cl.id
-        inner join Grade gr on cl.gradeId=gr.id
-        <if test="gradeId != 0">
-            and gr.id = #{gradeId}
-        </if>
-        <if test="classId != 0">
-            and cl.id = #{classId}
-        </if>
-        <if test="subjectId != 0">
-            and su.id = #{subjectId}
-        </if>
+        inner join Class cl on tec.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        <where>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+        </where>
     </select>
     <select id="queryResultList" resultType="com.sims.springbootsims.entity.ResultBean">
         select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re
@@ -163,7 +170,7 @@
         </where>
         order by id desc
         <if test="currentPage != 0">
-            limit (#{currentPage} - 1) * 10 , 10
+            limit ${(currentPage - 1) * 10} , 10
         </if>
     </select>
     <select id="queryResultCount" resultType="Integer">
@@ -209,7 +216,7 @@
         </where>
         order by id desc
         <if test="currentPage != 0">
-            limit (#{currentPage} - 1) * 10 , 10
+            limit ${(currentPage - 1) * 10} , 10
         </if>
     </select>
     <select id="queryAddResultCount" resultType="Integer">
@@ -257,7 +264,7 @@
         </where>
         order by id desc
         <if test="currentPage != 0">
-            limit (#{currentPage} - 1) * 10 , 10
+            limit ${(currentPage - 1) * 10} , 10
         </if>
     </select>
     <select id="queryAttendanceCount" resultType="Integer">
@@ -304,7 +311,7 @@
         </where>
         order by id desc
         <if test="currentPage != 0">
-            limit (#{currentPage} - 1) * 10 , 10
+            limit ${(currentPage - 1) * 10} , 10
         </if>
     </select>
     <select id="queryAddAttendanceCount" resultType="Integer">
@@ -331,16 +338,16 @@
     <select id="queryPwd" parameterType="String" resultType="com.sims.springbootsims.entity.LoginBean">
         select * from Login
         <where>
-            code = ${code}
+            code = #{code}
         </where>
     </select>
     <select id="queryCount" resultType="Integer">
-        select count(*) as count from #{tableName}
+        select count(*) as count from ${tableName}
         <where>
             <if test="code != null and code != ''">
                 and code like "%"#{code}"%"
             </if>
-            <if test="name != mull and name != ''">
+            <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
         </where>

@@ -40,11 +40,11 @@ $(function () {
             break;
     }
     //获取个个性设置数据
-    var url=getProjectUrl()+"/select";
+    var url="/select";
     var data={'tableName': "Habit", 'code': obj.accout};
     var arry=Ajax(url,data);
     //获取菜单数据
-    url = getProjectUrl()+"/menu";
+    url = "/menu";
     data = {"character":CharacterMenu,"currentPage":"0","getId":'false'};
     var menu = Ajax(url, data);
     //判断是否有个性设置
@@ -71,7 +71,7 @@ function ModuleFunction(arry,menu) {
         if (svg=="addmodul"){
             ModulEvent(arry,menu);
         }else {
-            var url = getProjectUrl()+"/static/html/" + svg;
+            var url = "/static/html/" + svg;
             if ($(this).attr("name") != undefined) {
                 parent.$(".layui-body>iframe").attr("src", url);
             }
@@ -111,7 +111,7 @@ function Cbox(table,menu,arry) {
             yes: function(index, layero){
                 var data = {};
                 var info = {};
-                var url = getProjectUrl()+"/insert";
+                var url = "/insert";
                 data.tableName = "Habit";
                 info.code=accout;
                 info.cols=arry;

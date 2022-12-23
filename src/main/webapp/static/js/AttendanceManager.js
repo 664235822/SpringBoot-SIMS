@@ -23,7 +23,7 @@ var name = "";
  *
  */
 function Attendance() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = Data("", "", 0, 0, 0);
     var table = getPage(data);
     if (table.code == 1) {
@@ -42,7 +42,7 @@ function Attendance() {
  *
  */
 function ShowAttendance() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     Admin();
     var data = Data("", "", 0, 0, 0);
     var table = getPage(data);
@@ -62,7 +62,7 @@ function ShowAttendance() {
  *
  */
 function ShowAddAttendance() {
-    this.ClassList = Ajax(getProjectUrl()+"/select", {'tableName': "GradeAll", 'currentPage': 0});
+    this.ClassList = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {
         "tableName": "AddAttendance",
         "gradeId": 0,
@@ -181,7 +181,7 @@ function SubmitAttendance() {
         "tableName": "Attendance",
         "info": JSON.stringify(list)
     }
-    var url = getProjectUrl()+"/insert"
+    var url = "/insert"
     var Menu = Ajax(url, data);
     if (Menu.code == 1) {
         //操作成功的提示
@@ -419,7 +419,7 @@ function AttendanceMove(codeList) {
                 obj.type = Attendance;
                 list.push(obj);
             }
-            var url = getProjectUrl()+"/update";
+            var url = "/update";
             data.tableName = "AttendanceType";
             data.info = JSON.stringify(list);
             var table = Ajax(url, data);
@@ -445,7 +445,7 @@ function AttendanceMove(codeList) {
  * @return  table ajax访问到的数据
  */
 function getPage(data) {
-    var url = getProjectUrl()+"/select";
+    var url = "/select";
     var table = Ajax(url, data);
     return table;
 }

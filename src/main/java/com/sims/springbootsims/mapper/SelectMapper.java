@@ -2,6 +2,7 @@ package com.sims.springbootsims.mapper;
 
 import com.sims.springbootsims.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

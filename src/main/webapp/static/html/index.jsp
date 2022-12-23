@@ -23,7 +23,7 @@
     <div class="layui-header" style="background: rgb(56,62,73);">
         <div class="layui-logo">
 <!--            <img src="${pageContext.request.contextPath}/static/img/logo.png"/>-->
-            <a href="${pageContext.request.contextPath}/static/html/HomePage.html" target="ifm" style="font-size: 20px; color: white;">
+            <a href="${pageContext.request.contextPath}/static/html/HomePage.jsp" target="ifm" style="font-size: 20px; color: white;">
                 <i class="layui-icon layui-icon-console" style="font-size: 28px; vertical-align: middle;"></i>学生信息管理系统</a>
         </div>
         <ul class="layui-nav layui-layout-right" id="topnav">
@@ -53,7 +53,7 @@
 <!-- iframe框架-->
 <div class="layui-body ojbk">
     <iframe onload="setHeight()" scrolling="no" class="ifm" name="ifm"
-            src="${pageContext.request.contextPath}/static/html/HomePage.html"></iframe>
+            src="${pageContext.request.contextPath}/static/html/HomePage.jsp"></iframe>
     <!--    <iframe onload="setHeight()"  scrolling="no" class="ifm" src="${pageContext.request.contextPath}/static/html/ShowTeachers.jsp"></iframe>-->
     <!--    <iframe onload="setHeight()"  scrolling="no" class="ifm" src="${pageContext.request.contextPath}/static/html/AddStudent.jsp"></iframe>-->
 </div>

@@ -43,6 +43,9 @@ public class LoginDao {
         } else {
             throw new Exception("登录失败，用户名和密码错误");
         }
+
+        loginBean.setUsername(loginBean.getCode());
+
         return loginBean;
     }
 

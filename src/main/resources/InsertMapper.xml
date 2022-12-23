@@ -24,8 +24,12 @@
             <if test="teacherId != 0">
                 and tId = ${teacherId}
             </if>
-            and classId = ${classId}
-            and (subId is null or subId = ${subjectId}
+            <if test="classId != 0">
+                and classId = ${classId}
+            </if>
+            <if test="subjectId != 0">
+                and (subId is null or subId = ${subjectId}
+            </if>
         </where>
     </select>
     <delete id="deleteTeacherClass">
@@ -35,11 +39,15 @@
             <if test="teacherId != 0">
                 and tId = ${teacherId}
             </if>
-            and classId = ${classId}
-            and (subId is null or subId = ${subjectId}
+            <if test="classId != 0">
+                and classId = ${classId}
+            </if>
+            <if test="subjectId != 0">
+                and (subId is null or subId = ${subjectId}
+            </if>
         </where>
     </delete>
-    <insert id="insertTeacher" parameterType="com.sims.springbootsims.entity.TeacherClassBean">
+    <insert id="insertTeacherClass" parameterType="com.sims.springbootsims.entity.TeacherClassBean">
         insert into TeacherClass (tId, classId, subId)
         values (${teacherId}, ${classId}, ${subjectId});
     </insert>
