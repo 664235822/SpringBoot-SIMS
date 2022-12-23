@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sims.springbootsims.mapper.UpdateMapper">
+    <update id="updateTeacher" parameterType="com.sims.springbootsims.entity.TeacherBean">
+        update Teacher
+        set code         = ${code},
+            name         = ${name},
+            sex          = ${sex},
+            age          = ${age},
+            education    = ${education},
+            goodAt       = ${goodAt},
+            phone        = ${phone},
+            QQ           = ${QQ},
+            email        = ${email},
+            address      = ${address},
+            introduction = ${introduction}
+        where code = ${code}
+    </update>
+    <update id="updateStudent" parameterType="com.sims.springbootsims.entity.StudentBean">
+        update Student
+        set code    = ${code},
+            name    = ${name},
+            age     = ${age},
+            sex     = ${sex},
+            QQ      = ${QQ},
+            phone   = ${phone},
+            address = ${address}
+        where code = ${code}
+    </update>
+    <update id="updateClassId">
+        update Student
+        set classId = #{classId}
+        where code = #{code}
+    </update>
+    <update id="updateGradeId">
+        update Class
+        set gradeId = #{gradeId}
+        where classCode = #{classCode}
+    </update>
+    <update id="updateSubjectId">
+        update Subject
+        set gradeId = #{gradeId}
+        where subjectCode = #{subjectCode}
+    </update>
+    <update id="updateAttendanceType">
+        update Attendance
+        set AttendanceType = #{attendanceType}
+        where id = #{id}
+    </update>
+    <update id="updateClass" parameterType="com.sims.springbootsims.entity.ClassBean">
+        update Class
+        set classCode = ${classCode},
+            className = ${className}
+        where classCode = ${classCode}
+    </update>
+    <update id="updateSubject" parameterType="com.sims.springbootsims.entity.SubjectBean">
+        update Subject
+        set subjectCode = ${subjectCode},
+            subjectName = ${subjectName}
+        where subjectCode = ${subjectCode}
+    </update>
+</mapper>
