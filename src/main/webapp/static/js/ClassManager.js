@@ -103,10 +103,10 @@ function erifydata(ClassName, GradeAll, gradeId, num) {
     } else {
         var data = {};
         var Info = {};
-        Info.ClassName = ClassName;
-        Info.GradeId = gradeId;
-        Info.ClassCode = num;
-        Info.CreateMessage = JSON.parse(localStorage.Login).name;
+        Info.className = ClassName;
+        Info.gradeId = gradeId;
+        Info.classCode = num;
+        Info.createMessage = JSON.parse(localStorage.Login).name;
         data.info = JSON.stringify(Info);
         data.tableName = "Class";
         var grande = Ajax("/insert", data);
@@ -259,7 +259,7 @@ function Move(codeList) {
             var data = {};
             for (var i = 0; i < codeList.length; i++) {
                 var obj = {};
-                obj.ClassCode = codeList[i];
+                obj.classCode = codeList[i];
                 obj.gradeId = gradeId;
                 list.push(obj);
             }

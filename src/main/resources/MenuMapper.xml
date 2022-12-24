@@ -13,7 +13,7 @@
         select *
         from Menu
         <if test="currentPage != 0">
-            limit (#{currentPage} - 1) * 10 , 10
+            limit ${(currentPage - 1) * 10} , 10
         </if>
     </select>
     <select id="queryMenuCount" resultType="Integer">

@@ -21,7 +21,7 @@ public class DeleteController {
     public BaseBean delete(String tableName, String codeList) {
         BaseBean baseBean = new BaseBean();
         try {
-            List<Integer> codeListObj = JSON.parseObject(codeList, List.class);
+            List<String> codeListObj = JSON.parseObject(codeList, List.class);
             deleteService.delete(tableName, codeListObj);
             baseBean.setCode(BaseBean.SUCCESS);
             baseBean.setMessage("删除信息成功");

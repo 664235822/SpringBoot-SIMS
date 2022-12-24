@@ -121,9 +121,9 @@ function addSubject(geaid) {
         var url = "/insert";
         data.tableName = "Subject";
         var info = {};
-        info.SubjectName = classname;
-        info.GradeId = geaid;
-        info.CreateMessage = JSON.parse(localStorage.Login).name;
+        info.subjectName = classname;
+        info.gradeId = geaid;
+        info.createMessage = JSON.parse(localStorage.Login).name;
         data.info = JSON.stringify(info);
         var table = Ajax(url, data);
         Callback(table);

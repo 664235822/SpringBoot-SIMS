@@ -48,8 +48,8 @@ function gradeFunction() {
         form.on('submit(Info)', function (data) {
             var data = {};
             var Info = {};
-            Info.GradeName = $("#gradeName").val();
-            Info.CreateMessage = JSON.parse(localStorage.Login).name;
+            Info.gradeName = $("#gradeName").val();
+            Info.createMessage = JSON.parse(localStorage.Login).name;
             data.info = JSON.stringify(Info);
             data.tableName = "Grade";
             var grande = Ajax("/insert", data);

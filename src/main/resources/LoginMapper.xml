@@ -13,24 +13,24 @@
     <select id="queryTeacher" resultType="com.sims.springbootsims.entity.TeacherBean">
         select * from Teacher
         <where>
-            code = ${code}
+            code = #{code}
         </where>
     </select>
     <select id="queryStudent" resultType="com.sims.springbootsims.entity.StudentBean">
         select * from Student
         <where>
-            code = ${code}
+            code = #{code}
         </where>
     </select>
     <select id="queryLoginPwd" resultType="com.sims.springbootsims.entity.LoginBean">
         select * from Login
         <where>
-            code = ${code} and pwd = ${pwd}
+            code = #{code} and pwd = #{pwd}
         </where>
     </select>
     <update id="updateLoginPwd">
         update Login
-        set pwd = ${newPwd}
-        where code = %{code}
+        set pwd = #{newPwd}
+        where code = #{code}
     </update>
 </mapper>

@@ -82,7 +82,7 @@
     </select>
     <select id="querySubjectList" resultType="com.sims.springbootsims.entity.SubjectBean">
         select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,su.gradeId,gr.gradeName from Subject su
-        inner join Grade gr on su.gradeId=gr.id
+        inner join Grade gr on su.gradeId = gr.id
         <where>
             <if test="code != null and code != ''">
                 and subjectCode like "%"#{code}"%"
@@ -105,7 +105,7 @@
         from Subject
     </select>
     <select id="queryTeacherClassList" resultType="com.sims.springbootsims.entity.TeacherClassBean">
-        select tec.id,su.subjectCode,su.subjectName,gr.gradeName,cl.className,te.code,te.name from TeacherClass tec
+        select tec.id,su.subjectCode,su.subjectName,gr.gradeName,cl.className,te.code teacherCode,te.name teacherName from TeacherClass tec
         left join Subject su on tec.subId = su.id
         inner join Teacher te on tec.tId = te.id
         inner join Class cl on tec.classId = cl.id

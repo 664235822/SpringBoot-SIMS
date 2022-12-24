@@ -17,7 +17,7 @@ public class DeleteService {
      * @param 数据库表名
      * @param 要删除行的账号字段列表
      */
-    public void delete(String tableName, List<Integer> codeList) throws Exception {
+    public void delete(String tableName, List<String> codeList) throws Exception {
         switch (tableName) {
             case "Teacher":
                 deleteDao.deleteTeacher(codeList);

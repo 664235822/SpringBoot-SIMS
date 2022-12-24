@@ -6,29 +6,29 @@
 <mapper namespace="com.sims.springbootsims.mapper.UpdateMapper">
     <update id="updateTeacher" parameterType="com.sims.springbootsims.entity.TeacherBean">
         update Teacher
-        set code         = ${code},
-            name         = ${name},
-            sex          = ${sex},
-            age          = ${age},
-            education    = ${education},
-            goodAt       = ${goodAt},
-            phone        = ${phone},
-            qq           = ${qq},
-            email        = ${email},
-            address      = ${address},
-            introduction = ${introduction}
-        where code = ${code}
+        set code         = #{code},
+            name         = #{name},
+            sex          = #{sex},
+            age          = #{age},
+            education    = #{education},
+            goodAt       = #{goodAt},
+            phone        = #{phone},
+            qq           = #{qq},
+            email        = #{email},
+            address      = #{address},
+            introduction = #{introduction}
+        where code = #{code}
     </update>
     <update id="updateStudent" parameterType="com.sims.springbootsims.entity.StudentBean">
         update Student
-        set code    = ${code},
-            name    = ${name},
-            age     = ${age},
-            sex     = ${sex},
-            qq      = ${qq},
-            phone   = ${phone},
-            address = ${address}
-        where code = ${code}
+        set code    = #{code},
+            name    = #{name},
+            age     = #{age},
+            sex     = #{sex},
+            qq      = #{qq},
+            phone   = #{phone},
+            address = #{address}
+        where code = #{code}
     </update>
     <update id="updateClassId">
         update Student
@@ -52,14 +52,14 @@
     </update>
     <update id="updateClass" parameterType="com.sims.springbootsims.entity.ClassBean">
         update Class
-        set classCode = ${classCode},
-            className = ${className}
-        where classCode = ${classCode}
+        set classCode = #{classCode},
+            className = #{className}
+        where classCode = #{classCode}
     </update>
     <update id="updateSubject" parameterType="com.sims.springbootsims.entity.SubjectBean">
         update Subject
-        set subjectCode = ${subjectCode},
-            subjectName = ${subjectName}
-        where subjectCode = ${subjectCode}
+        set subjectCode = #{subjectCode},
+            subjectName = #{subjectName}
+        where subjectCode = #{subjectCode}
     </update>
 </mapper>

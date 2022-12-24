@@ -10,25 +10,25 @@
     </insert>
     <insert id="insertTeacher" parameterType="com.sims.springbootsims.entity.TeacherBean">
         insert into Teacher (code, name, sex, age, education, goodAt, phone, qq, email, address, introduction)
-        values (${code}, ${name}, ${sex}, ${age}, ${education}, ${goodAt}, ${phone}, ${qq}, ${email}, ${address},
-                ${introduction})
+        values (#{code}, #{name}, #{sex}, #{age}, #{education}, #{goodAt}, #{phone}, #{qq}, #{email}, #{address},
+                #{introduction})
     </insert>
     <insert id="insertStudent" parameterType="com.sims.springbootsims.entity.StudentBean">
         insert into Student (code, name, age, sex, qq, phone, address, classId)
-        values (${code}, ${name}, ${age}, ${sex}, ${qq}, ${phone}, ${address}, ${classId})
+        values (#{code}, #{name}, #{age}, #{sex}, #{qq}, #{phone}, #{address}, #{classId})
     </insert>
     <select id="queryTeacherClass" resultType="com.sims.springbootsims.entity.TeacherClassBean">
         select *
         from TeacherClass
         <where>
             <if test="teacherId != 0">
-                and tId = ${teacherId}
+                and tId = #{teacherId}
             </if>
             <if test="classId != 0">
-                and classId = ${classId}
+                and classId = #{classId}
             </if>
             <if test="subjectId != 0">
-                and (subId is null or subId = ${subjectId}
+                and (subId is null or subId = #{subjectId})
             </if>
         </where>
     </select>
@@ -37,19 +37,19 @@
         from TeacherClass
         <where>
             <if test="teacherId != 0">
-                and tId = ${teacherId}
+                and tId = #{teacherId}
             </if>
             <if test="classId != 0">
-                and classId = ${classId}
+                and classId = #{classId}
             </if>
             <if test="subjectId != 0">
-                and (subId is null or subId = ${subjectId}
+                and (subId is null or subId = #{subjectId}
             </if>
         </where>
     </delete>
     <insert id="insertTeacherClass" parameterType="com.sims.springbootsims.entity.TeacherClassBean">
         insert into TeacherClass (tId, classId, subId)
-        values (${teacherId}, ${classId}, ${subjectId});
+        values (#{teacherId}, #{classId}, #{subjectId});
     </insert>
     <select id="queryGradeCode" resultType="Integer">
         select gradeCode
@@ -58,11 +58,11 @@
     </select>
     <insert id="insertGrade" parameterType="com.sims.springbootsims.entity.GradeBean">
         insert into Grade (gradeCode, gradeName, createMessage)
-        values (${gradeCode}, ${gradeName}, ${createMessage})
+        values (#{gradeCode}, #{gradeName}, #{createMessage})
     </insert>
     <insert id="insertClass" parameterType="com.sims.springbootsims.entity.ClassBean">
         insert into Class (classCode, className, createMessage, gradeId)
-        values (${classCode}, ${className}, ${createMessage}, ${gradeId})
+        values (#{classCode}, #{className}, #{createMessage}, #{gradeId})
     </insert>
     <select id="querySubjectCode" resultType="Integer">
         select subjectCode
@@ -71,15 +71,15 @@
     </select>
     <insert id="insertSubject" parameterType="com.sims.springbootsims.entity.SubjectBean">
         insert into Subject (subjectCode, subjectName, createMessage, gradeId)
-        values (${subjectCode}, ${subjectName}, ${createMessage}, ${gradeId})
+        values (#{subjectCode}, #{subjectName}, #{createMessage}, #{gradeId})
     </insert>
     <insert id="insertResult" parameterType="com.sims.springbootsims.entity.ResultBean">
         insert into Result (sId, subId, result)
-        values (${sId}, ${subId}, ${result})
+        values (#{sId}, #{subId}, #{result})
     </insert>
     <insert id="insertAttendance" parameterType="com.sims.springbootsims.entity.AttendanceBean">
         insert into Attendance (sId, AttendanceType, subId, classId)
-        values (${sId}, ${type}, ${subId}, ${classId})
+        values (#{sId}, #{type}, #{subId}, #{classId})
     </insert>
     <select id="queryHabit" parameterType="String" resultType="com.sims.springbootsims.entity.HabitBean">
         select *
@@ -93,6 +93,6 @@
     </delete>
     <insert id="insertHabit" parameterType="com.sims.springbootsims.entity.HabitBean">
         insert into Habit (code, col1, col2, col3, col4, col5, col6, col7)
-        values (${code}, ${col1}, ${col2}, ${col3}, ${col4}, ${col5}, ${col6}, ${col7})
+        values (#{code}, #{col1}, #{col2}, #{col3}, #{col4}, #{col5}, #{col6}, #{col7})
     </insert>
 </mapper>

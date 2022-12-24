@@ -8,31 +8,31 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DeleteMapper {
 
-    public int queryTeacherId(int code);
+    public int queryTeacherId(String code);
 
     public TeacherClassBean queryTeacherClass(int id, int tId, int classId, int subId);
 
     public void deleteTeacherClassBytId(int id);
 
-    public void deleteTeacher(int code);
+    public void deleteTeacher(String code);
 
-    public int queryStudentId(int code);
+    public int queryStudentId(String code);
 
     public ResultBean queryResult(int sId, int subId);
 
     public void deleteResult(int sId, int subId);
 
-    public void deleteStudent(int code);
+    public void deleteStudent(String code);
 
-    public void deleteLogin(int code);
+    public void deleteLogin(String code);
 
-    public int queryClassId(int code);
+    public int queryClassId(String code);
 
     public void deleteTeacherClassByClassId(int id);
 
-    public void deleteClass(int code);
+    public void deleteClass(String code);
 
-    public int querySubjectId(int code);
+    public int querySubjectId(String code);
 
     public void deleteTeacherClassBySubId(int id);
 
@@ -40,7 +40,7 @@ public interface DeleteMapper {
 
     public void deleteAttendance(int id);
 
-    public void deleteSubject(int code);
+    public void deleteSubject(String code);
 
     public void deleteTeacherClassById(int id);
 }

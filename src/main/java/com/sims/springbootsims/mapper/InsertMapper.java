@@ -3,6 +3,8 @@ package com.sims.springbootsims.mapper;
 import com.sims.springbootsims.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface InsertMapper {
 
@@ -18,13 +20,13 @@ public interface InsertMapper {
 
     public void insertTeacherClass(TeacherClassBean teacherClassBean);
 
-    public int queryGradeCode();
+    public List<Integer> queryGradeCode();
 
     public void insertGrade(GradeBean gradeBean);
 
     public void insertClass(ClassBean classBean);
 
-    public int querySubjectCode();
+    public List<Integer> querySubjectCode();
 
     public void insertSubject(SubjectBean subjectBean);
 

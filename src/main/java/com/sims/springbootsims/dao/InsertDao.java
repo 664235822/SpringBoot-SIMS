@@ -50,9 +50,9 @@ public class InsertDao {
      * @param info 要分配的教师科目信息
      */
     public void insertClassTeacher(TeacherClassBean info) throws Exception {
-        TeacherClassBean teacherClass = insertMapper.queryTeacherClass(0, info.getClassId(), info.getSubjectId());
+        TeacherClassBean teacherClass = insertMapper.queryTeacherClass(info.getTeacherId(), info.getClassId(), info.getSubjectId());
         if (teacherClass != null) {
-            insertMapper.deleteTeacherClass(0, info.getClassId(), info.getSubjectId());
+            insertMapper.deleteTeacherClass(info.getTeacherId(), info.getClassId(), info.getSubjectId());
         }
 
         insertMapper.insertTeacherClass(info);
@@ -63,7 +63,8 @@ public class InsertDao {
      * @param info 年级信息
      */
     public void insertGrade(GradeBean info) throws Exception {
-        int gradeCode = insertMapper.queryGradeCode();
+        List<Integer> gradeCodeList = insertMapper.queryGradeCode();
+        int gradeCode = gradeCodeList.get(0);
         gradeCode++;
         info.setGradeCode(String.valueOf(gradeCode));
 
@@ -83,7 +84,8 @@ public class InsertDao {
      * @param info 科目信息
      */
     public void insertSubject(SubjectBean info) throws Exception {
-        int subjectCode = insertMapper.querySubjectCode();
+        List<Integer> subjectCodeList = insertMapper.querySubjectCode();
+        int subjectCode = subjectCodeList.get(0);
         subjectCode++;
         info.setSubjectCode(String.valueOf(subjectCode));
 

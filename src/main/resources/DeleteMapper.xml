@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sims.springbootsims.mapper.DeleteMapper">
-    <select id="queryTeacherId" parameterType="Integer" resultType="Integer">
+    <select id="queryTeacherId" parameterType="String" resultType="Integer">
         select id
         from Teacher
         where code = #{code}
@@ -32,17 +32,17 @@
         from TeacherClass
         where tId = #{id}
     </delete>
-    <delete id="deleteTeacher" parameterType="Integer">
+    <delete id="deleteTeacher" parameterType="String">
         delete
         from Teacher
         where code = #{code}
     </delete>
-    <delete id="deleteLogin" parameterType="Integer">
+    <delete id="deleteLogin" parameterType="String">
         delete
         from Login
         where code = #{code}
     </delete>
-    <select id="queryStudentId" parameterType="Integer" resultType="Integer">
+    <select id="queryStudentId" parameterType="String" resultType="Integer">
         select id
         from Student
         where code = #{code}
@@ -71,12 +71,12 @@
             </if>
         </where>
     </delete>
-    <delete id="deleteStudent" parameterType="Integer">
+    <delete id="deleteStudent" parameterType="String">
         delete
         from Student
         where code = #{code}
     </delete>
-    <select id="queryClassId" parameterType="Integer" resultType="Integer">
+    <select id="queryClassId" parameterType="String" resultType="Integer">
         select id
         from Class
         where classCode = #{code}
@@ -86,12 +86,12 @@
         from TeacherClass
         where classId = #{id}
     </delete>
-    <delete id="deleteClass" parameterType="Integer">
+    <delete id="deleteClass" parameterType="String">
         delete
         from Class
         where classCode = #{code}
     </delete>
-    <select id="querySubjectId" parameterType="Integer" resultType="Integer">
+    <select id="querySubjectId" parameterType="String" resultType="Integer">
         select id
         from Subject
         where subjectCode = #{code}
@@ -111,7 +111,7 @@
         from Attendance
         where subId = #{id}
     </delete>
-    <delete id="deleteSubject" parameterType="Integer">
+    <delete id="deleteSubject" parameterType="String">
         delete
         from Subject
         where subjectCode = #{code}

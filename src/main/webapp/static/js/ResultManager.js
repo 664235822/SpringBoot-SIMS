@@ -385,7 +385,7 @@ function AddResultTable(data) {
             text += "<td>" + data[i].gradeName + "</td>";
             text += "<td>" + data[i].className + "</td>";
             text += "<td>" + data[i].code + "</td>";
-            text += "<td name='studentId' value='" + data[i].sId + "'>" + data[i].name + "</td>";
+            text += "<td name='studentId' value='" + data[i].id + "'>" + data[i].name + "</td>";
             text += "<td name='subjectId' value='" + data[i].subId + "'>" + data[i].subjectName + "</td>";
             text += "<td name='result' contenteditable='true'></td>";
             text += "</tr>";
