@@ -211,13 +211,12 @@ public class SelectDao {
         }
 
         List<SubjectBean> tempSubjectList = selectMapper.querySubject();
-        for (TeacherClassBean teacherClass : teacherClassList) {
-            for (SubjectBean subject : tempSubjectList) {
-                for (int i = 0; i < list.size(); i++) {
-                    for (int j = 0; j < list.get(i).getClasses().size(); j++) {
-                        if (list.get(i).getClasses().get(j).getId() == teacherClass.getClassId()) {
-                            list.get(i).getClasses().get(j).getSubjects().add(subject);
-                        }
+        for (GradeBean gradeBean : list) {
+            for (ClassBean classBean : gradeBean.getClasses()) {
+                classBean.setSubjects(new ArrayList<>());
+                for (SubjectBean subjectBean : tempSubjectList) {
+                    if (subjectBean.getGradeId() == gradeBean.getId()) {
+                        classBean.getSubjects().add(subjectBean);
                     }
                 }
             }
