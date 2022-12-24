@@ -15,7 +15,7 @@ public interface SelectMapper {
 
     public List<StudentBean> queryStudentList(String code, String name, int currentPage);
 
-    public List<GradeBean> queryGradeList(String gradeId, int currentPage);
+    public List<GradeBean> queryGradeList(int gradeId, int currentPage);
 
     public List<ClassBean> queryClassList(String code, String name, int currentPage);
 
@@ -23,7 +23,7 @@ public interface SelectMapper {
 
     public List<TeacherClassBean> queryTeacherClassOnlyList();
 
-    public List<SubjectBean> querySubjectById(int id);
+    public List<SubjectBean> querySubject();
 
     public List<TeacherClassBean> queryTeacherClassList(int gradeId, int classId, int subjectId, int currentPage);
 

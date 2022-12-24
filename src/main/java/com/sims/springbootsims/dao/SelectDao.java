@@ -98,7 +98,7 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回年级信息
      */
-    public BaseBean selectGrade(String gradeId, int currentPage) throws Exception {
+    public BaseBean selectGrade(int gradeId, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
         List<GradeBean> list = selectMapper.queryGradeList(gradeId, currentPage);
@@ -169,7 +169,7 @@ public class SelectDao {
         BaseBean result = new BaseBean();
         List<GradeBean> list = new ArrayList<>();
 
-        List<GradeBean> tempGradelist = selectMapper.queryGradeList(null, 0);
+        List<GradeBean> tempGradelist = selectMapper.queryGradeList(0, 0);
         int gradeId = 0;
         for (GradeBean grade : tempGradelist) {
             if (grade.getId() != gradeId) {
@@ -210,10 +210,8 @@ public class SelectDao {
             }
         }
 
-
+        List<SubjectBean> tempSubjectList = selectMapper.querySubject();
         for (TeacherClassBean teacherClass : teacherClassList) {
-            List<SubjectBean> tempSubjectList = selectMapper.querySubjectById(teacherClass.getSubjectId());
-
             for (SubjectBean subject : tempSubjectList) {
                 for (int i = 0; i < list.size(); i++) {
                     for (int j = 0; j < list.get(i).getClasses().size(); j++) {

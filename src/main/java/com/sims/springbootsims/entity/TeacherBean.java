@@ -5,9 +5,6 @@ package com.sims.springbootsims.entity;
  */
 public class TeacherBean {
 
-    //教师信息头部
-    public static String[] teacherInfo = {"code", "name", "sex", "age", "education", "goodAt", "phone", "QQ", "email", "address", "introduction"};
-
     //教师Id
     private int id;
     //教师账号

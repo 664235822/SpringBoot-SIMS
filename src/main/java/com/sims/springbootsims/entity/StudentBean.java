@@ -5,9 +5,6 @@ package com.sims.springbootsims.entity;
  */
 public class StudentBean {
 
-    //学生信息头部
-    public static String[] studentInfo = {"code", "name", "age", "sex", "QQ", "phone", "address", "classId"};
-
     //学生Id
     private int id;
     //学生账号
@@ -34,6 +31,10 @@ public class StudentBean {
     private String gradeName;
     //教师姓名
     private String teacherName;
+    //科目id
+    private int subId;
+    //科目名称
+    private String subjectName;
 
     public int getId() {
         return id;
@@ -41,6 +42,14 @@ public class StudentBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getSubId() {
+        return subId;
+    }
+
+    public void setSubId(int subId) {
+        this.subId = subId;
     }
 
     public String getCode() {
@@ -137,5 +146,13 @@ public class StudentBean {
 
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 }
