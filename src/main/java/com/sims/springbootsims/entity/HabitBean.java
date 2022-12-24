@@ -9,8 +9,6 @@ public class HabitBean {
     //列
     private int[] cols;
 
-    private int col0;
-
     private int col1;
 
     private int col2;
@@ -47,14 +45,6 @@ public class HabitBean {
 
     public void setCols(int[] cols) {
         this.cols = cols;
-    }
-
-    public int getCol0() {
-        return col0;
-    }
-
-    public void setCol0(int col0) {
-        this.col0 = col0;
     }
 
     public int getCol1() {

@@ -128,6 +128,14 @@ public class InsertDao {
             insertMapper.deleteHabit(info.getCode());
         }
 
+        info.setCol1(info.getCols()[0]);
+        info.setCol2(info.getCols()[1]);
+        info.setCol3(info.getCols()[2]);
+        info.setCol4(info.getCols()[3]);
+        info.setCol5(info.getCols()[4]);
+        info.setCol6(info.getCols()[5]);
+        info.setCol7(info.getCols()[6]);
+
         insertMapper.insertHabit(info);
     }
 }

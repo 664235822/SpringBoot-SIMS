@@ -382,14 +382,13 @@ public class SelectDao {
         HabitBean habit = selectMapper.queryHabit(code);
 
         int[] cols = new int[8];
-        cols[0] = habit.getCol0();
-        cols[1] = habit.getCol1();
-        cols[2] = habit.getCol2();
-        cols[3] = habit.getCol3();
-        cols[4] = habit.getCol4();
-        cols[5] = habit.getCol5();
-        cols[6] = habit.getCol6();
-        cols[7] = habit.getCol7();
+        cols[0] = habit.getCol1();
+        cols[1] = habit.getCol2();
+        cols[2] = habit.getCol3();
+        cols[3] = habit.getCol4();
+        cols[4] = habit.getCol5();
+        cols[5] = habit.getCol6();
+        cols[6] = habit.getCol7();
 
         habit.setCols(cols);
 
