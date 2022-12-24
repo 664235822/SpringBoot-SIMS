@@ -24,7 +24,7 @@ public class TeacherBean {
     //教师电话
     private String phone;
     //教师QQQ
-    private String QQ;
+    private String qq;
     //教师邮箱
     private String email;
     //教师地址
@@ -108,12 +108,12 @@ public class TeacherBean {
         this.phone = phone;
     }
 
-    public String getQQ() {
-        return QQ;
+    public String getQq() {
+        return qq;
     }
 
-    public void setQQ(String QQ) {
-        this.QQ = QQ;
+    public void setQq(String qq) {
+        this.qq = qq;
     }
 
     public String getEmail() {

@@ -103,7 +103,7 @@ layui.use(['form'], function () {
         Info.education = $("#tEducation option:selected").text();
         Info.goodAt = Serch("tGoodAt");
         Info.phone = Serch("tPone");
-        Info.QQ = Serch("tQQ");
+        Info.qq = Serch("tQQ");
         Info.email = Serch("tEmail");
         Info.address = Serch("tAddress");
         Info.introduction = Serch("tIntorduction");

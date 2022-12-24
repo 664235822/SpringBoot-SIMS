@@ -9,13 +9,13 @@
         values (#{code}, #{pwd}, #{stateId});
     </insert>
     <insert id="insertTeacher" parameterType="com.sims.springbootsims.entity.TeacherBean">
-        insert into Teacher (code, name, sex, age, education, goodAt, phone, QQ, email, address, introduction)
-        values (${code}, ${name}, ${sex}, ${age}, ${education}, ${goodAt}, ${phone}, ${QQ}, ${email}, ${address},
+        insert into Teacher (code, name, sex, age, education, goodAt, phone, qq, email, address, introduction)
+        values (${code}, ${name}, ${sex}, ${age}, ${education}, ${goodAt}, ${phone}, ${qq}, ${email}, ${address},
                 ${introduction})
     </insert>
     <insert id="insertStudent" parameterType="com.sims.springbootsims.entity.StudentBean">
-        insert into Student (code, name, age, sex, QQ, phone, address, classId)
-        values (${code}, ${name}, ${age}, ${sex}, ${QQ}, ${phone}, ${address}, ${classId})
+        insert into Student (code, name, age, sex, qq, phone, address, classId)
+        values (${code}, ${name}, ${age}, ${sex}, ${qq}, ${phone}, ${address}, ${classId})
     </insert>
     <select id="queryTeacherClass" resultType="com.sims.springbootsims.entity.TeacherClassBean">
         select *

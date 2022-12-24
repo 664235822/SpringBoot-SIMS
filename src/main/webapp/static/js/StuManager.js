@@ -52,7 +52,7 @@ function UpStudent() {
     Info.age = Serch("tAge");
     Info.classId = $("#tClass option:selected").val();
     Info.phone = Serch("tPone");
-    Info.QQ = Serch("tQQ");
+    Info.qq = Serch("tQQ");
     Info.address = Serch("tAddress");
     Info.pwd = Serch("tPwd");
     data.info = JSON.stringify(Info);
@@ -104,7 +104,7 @@ function Modify() {
     }
     $("#tAge").val(list.age);
     $("#tPone").val(list.phone);
-    $("#tQQ").val(list.qQ);
+    $("#tQQ").val(list.qq);
     $("#tAddress").val(list.address);
     $("#tPwd").val(list.pwd);
     var text = "";
@@ -154,7 +154,7 @@ function ShowModify(id) {
             , closeBtn: 2
             , shade: [0.1, '#ffffff']
             , title: ['查看信息', 'color:#ffffff;background-color:#009688;']
-            , content: '/JavaWeb_SIMS_war_exploded/static/html/UpdateStudent.jsp'
+            , content: '/static/html/UpdateStudent.jsp'
             , area: ['650px', '500px']
         });
     });

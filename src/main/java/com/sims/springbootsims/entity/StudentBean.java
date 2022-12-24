@@ -18,7 +18,7 @@ public class StudentBean {
     //学生性别
     private String sex;
     //学生QQ
-    private String QQ;
+    private String qq;
     //学生电话
     private String phone;
     //学生地址
@@ -92,12 +92,12 @@ public class StudentBean {
         this.sex = sex;
     }
 
-    public String getQQ() {
-        return QQ;
+    public String getQq() {
+        return qq;
     }
 
-    public void setQQ(String QQ) {
-        this.QQ = QQ;
+    public void setQq(String qq) {
+        this.qq = qq;
     }
 
     public String getPhone() {
