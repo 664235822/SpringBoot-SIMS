@@ -75,7 +75,7 @@ $(function () {
                     , time: 1000
                 }, function () {
                     $("#LAY-user-login-vercode").val("");
-                    location.href = "../html/index.jsp"
+                    location.href = "/SpringBoot-SIMS/static/html/index.jsp"
                 });
             }else{
                 layer.msg("登陆失败", {

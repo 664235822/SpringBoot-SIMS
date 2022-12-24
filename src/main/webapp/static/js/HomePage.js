@@ -25,7 +25,7 @@ $(function () {
                 , time: 1000
             });
         });
-        location.href = "../html/login.jsp";
+        location.href = "/SpringBoot-SIMS/static/html/login.jsp";
     }
     var CharacterMenu = null;
     switch (obj.stateId) {
@@ -71,7 +71,7 @@ function ModuleFunction(arry,menu) {
         if (svg=="addmodul"){
             ModulEvent(arry,menu);
         }else {
-            var url = "/static/html/" + svg;
+            var url = "/SpringBoot-SIMS/static/html/" + svg;
             if ($(this).attr("name") != undefined) {
                 parent.$(".layui-body>iframe").attr("src", url);
             }

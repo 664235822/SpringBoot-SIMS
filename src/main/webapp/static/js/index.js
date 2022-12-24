@@ -44,7 +44,7 @@ $(function () {
     var menu = Ajax(url, str);
     Menu(menu);
     $("a.userlist").click(function () {
-        var url = "/static/html/" + $(this).attr("name");
+        var url = "/SpringBoot-SIMS/static/html/" + $(this).attr("name");
         if ($(this).attr("name") != undefined) {
             $(".layui-body>iframe").attr("src", url);
         } else {
@@ -131,7 +131,7 @@ function LogOut() {
     $(function () {
         //注销点击退出当前用户
         $("#LogOut").click(function () {
-            location.href = "../html/login.jsp";
+            location.href = "/SpringBoot-SIMS/static/html/login.jsp";
         });
         //修改密码点击出现弹窗
         $("#Reset").click(function () {

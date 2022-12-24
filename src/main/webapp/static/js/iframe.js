@@ -4,6 +4,6 @@
  */
 $(function(){
     if(localStorage.Login==null || window==window.top){
-        location.href = "../html/login.jsp";
+        location.href = "/SpringBoot-SIMS/static/html/login.jsp";
     }
 })
