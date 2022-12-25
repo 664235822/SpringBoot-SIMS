@@ -29,13 +29,13 @@ public class LoginDao {
                     break;
                 case 2:
                     TeacherBean teacherBean = loginMapper.queryTeacher(result.getCode());
-                    if (teacherBean != null) {
+                    if (teacherBean == null) {
                         throw new Exception("获取用户名失败");
                     }
                     break;
                 case 3:
                     StudentBean studentBean = loginMapper.queryStudent(result.getCode());
-                    if (studentBean != null) {
+                    if (studentBean == null) {
                         throw new Exception("获取用户名失败");
                     }
                     break;
