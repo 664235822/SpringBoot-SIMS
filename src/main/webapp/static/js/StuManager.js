@@ -154,7 +154,7 @@ function ShowModify(id) {
             , closeBtn: 2
             , shade: [0.1, '#ffffff']
             , title: ['查看信息', 'color:#ffffff;background-color:#009688;']
-            , content: '/static/html/UpdateStudent.jsp'
+            , content: '/SpringBoot-SIMS/static/html/UpdateStudent.jsp'
             , area: ['650px', '500px']
         });
     });

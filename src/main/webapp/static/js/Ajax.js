@@ -15,7 +15,7 @@ function Ajax(url, data) {
     var num = {};
     showLoad();
     $.ajax({
-        url: url,
+        url: "/SpringBoot-SIMS" + url,
         data: data,
         type: "post",
         dataType: "json",
@@ -31,19 +31,21 @@ function Ajax(url, data) {
 
 //加载时弹窗
 function showLoad() {
-    layui.use('layer', function(){
+    layui.use('layer', function () {
         var layer = layui.layer;
         var index = layer.load(2, {time: 10000});
     });
 
 }
+
 //关闭弹窗
 function closeLoad() {
-    layui.use('layer', function(){
+    layui.use('layer', function () {
         var layer = layui.layer;
         layer.closeAll('loading');
     });
 }
+
 /**
  * @description localStorage记住密码
  * @param  username 用户名
