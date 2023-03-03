@@ -277,7 +277,7 @@ function Close(menu,menuId,close) {
  */
 function AjaxAsync(data) {
     $.ajax({
-        url:"/updateMenu",
+        url:"/SpringBoot-SIMS/updateMenu",
         data:data,
         type: "post",
         dataType: "json",
