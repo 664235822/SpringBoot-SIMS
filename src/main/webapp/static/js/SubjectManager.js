@@ -145,18 +145,16 @@ function Subjects(classId) {
         for (var i = 0; i < list.length; i++) {
             if (list[i].id == gradeId) {
                 for (var j = 0; j < list[i].classes.length; j++) {
-                    if (list[i].classes[j].id == classId) {
-                        if (list[i].classes[j].subjects != undefined) {
-                            for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
-                                if (subjectsId != list[i].classes[j].subjects[k].id) {
-                                    subjectsId = list[i].classes[j].subjects[k].id;
-                                    text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
-                                    text += list[i].classes[j].subjects[k].subjectName + "</option>";
-                                }
+                    if (list[i].classes[j].subjects != undefined) {
+                        for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
+                            if (subjectsId != list[i].classes[j].subjects[k].id) {
+                                subjectsId = list[i].classes[j].subjects[k].id;
+                                text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
+                                text += list[i].classes[j].subjects[k].subjectName + "</option>";
                             }
                         }
-                        break;
                     }
+                    break;
                 }
                 break;
             }
