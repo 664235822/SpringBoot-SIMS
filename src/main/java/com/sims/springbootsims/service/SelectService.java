@@ -19,40 +19,45 @@ public class SelectService {
      * @param classId 班级编号
      * @param subjectId 科目编号
      * @param currentPage 当前页号
+     * @param collegeId 学院id
+     * @param majorId 专业id
      * @result 返回表格信息
      */
-    public BaseBean select(String tableName, String code, String name, String gradeId, String classId, String subjectId, String currentPage) throws Exception {
+    public BaseBean select(String tableName, String code, String name, String gradeId, String classId, String subjectId, String collegeId, String majorId,String currentPage,String desc) throws Exception {
         BaseBean result = null;
         switch (tableName) {
             case "Teacher":
-                result = selectDao.selectTeacher(code, name, Integer.parseInt(currentPage));
+                result = selectDao.selectTeacher(collegeId,majorId,code, name, Integer.parseInt(currentPage));
                 break;
             case "Student":
-                result = selectDao.selectStudent(code, name, Integer.parseInt(currentPage));
+                result = selectDao.selectStudent(collegeId,majorId,code, name, Integer.parseInt(currentPage));
                 break;
             case "StudentOnly":
-                result = selectDao.selectStudentOnly(code, name, Integer.parseInt(currentPage));
+                result = selectDao.selectStudentOnly(collegeId,majorId,code, name, Integer.parseInt(currentPage));
                 break;
             case "Grade":
-                result = selectDao.selectGrade(handleGradeId(gradeId), Integer.parseInt(currentPage));
+                result = selectDao.selectGrade(collegeId,majorId,handleGradeId(gradeId), Integer.parseInt(currentPage));
                 break;
             case "Class":
-                result = selectDao.selectClass(code, name, Integer.parseInt(currentPage));
+                result = selectDao.selectClass(collegeId,majorId,code, name, Integer.parseInt(currentPage));
                 break;
             case "Subject":
-                result = selectDao.selectSubject(code, name, Integer.parseInt(currentPage));
+                result = selectDao.selectSubject(collegeId,majorId,code, name, Integer.parseInt(currentPage));
                 break;
             case "GradeAll":
                 result = selectDao.selectGradeAll();
                 break;
             case "TeacherClass":
-                result = selectDao.selectTeacherClass(handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
+                result = selectDao.selectTeacherClass(collegeId,majorId,handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;
             case "Result":
-                result = selectDao.selectResult(code, name, handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
+                result = selectDao.selectResult(code, name, handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage),desc,collegeId,majorId);
+                break;
+            case "ResultCheck":
+                result = selectDao.selectResultCheck(code, name, handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage),collegeId,majorId);
                 break;
             case "AddResult":
-                result = selectDao.selectAddResult(handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
+                result = selectDao.selectAddResult(handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage),collegeId,majorId);
                 break;
             case "Attendance":
                 result = selectDao.selectAttendance(code, name, handleGradeId(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
@@ -62,6 +67,18 @@ public class SelectService {
                 break;
             case "Habit":
                 result = selectDao.selectHabit(code);
+                break;
+            case "College":
+                result = selectDao.selectCollege(code,name,Integer.parseInt(currentPage));
+                break;
+            case "CollegeAll":
+                result = selectDao.selectAllCollege();
+                break;
+            case "Major":
+                result = selectDao.selectMajor(code,collegeId,name,Integer.parseInt(currentPage));
+                break;
+            case "MajorAll":
+                result = selectDao.selectAllMajor();
                 break;
         }
 

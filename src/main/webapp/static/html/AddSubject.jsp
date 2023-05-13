@@ -14,7 +14,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>科目管理</title>
 </head>
-<body onload="Submanage()">
+<body onload="Submanage();CollegeSelect();MajorSelect()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -24,9 +24,27 @@
 </nav>
 <!--        内容区 -->
 <div class="container">
-    <div class="row" style="margin-top: 10px">
+    <div class="row layui-form" style="margin-top: 10px">
         <!--           模糊查询 -->
-        <div class="demoTable ">
+<%--        <div class="demoTable ">--%>
+        <div class="layui-inline">
+            <label class="layui-form-label">学院：</label>
+        </div>
+        <div class="layui-inline">
+            <select id="cid" name="cid" lay-verify="required" >
+                <option value="">请选择学院</option>
+            </select>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">专业：</label>
+        </div>
+        <div class="layui-inline">
+            <select id="mid" name="mid" lay-verify="required" >
+            <option value="">请选择专业</option>
+            </select>
+        </div>
+        <br>
+
             <div class="layui-inline">
                 <label class="layui-form-label">搜索：</label>
             </div>
@@ -36,13 +54,14 @@
             <div class="layui-inline">
                 <input class="layui-input" name="id" id="name" autocomplete="off" placeholder="请输入科目名称">
             </div>
+
             <div class="layui-inline">
                 <button class="layui-btn" id="subsea1"><i class="layui-icon">&#xe615;</i>搜索</button>
                 <!--        添加科目按钮 -->
                 <button class="layui-btn" id="Addbut"><i class="layui-icon">&#xe61f;</i>添加科目</button>
             </div>
 
-        </div>
+<%--        </div>--%>
     </div>
     <!--              表格主体-->
     <div id="LAY_preview" style="margin-top: 50px">

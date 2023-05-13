@@ -15,7 +15,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>TeacherInfo</title>
 </head>
-<body onload="addCode();TeacherInfo()">
+<body onload="addCode();TeacherInfo();CollegeSelect();MajorSelect()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -93,6 +93,22 @@
                         </select>
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学院名称：</label>
+                    <div class="layui-input-block">
+                        <select id="cid" name="cid" lay-verify="required" lay-filter="test">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业名称：</label>
+                    <div class="layui-input-block">
+                        <select id="mid" name="mid" lay-verify="required" lay-filter="test">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
                 <!--                科目-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">擅长科目：</label>
@@ -147,7 +163,7 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit  id="referto"  lay-filter="component-form-element">立即提交</button>
-                        <div  id="chongzhi" class="layui-btn layui-btn-primary">重置</div>
+                        <div  id="chongzhi" onclick="chongzhiClick()" class="layui-btn layui-btn-primary">重置</div>
                     </div>
                 </div>
             </form>
@@ -155,4 +171,14 @@
     </div>
 </div>
 </body>
+<script type="application/javascript">
+
+
+    //在原始的基础上把多加的置空
+    function chongzhiClick(){
+        $("#cid").val("");
+        $("#mid").val("");
+        Refresh();
+    }
+</script>
 </html>

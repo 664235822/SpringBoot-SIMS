@@ -15,6 +15,10 @@ var code = "";
 //姓名
 var name = "";
 
+var cid = "";
+
+var mid = "";
+
 /**
  * @description 查看成绩页面初始化
  *
@@ -23,7 +27,7 @@ function ShowResult() {
     this.ClassList = Ajax("/select", {'tableName': "GradeAll", 'currentPage': 0});
     Admin();
     var data = {
-        "tableName": "Result",
+        "tableName": 'Result',
         "code": code,
         "name": name,
         "gradeId": gradeId,
@@ -31,11 +35,14 @@ function ShowResult() {
         "subjectId": SubjectsId,
         "currentPage": 1
     };
-    var table = getPage(data);
-    if (table.code == 1) {
-        ResultTable(table.data.list);
+    var data = getPage(data);
+    var table = data.data.list;
+    initPieCharts(data.data.echarts);//饼图生成
+    // initColumnCharts(data.data.columnEcharts)
+    if (data.code == 1) {
+        ResultTable(table.list);
         Refresh();
-        Page("test1", table.data.pageCount, table.data.dataCount);
+        Page("test1", table.pageCount, table.dataCount);
         ResultFunction();
     }
 
@@ -106,13 +113,16 @@ function ResultInfo() {
         "gradeId": gradeId,
         "classId": classId,
         "subjectId": SubjectsId,
-        "currentPage": 1
+        "currentPage": 1,
+        "collegeId": cid,
+        "majorId": mid
     };
-    var table = getPage(data);
-    if (table.code == 1) {
-        AddResultTable(table.data.list);
+    var data = getPage(data);
+    var table = data.data.list;
+    if (data.code == 1) {
+        AddResultTable(data.data.list);
         Refresh();
-        AddPage("test1", table.data.pageCount, table.data.dataCount);
+        AddPage("test1", data.data.pageCount, data.data.dataCount);
         AddResultFunction();
     }
 
@@ -148,11 +158,14 @@ function Page(id, limit, count) {
                         "gradeId": gradeId,
                         "classId": classId,
                         "subjectId": SubjectsId,
-                        "currentPage": obj.curr
+                        "currentPage": obj.curr,
+                        "collegeId": cid,
+                        "majorId":mid
                     };
-                    var table = getPage(data);
-                    if (table.code == 1) {
-                        ResultTable(table.data.list);
+                    var data = getPage(data);
+                    var table = data.data.list;
+                    if (data.code == 1) {
+                        ResultTable(table.list);
                         Refresh();
                         ResultFunction();
                     }
@@ -186,11 +199,14 @@ function AddPage(id, limit, count) {
                         "gradeId": gradeId,
                         "classId": classId,
                         "subjectId": SubjectsId,
-                        "currentPage": obj.curr
+                        "currentPage": obj.curr,
+                        "collegeId": cid,
+                        "majorId": mid
                     };
-                    var table = getPage(data);
-                    if (table.code == 1) {
-                        AddResultTable(table.data.list);
+                    var data = getPage(data);
+                    var table = data.data.list;
+                    if (data.code == 1) {
+                        AddResultTable(table);
                         Refresh();
                         AddResultFunction();
                     }
@@ -209,6 +225,39 @@ function getPage(data) {
     var table = Ajax(url, data);
     return table;
 }
+
+function CollegeSelect() {
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render('select', 'college');
+
+    })
+}
+
+function MajorSelect() {
+    var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+        text += collegeList.data.list[i].mname + "</option>";
+    }
+    $('#mid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.render('select', 'major');
+    })
+}
+
 /**
  * @description 成绩管理页面的模糊查询
  *
@@ -217,11 +266,16 @@ function ResultFunction() {
     $(function () {
         //查询
         $("#Select").click(function () {
+            debugger;
             code = $("#code").val();
             name = $("#name").val();
             gradeId=$("#Grades option:selected").val();
             classId=$("#Class option:selected").val();
             SubjectsId=$("#Subjects  option:selected").val();
+            desc = $("#desc").val();
+            debugger;
+            cid = $("#cid").val();
+            mid = $("#mid").val();
             var data = {
                 "tableName": "Result",
                 "code": code,
@@ -229,13 +283,18 @@ function ResultFunction() {
                 "gradeId": gradeId,
                 "classId": classId,
                 "subjectId": SubjectsId,
-                "currentPage": 1
+                "currentPage": 1,
+                "desc":desc,
+                "collegeId": cid,
+                "majorId": mid
             };
-            var table = getPage(data);
-            if (table.code == 1) {
-                ResultTable(table.data.list);
+            var data = getPage(data);
+            var table = data.data.list;
+            initPieCharts(data.data.echarts);
+            if (data.code == 1) {
+                ResultTable(table.list);
                 Refresh();
-                Page("test1", table.data.pageCount, table.data.dataCount);
+                Page("test1", table.pageCount, table.dataCount);
                 ResultFunction();
             }
         });
@@ -249,17 +308,23 @@ function AddResultFunction() {
     $(function () {
         //查询
         $("#Select").click(function () {
+            debugger;
+            cid = $("#cid").val();
+            mid = $("#mid").val();
             var data = {
                 "tableName": "AddResult",
                 "gradeId": gradeId,
                 "classId": classId,
                 "subjectId": SubjectsId,
-                "currentPage": 1
+                "currentPage": 1,
+                "collegeId": cid,
+                "majorId": mid
             };
-            var table = getPage(data);
-            if (table.code == 1) {
-                AddResultTable(table.data.list);
-                AddPage("test1", table.data.pageCount, table.data.dataCount);
+            var data = getPage(data);
+            var table = data.data.list;
+            if (data.code == 1) {
+                AddResultTable(data.data.list);
+                AddPage("test1", data.data.pageCount, data.data.dataCount);
                 AddResultFunction();
                 Refresh();
             }
@@ -346,7 +411,7 @@ function Grade() {
  * @description 生成成绩表格代码
  * @param data 成绩表格数据
  */
-function ResultTable(data) {
+function ResultTable(data,d) {
     if (data != null) {
         var text = "";
         text += "<thead><tr>";
@@ -361,12 +426,76 @@ function ResultTable(data) {
             text += "<td>" + data[i].name + "</td>";
             text += "<td>" + data[i].subjectName + "</td>";
             text += "<td>" + data[i].time + "</td>";
-            text += "<td>" + data[i].result + "</td>";
+            text += "<td><a style='text-decoration: underline;color: #1E9FFF;cursor: pointer' onclick='updateStuResult(" + data[i].id + ")'>" + data[i].result + "</a></td>";
             text += "</tr>";
         }
         text += "</tbody>";
         $("#table").html(text);
     }
+}
+var upResult;
+function updateStuResult(d){
+    upResult = d;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    })
+    layer.open({
+        type:1,
+        width:"200px",
+        height: "50px",
+        title:"提交修改成绩",
+        shade: [0.1, '#ffffff'],
+        content:$('#updateStuResultDiv'),
+        btn: ['保存','取消'],
+        btn1: function(index,layero){
+            var test = localStorage;
+            var jsonUpdate = JSON.parse(localStorage.Login);
+            debugger;
+            var data = {};
+            var Info = {};
+            data.tableName = "ResultUpdate";
+            Info.id = Serch("upResult");
+            Info.actualResult = Serch("actualResult");
+            Info.target = '1';
+            Info.tid = jsonUpdate.accout;
+            data.info = JSON.stringify(Info);
+            var url = "/update";
+            var Menu = Ajax(url, data);
+            if (Menu.code == 1) {
+                //成功的
+                layer.msg(Menu.message, {
+                    icon: 1
+                    , time: 1000
+                });
+            } else {
+                layer.msg(Menu.message, {
+                    icon: 5
+                    , anim: 6
+                    , time: 1000
+                });
+
+            }
+            $("#updateStuResultDiv").hide()
+            $('#updateStuResultDiv').html("")
+            $(".layui-table-fixed").hide();
+            layer.close(index)
+        },
+        btn2:function(index,layero){
+            $("#updateStuResultDiv").hide()
+            $('#updateStuResultDiv').html("")
+            $(".layui-table-fixed").hide();
+        },
+        success:function(){
+            var updateHtml = `<input id="actualResult" type="text" style="width: 200px;height: 50px;border: 0" placeholder="请输入修改后的成绩">
+                               <input id="upResult" type="hidden" value="` + upResult + `">`;
+            $('#updateStuResultDiv').append(updateHtml)
+        },
+        cancel:function(){
+            $("#updateStuResultDiv").hide()
+            $('#updateStuResultDiv').html("")
+            $(".layui-table-fixed").hide();
+        }
+    });
 }
 
 /**
@@ -482,4 +611,13 @@ function Refresh() {
         var form = layui.form;
         form.render();
     });
+}
+
+/**
+ * @description 获取当前id标签的value值、
+ * @param id 标签的id
+ * @return 当前id标签的value值
+ * **/
+function Serch(id) {
+    return $("#" + id).val();
 }

@@ -102,9 +102,12 @@ layui.use(['form'], function () {
         Info.age = Serch("tAge");
         Info.classId = $("#tClass option:selected").val();
         Info.phone = Serch("tPone");
-        Info.QQ = Serch("tQQ");
+        Info.qq = Serch("tQQ");
         Info.address = Serch("tAddress");
         Info.pwd = Serch("tPwd");
+        debugger;
+        Info.cid = Serch("cid2");
+        Info.mid = Serch("mid2");
         data.info = JSON.stringify(Info);
         var url = "/update";
         var Menu = Ajax(url, data);

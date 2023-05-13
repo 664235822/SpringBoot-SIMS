@@ -16,7 +16,9 @@
             qq           = #{qq},
             email        = #{email},
             address      = #{address},
-            introduction = #{introduction}
+            introduction = #{introduction},
+            cid          = #{cid},
+            mid          = #{mid}
         where code = #{code}
     </update>
     <update id="updateStudent" parameterType="com.sims.springbootsims.entity.StudentBean">
@@ -27,7 +29,9 @@
             sex     = #{sex},
             qq      = #{qq},
             phone   = #{phone},
-            address = #{address}
+            address = #{address},
+            cid     = #{cid},
+            mid     = #{mid}
         where code = #{code}
     </update>
     <update id="updateClassId">
@@ -53,7 +57,9 @@
     <update id="updateClass" parameterType="com.sims.springbootsims.entity.ClassBean">
         update Class
         set classCode = #{classCode},
-            className = #{className}
+            className = #{className},
+            cid       = #{cid},
+            mid       = #{mid}
         where classCode = #{classCode}
     </update>
     <update id="updateSubject" parameterType="com.sims.springbootsims.entity.SubjectBean">
@@ -61,5 +67,42 @@
         set subjectCode = #{subjectCode},
             subjectName = #{subjectName}
         where subjectCode = #{subjectCode}
+    </update>
+
+    <update id="updateCollege" parameterType="com.sims.springbootsims.entity.CollegeBean">
+        update College
+        set cname = #{cname},
+            cstatus = #{cstatus},
+            cremark = #{cremark}
+        where cid = #{cid}
+    </update>
+
+    <update id="updateMajor" parameterType="com.sims.springbootsims.entity.MajorBean">
+        update Major
+        set mname = #{mname},
+            mstatus = #{mstatus},
+            mremark = #{mremark},
+            cid = #{cid},
+            mid = #{mid}
+        where mid = #{mid}
+    </update>
+
+    <update id="updateResult" parameterType="com.sims.springbootsims.entity.ResultBean">
+        update Result
+        <set>
+            <if test="tid !=null and tid !=''">
+                tid = #{tid,jdbcType=VARCHAR},
+            </if>
+            <if test="actualResult !=null and actualResult !=''">
+                actualResult = #{actualResult,jdbcType=DECIMAL},
+            </if>
+            <if test="status !=null and status !=''">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="result !=null and result !=''">
+                result = #{result,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where id = #{id,jdbcType=DECIMAL}
     </update>
 </mapper>

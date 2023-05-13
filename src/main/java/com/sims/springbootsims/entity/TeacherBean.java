@@ -35,6 +35,26 @@ public class TeacherBean {
     private int classId;
     //教师科目Id
     private int subId;
+    //学院id
+    private int cid;
+    //专业id
+    private int mid;
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
 
     public int getId() {
         return id;

@@ -62,6 +62,15 @@ public class InsertService {
                 HabitBean habit = JSON.parseObject(info, HabitBean.class);
                 insertDao.insertHabit(habit);
                 break;
+            case "College":
+                CollegeBean collegeBean = JSON.parseObject(info, CollegeBean.class);
+                insertDao.insertCollege(collegeBean);
+                break;
+            case "Major":
+                MajorBean majorBean = JSON.parseObject(info, MajorBean.class);
+                insertDao.insertMajor(majorBean);
+                break;
+
         }
     }
 }

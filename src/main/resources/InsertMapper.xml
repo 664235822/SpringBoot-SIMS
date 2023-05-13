@@ -9,13 +9,23 @@
         values (#{code}, #{pwd}, #{stateId});
     </insert>
     <insert id="insertTeacher" parameterType="com.sims.springbootsims.entity.TeacherBean">
-        insert into Teacher (code, name, sex, age, education, goodAt, phone, qq, email, address, introduction)
+        insert into Teacher (code, name, sex, age, education, goodAt, phone, qq, email, address, introduction,mid,cid)
         values (#{code}, #{name}, #{sex}, #{age}, #{education}, #{goodAt}, #{phone}, #{qq}, #{email}, #{address},
-                #{introduction})
+                #{introduction},#{cid},#{mid})
+    </insert>
+
+    <insert id="insertCollege" parameterType="com.sims.springbootsims.entity.CollegeBean">
+        insert into college (cname,cstatus,cremark)
+        values (#{cname}, #{cstatus}, #{cremark})
+    </insert>
+
+    <insert id="insertMajor" parameterType="com.sims.springbootsims.entity.MajorBean">
+        insert into major (mname,mstatus,mremark,cid)
+        values (#{mname}, #{mstatus}, #{mremark},#{cid})
     </insert>
     <insert id="insertStudent" parameterType="com.sims.springbootsims.entity.StudentBean">
-        insert into Student (code, name, age, sex, qq, phone, address, classId)
-        values (#{code}, #{name}, #{age}, #{sex}, #{qq}, #{phone}, #{address}, #{classId})
+        insert into Student (code, name, age, sex, qq, phone, address, classId,cid,mid)
+        values (#{code}, #{name}, #{age}, #{sex}, #{qq}, #{phone}, #{address}, #{classId}, #{cid}, #{mid})
     </insert>
     <select id="queryTeacherClass" resultType="com.sims.springbootsims.entity.TeacherClassBean">
         select *
@@ -57,12 +67,12 @@
         order by id desc
     </select>
     <insert id="insertGrade" parameterType="com.sims.springbootsims.entity.GradeBean">
-        insert into Grade (gradeCode, gradeName, createMessage)
-        values (#{gradeCode}, #{gradeName}, #{createMessage})
+        insert into Grade (gradeCode, gradeName, createMessage,cid,mid)
+        values (#{gradeCode}, #{gradeName}, #{createMessage},#{cid},#{mid})
     </insert>
     <insert id="insertClass" parameterType="com.sims.springbootsims.entity.ClassBean">
-        insert into Class (classCode, className, createMessage, gradeId)
-        values (#{classCode}, #{className}, #{createMessage}, #{gradeId})
+        insert into Class (classCode, className, createMessage, gradeId,cid,mid)
+        values (#{classCode}, #{className}, #{createMessage}, #{gradeId},#{cid},#{mid})
     </insert>
     <select id="querySubjectCode" resultType="Integer">
         select subjectCode
@@ -70,8 +80,8 @@
         order by id desc
     </select>
     <insert id="insertSubject" parameterType="com.sims.springbootsims.entity.SubjectBean">
-        insert into Subject (subjectCode, subjectName, createMessage, gradeId)
-        values (#{subjectCode}, #{subjectName}, #{createMessage}, #{gradeId})
+        insert into Subject (subjectCode, subjectName, createMessage, gradeId,cid,mid)
+        values (#{subjectCode}, #{subjectName}, #{createMessage}, #{gradeId}, #{cid}, #{mid})
     </insert>
     <insert id="insertResult" parameterType="com.sims.springbootsims.entity.ResultBean">
         insert into Result (sId, subId, result)

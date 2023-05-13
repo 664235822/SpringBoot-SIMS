@@ -3,11 +3,14 @@ package com.sims.springbootsims.dao;
 import com.sims.springbootsims.entity.*;
 import com.sims.springbootsims.mapper.SelectMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class SelectDao {
@@ -22,10 +25,10 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回教师信息
      */
-    public BaseBean selectTeacher(String code, String name, int currentPage) throws Exception {
+    public BaseBean selectTeacher(String collegeId,String majorId,String code, String name, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<TeacherBean> list = selectMapper.queryTeacherList(code, name, currentPage);
+        List<TeacherBean> list = selectMapper.queryTeacherList(collegeId,majorId,code, name, currentPage);
 
         for (TeacherBean teacherBean : list) {
             teacherBean.setPwd(selectPwd(teacherBean.getCode()));
@@ -33,11 +36,104 @@ public class SelectDao {
 
         table.setList(list);
 
-        selectCount("Teacher", code, name, table);
+        selectCount(collegeId,majorId,"Teacher", code, name, table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
         result.setMessage("查看教师信息成功");
+
+        return result;
+    }
+
+    /*
+     * 查询学院信息表
+     * @param name 查询用户名
+     * @param currentPage 当前页号
+     * @return BaseBean 返回学院信息
+     */
+    public BaseBean selectCollege(String code,String name, int currentPage) throws Exception {
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<CollegeBean> list = selectMapper.queryCollegeList(code,name, currentPage);
+
+
+        table.setList(list);
+
+        selectCollegeCount("College", "", name, table);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看学院信息成功");
+
+        return result;
+    }
+
+    /*
+     * 查询学院信息表
+     * @param name 查询用户名
+     * @param currentPage 当前页号
+     * @return BaseBean 返回学院信息
+     */
+    public BaseBean selectAllCollege() throws Exception {
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<CollegeBean> list = selectMapper.queryAllCollegeList();
+
+
+        table.setList(list);
+
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看学院信息成功");
+
+        return result;
+    }
+
+    /*
+     * 查询专业信息表
+     */
+    public BaseBean selectAllMajor() throws Exception {
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<MajorBean> list = selectMapper.queryAllMajorList();
+
+
+        table.setList(list);
+
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看学院信息成功");
+
+        return result;
+    }
+
+    /*
+     * 查询专业信息表
+     * @param name 查询用户名
+     * @param currentPage 当前页号
+     * @return BaseBean 返回学院信息
+     */
+    public BaseBean selectMajor(String code,String collegeId,String name, int currentPage) throws Exception {
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<MajorBean> list = new ArrayList<>();
+        try{
+
+            list = selectMapper.queryMajorList(code,collegeId  ,name, currentPage);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
+        table.setList(list);
+
+        selectMajorCount("Major", code, name, table);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看专业信息成功");
 
         return result;
     }
@@ -49,14 +145,14 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回学生信息
      */
-    public BaseBean selectStudentOnly(String code, String name, int currentPage) throws Exception {
+    public BaseBean selectStudentOnly(String collegeId, String majorId,String code, String name, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<StudentBean> list = selectMapper.queryStudentOnlyList(code, name, currentPage);
+        List<StudentBean> list = selectMapper.queryStudentOnlyList(collegeId,majorId,code, name, currentPage);
 
         table.setList(list);
 
-        selectCount("Student", code, name, table);
+        selectCount(collegeId,collegeId,"Student", code, name, table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -72,10 +168,10 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回学生信息
      */
-    public BaseBean selectStudent(String code, String name, int currentPage) throws Exception {
+    public BaseBean selectStudent(String collegeId, String majorId,String code, String name, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<StudentBean> list = selectMapper.queryStudentList(code, name, currentPage);
+        List<StudentBean> list = selectMapper.queryStudentList(collegeId,majorId,code, name, currentPage);
 
         for (StudentBean studentBean : list) {
             studentBean.setPwd(selectPwd(studentBean.getCode()));
@@ -83,7 +179,7 @@ public class SelectDao {
 
         table.setList(list);
 
-        selectCount("Student", code, name, table);
+        selectCount(collegeId,majorId,"Student", code, name, table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -98,14 +194,14 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回年级信息
      */
-    public BaseBean selectGrade(int gradeId, int currentPage) throws Exception {
+    public BaseBean selectGrade(String collegeId,String majorId,int gradeId, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<GradeBean> list = selectMapper.queryGradeList(gradeId, currentPage);
+        List<GradeBean> list = selectMapper.queryGradeList(collegeId,majorId,gradeId, currentPage);
 
         table.setList(list);
 
-        selectCount("Grade", "", "", table);
+        selectCount(collegeId,majorId,"Grade", "", "", table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -121,14 +217,14 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回班级信息
      */
-    public BaseBean selectClass(String code, String name, int currentPage) throws Exception {
+    public BaseBean selectClass(String collegeId,String majorId,String code, String name, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<ClassBean> list = selectMapper.queryClassList(code, name, currentPage);
+        List<ClassBean> list = selectMapper.queryClassList(collegeId,majorId,code, name, currentPage);
 
         table.setList(list);
 
-        selectCount("Class", "", "", table);
+        selectCount(collegeId,majorId,"Class", "", "", table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -145,14 +241,14 @@ public class SelectDao {
      * @return BaseBean 返回班级信息
      * @throws SQLException
      */
-    public BaseBean selectSubject(String code, String name, int currentPage) throws Exception {
+    public BaseBean selectSubject(String collegeId,String majorId,String code, String name, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<SubjectBean> list = selectMapper.querySubjectList(code, name, currentPage);
+        List<SubjectBean> list = selectMapper.querySubjectList(collegeId,majorId,code, name, currentPage);
 
         table.setList(list);
 
-        selectCount("Subject", "", "", table);
+        selectCount(collegeId,majorId,"Subject", "", "", table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -169,7 +265,7 @@ public class SelectDao {
         BaseBean result = new BaseBean();
         List<GradeBean> list = new ArrayList<>();
 
-        List<GradeBean> tempGradelist = selectMapper.queryGradeList(0, 0);
+        List<GradeBean> tempGradelist = selectMapper.queryGradeList(null,null,0, 0);
         int gradeId = 0;
         for (GradeBean grade : tempGradelist) {
             if (grade.getId() != gradeId) {
@@ -181,7 +277,7 @@ public class SelectDao {
         }
 
 
-        List<ClassBean> tempClassList = selectMapper.queryClassList(null, null, 0);
+        List<ClassBean> tempClassList = selectMapper.queryClassList(null,null,null, null, 0);
 
         gradeId = 0;
         for (ClassBean _class : tempClassList) {
@@ -237,14 +333,14 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回教师科目信息
      */
-    public BaseBean selectTeacherClass(int gradeId, int classId, int subjectId, int currentPage) throws Exception {
+    public BaseBean selectTeacherClass(String collegeId, String majorId,int gradeId, int classId, int subjectId, int currentPage) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<TeacherClassBean> list = selectMapper.queryTeacherClassList(gradeId, classId, subjectId, currentPage);
+        List<TeacherClassBean> list = selectMapper.queryTeacherClassList(collegeId,majorId,gradeId, classId, subjectId, currentPage);
 
         table.setList(list);
 
-        int count = selectMapper.queryTeacherClassCount(gradeId, classId, subjectId);
+        int count = selectMapper.queryTeacherClassCount(collegeId,majorId,gradeId, classId, subjectId);
 
         table.setDataCount(count);
         table.setPageCount((count + 10 - 1) / 10);
@@ -266,21 +362,137 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回学生成绩信息
      */
-    public BaseBean selectResult(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws
+    public BaseBean selectResult(String code, String name, int gradeId, int classId, int subjectId, int currentPage,String desc, String collegeId, String majorId) throws
             Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<ResultBean> list = selectMapper.queryResultList(code, name, gradeId, classId, subjectId, currentPage);
+        List<ResultBean> list = selectMapper.queryResultList(code, name, gradeId, classId, subjectId, currentPage,desc,collegeId,majorId);
 
         table.setList(list);
 
-        int count = selectMapper.queryResultCount(code, name, gradeId, classId, subjectId);
+
+        int count = selectMapper.queryResultCount(code, name, gradeId, classId, subjectId,collegeId,majorId);
+        int best = selectMapper.queryResultCountEcharts(code, name, gradeId, classId, subjectId,2,collegeId,majorId);
+        int pass = selectMapper.queryResultCountEcharts(code, name, gradeId, classId, subjectId,1,collegeId,majorId);
+        int noPass = selectMapper.queryResultCountEcharts(code, name, gradeId, classId, subjectId,0,collegeId,majorId);
 
         table.setDataCount(count);
         table.setPageCount((count + 10 - 1) / 10);
 
+        List<ResultBean> columnEcharts = new ArrayList();
+        if(!StringUtils.isEmpty(gradeId)|| !StringUtils.isEmpty(classId) || !StringUtils.isEmpty(subjectId)){
+            columnEcharts = selectMapper.queryResultListEcharts(gradeId, classId, subjectId);
+        }
+
+        //组装饼图数据结构
+        final EchartsBean echartsBeanPass = new EchartsBean();
+        final EchartsBean echartsBeanNoPass = new EchartsBean();
+        final EchartsBean echartsBeanBest = new EchartsBean();
+        echartsBeanPass.setName("良");
+        echartsBeanPass.setValue(pass);
+        echartsBeanNoPass.setName("不合格");
+        echartsBeanNoPass.setValue(noPass);
+        echartsBeanBest.setName("优");
+        echartsBeanBest.setValue(best);
+        List echartsList = new ArrayList();
+        echartsList.add(echartsBeanPass);
+        echartsList.add(echartsBeanNoPass);
+        echartsList.add(echartsBeanBest);
+
+        List nameEcharts = new ArrayList();
+        List valueEcharts = new ArrayList();
+        //组装柱状图数据
+        columnEcharts.stream().forEach(item ->{
+            nameEcharts.add(item.getName());
+            valueEcharts.add(item.getResult());
+        });
+
+
+        Map resultMap = new HashMap();
+        Map columnEchartsMap = new HashMap();
+        if(columnEcharts.size()>0){
+            columnEchartsMap.put("name",nameEcharts);
+            columnEchartsMap.put("value",valueEcharts);
+        }else{
+            columnEchartsMap.put("name","");
+            columnEchartsMap.put("value","");
+        }
+        resultMap.put("columnEcharts",columnEchartsMap);
+        resultMap.put("list",table);
+        resultMap.put("echarts",echartsList);
+
         result.setCode(BaseBean.SUCCESS);
-        result.setData(table);
+        result.setData(resultMap);
+        result.setMessage("查看学生成绩成功");
+
+        return result;
+    }
+    /*
+     * 查看学生成绩表
+     * @param code 查询账号
+     * @param name 查询用户名
+     * @param gradeId 年级编号
+     * @param classId 班级编号
+     * @param subjectId 科目编号
+     * @param currentPage 当前页号
+     * @return BaseBean 返回学生成绩信息
+     */
+    public BaseBean selectResultCheck(String code, String name, int gradeId, int classId, int subjectId, int currentPage, String collegeId, String majorId) throws
+            Exception {
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<ResultBean> list = selectMapper.queryResultListCheck(code, name, gradeId, classId, subjectId, currentPage,collegeId,majorId);
+
+        table.setList(list);
+
+
+        int count = selectMapper.queryResultCount1(code, name, gradeId, classId, subjectId,collegeId,majorId);
+        int pass = selectMapper.queryResultCountEcharts(code, name, gradeId, classId, subjectId,1,null,null);
+        int noPass = selectMapper.queryResultCountEcharts(code, name, gradeId, classId, subjectId,0,null,null);
+
+        table.setDataCount(count);
+        table.setPageCount((count + 10 - 1) / 10);
+
+        List<ResultBean> columnEcharts = new ArrayList();
+        if(StringUtils.isEmpty(gradeId)|| StringUtils.isEmpty(classId) || StringUtils.isEmpty(subjectId)){
+            columnEcharts = selectMapper.queryResultListEcharts(gradeId, classId, subjectId);
+        }
+
+        //组装饼图数据结构
+        final EchartsBean echartsBeanPass = new EchartsBean();
+        final EchartsBean echartsBeanNoPass = new EchartsBean();
+        echartsBeanPass.setName("合格");
+        echartsBeanPass.setValue(pass);
+        echartsBeanNoPass.setName("不合格");
+        echartsBeanNoPass.setValue(noPass);
+        List echartsList = new ArrayList();
+        echartsList.add(echartsBeanPass);
+        echartsList.add(echartsBeanNoPass);
+
+        List nameEcharts = new ArrayList();
+        List valueEcharts = new ArrayList();
+        //组装柱状图数据
+        columnEcharts.stream().forEach(item ->{
+            nameEcharts.add(item.getName());
+            valueEcharts.add(item.getResult());
+        });
+
+
+        Map resultMap = new HashMap();
+        Map columnEchartsMap = new HashMap();
+        if(columnEcharts.size()>0){
+            columnEchartsMap.put("name",nameEcharts);
+            columnEchartsMap.put("value",valueEcharts);
+        }else{
+            columnEchartsMap.put("name","");
+            columnEchartsMap.put("value","");
+        }
+        resultMap.put("columnEcharts",columnEchartsMap);
+        resultMap.put("list",table);
+        resultMap.put("echarts",echartsList);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(resultMap);
         result.setMessage("查看学生成绩成功");
 
         return result;
@@ -294,14 +506,14 @@ public class SelectDao {
      * @param currentPage 当前页号
      * @return BaseBean 返回添加学生成绩信息
      */
-    public BaseBean selectAddResult(int gradeId, int classId, int subjectId, int currentPage) throws Exception {
+    public BaseBean selectAddResult(int gradeId, int classId, int subjectId, int currentPage, String collegeId, String majorId) throws Exception {
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<StudentBean> list = selectMapper.queryAddResultList(gradeId, classId, subjectId, currentPage);
+        List<StudentBean> list = selectMapper.queryAddResultList(gradeId, classId, subjectId, currentPage,collegeId,majorId);
 
         table.setList(list);
 
-        int count = selectMapper.queryAddResultCount(gradeId, classId, subjectId);
+        int count = selectMapper.queryAddResultCount(gradeId, classId, subjectId,collegeId,majorId);
 
         table.setDataCount(count);
         table.setPageCount((count + 10 - 1) / 10);
@@ -407,8 +619,36 @@ public class SelectDao {
      * @param 查询用户名
      * @param 返回表格实体类
      */
-    void selectCount(String tableName, String code, String name, TableBean obj) throws Exception {
-        int count = selectMapper.queryCount(tableName, code, name);
+    void selectCount(String collegeId,String majorId,String tableName, String code, String name, TableBean obj) throws Exception {
+        int count = selectMapper.queryCount(collegeId,majorId,tableName, code, name);
+
+        obj.setDataCount(count);
+        obj.setPageCount((count + 10 - 1) / 10);
+    }
+
+    /*
+     * 获取表格行数和页数
+     * @param 数据库表名
+     * @param 查询账号
+     * @param 查询用户名
+     * @param 返回表格实体类
+     */
+    void selectCollegeCount(String tableName, String code, String name, TableBean obj) throws Exception {
+        int count = selectMapper.queryCollegeCount(tableName, code, name);
+
+        obj.setDataCount(count);
+        obj.setPageCount((count + 10 - 1) / 10);
+    }
+
+    /*
+     * 获取表格行数和页数
+     * @param 数据库表名
+     * @param 查询账号
+     * @param 查询用户名
+     * @param 返回表格实体类
+     */
+    void selectMajorCount(String tableName, String code, String name, TableBean obj) throws Exception {
+        int count = selectMapper.queryMajorCount(tableName, code, name);
 
         obj.setDataCount(count);
         obj.setPageCount((count + 10 - 1) / 10);

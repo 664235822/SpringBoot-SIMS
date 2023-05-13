@@ -31,6 +31,73 @@ function StuInfo() {
 
 }
 
+function CollegeSelect() {
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render('select', 'quiz1');
+
+    })
+}
+
+
+
+function MajorSelect() {
+    var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+        text += collegeList.data.list[i].mname + "</option>";
+    }
+    $('#mid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.render('select', 'quiz1');
+    })
+}
+function CollegeSelect2() {
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid2').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render('select', 'quiz1');
+
+    })
+}
+
+
+
+function MajorSelect2() {
+    var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+        text += collegeList.data.list[i].mname + "</option>";
+    }
+    $('#mid2').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.render('select', 'quiz1');
+    })
+}
+
 
 /**
  * @description 获取班级年级科目数据
@@ -55,6 +122,8 @@ function UpStudent() {
     Info.qq = Serch("tQQ");
     Info.address = Serch("tAddress");
     Info.pwd = Serch("tPwd");
+    Info.cid = Serch("cid");
+    Info.mid = Serch("mid");
     data.info = JSON.stringify(Info);
     var url = "/insert";
     var Menu = Ajax(url, data);
@@ -97,6 +166,7 @@ function Modify() {
     var list = table.data.list[0];
     $("#tCode").val(list.code);
     $("#tName").val(list.name);
+
     var sex = list.sex;
     if (sex == "女") {
         $("input[type='radio']").eq(0).attr("checked", false);
@@ -107,6 +177,9 @@ function Modify() {
     $("#tQQ").val(list.qq);
     $("#tAddress").val(list.address);
     $("#tPwd").val(list.pwd);
+    $("#cid2").val(list.cid);
+    $("#mid2").val(list.mid);
+    Refresh();
     var text = "";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
@@ -199,10 +272,12 @@ function StuFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
+            var cid = $("#cid").val();
+            var mid = $("#mid").val();
             var data = "";
-            data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
+            data = {"tableName": "Student", "code": code, "name": name,collegeId: cid,majorId: mid, "currentPage": 1};
             var Student = getPage(data);
-            data = {"tableName": "StudentOnly", "code": code, "name": name, "currentPage": 1};
+            data = {"tableName": "StudentOnly", "code": code, "name": name, collegeId: cid,majorId: mid,"currentPage": 1};
             var StudentOnly = getPage(data);
             if (Student.code == 1) {
                 StuTable(Student.data.list, StudentOnly.data.list);
@@ -369,7 +444,6 @@ function MoveClass(gradeId) {
                     text += " <option value=\"" + list[i].classes[j].id + "\">";
                     text += list[i].classes[j].className + "</option>";
                 }
-
             }
         }
     }
@@ -449,10 +523,12 @@ function Page(id, limit, count) {
                 if (!first) {
                     var code = $("#code").val();
                     var name = $("#name").val();
+                    var cid = $("#cid").val();
+                    var mid = $("#mid").val();
                     var data = "";
-                    data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
+                    data = {"tableName": "Student", "code": code, "name": name,collegeId:cid,majorId:mid, "currentPage": obj.curr};
                     var Student = getPage(data);
-                    data = {"tableName": "StudentOnly", "code": code, "name": name, "currentPage": 1};
+                    data = {"tableName": "StudentOnly", "code": code, "name": name,collegeId:cid,majorId:mid, "currentPage": obj.curr};
                     var StudentOnly = getPage(data);
                     if (StudentOnly.code == 1) {
                         StuTable(Student.data.list, StudentOnly.data.list);

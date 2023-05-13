@@ -17,8 +17,38 @@ public class GradeBean {
     private String createMessage;
     //创建时间
     private String createTime;
+
+    private int majorId;
     //班级列表
     private List<ClassBean> classes;
+
+    private int cid;
+
+    private int mid;
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+
+    public int getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(int majorId) {
+        this.majorId = majorId;
+    }
 
     public int getId() {
         return id;

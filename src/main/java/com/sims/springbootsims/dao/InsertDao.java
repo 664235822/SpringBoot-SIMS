@@ -23,6 +23,22 @@ public class InsertDao {
     }
 
     /*
+     * 添加学院信息
+     * @param info 学院信息
+     */
+    public void insertCollege(CollegeBean info) throws Exception {
+        insertMapper.insertCollege(info);
+    }
+
+    /*
+     * 添加专业信息
+     * @param info 专业信息
+     */
+    public void insertMajor(MajorBean info) throws Exception {
+        insertMapper.insertMajor(info);
+    }
+
+    /*
      * 添加学生信息
      * @param info 学生信息
      */
@@ -64,8 +80,13 @@ public class InsertDao {
      */
     public void insertGrade(GradeBean info) throws Exception {
         List<Integer> gradeCodeList = insertMapper.queryGradeCode();
-        int gradeCode = gradeCodeList.get(0);
-        gradeCode++;
+        int gradeCode = 0;
+        if (gradeCodeList.size() == 0) {
+            gradeCode = 1000;
+        } else {
+            gradeCode = gradeCodeList.get(0);
+            gradeCode++;
+        }
         info.setGradeCode(String.valueOf(gradeCode));
 
         insertMapper.insertGrade(info);
@@ -85,8 +106,13 @@ public class InsertDao {
      */
     public void insertSubject(SubjectBean info) throws Exception {
         List<Integer> subjectCodeList = insertMapper.querySubjectCode();
-        int subjectCode = subjectCodeList.get(0);
-        subjectCode++;
+        int subjectCode = 0;
+        if (subjectCodeList.size() == 0) {
+            subjectCode = 1000;
+        } else {
+            subjectCode = subjectCodeList.get(0);
+            subjectCode++;
+        }
         info.setSubjectCode(String.valueOf(subjectCode));
 
         insertMapper.insertSubject(info);

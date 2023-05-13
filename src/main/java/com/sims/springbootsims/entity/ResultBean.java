@@ -25,6 +25,57 @@ public class ResultBean {
     private String time;
     //科目名称
     private String subjectName;
+    //提交修改成绩老师id
+    private String tid;
+    //状态
+    private String status;
+    //修改成绩值
+    private double actualResult;
+
+    public String gettName() {
+        return tName;
+    }
+
+    public void settName(String tName) {
+        this.tName = tName;
+    }
+
+    //是否同意修改 1 同意  2 不同意
+    private String target;
+
+    private String tName;
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public double getActualResult() {
+        return actualResult;
+    }
+
+    public void setActualResult(double actualResult) {
+        this.actualResult = actualResult;
+    }
 
     public int getId() {
         return id;

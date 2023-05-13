@@ -14,7 +14,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>添加班级信息</title>
 </head>
-<body onload="ClassInfo()">
+<body onload="ClassInfo();CollegeSelect();MajorSelect();">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -38,6 +38,26 @@
                         </select>
                     </div>
                 </div>
+        </div>
+        <div class="col-md-3 forms">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px">学院名称：</label>
+                <div class="layui-input-block">
+                    <select id="cid" name="cid" lay-verify="required" lay-reqtext="学院是必填项！">
+                        <option value="">请选择学院</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 forms">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px">专业名称：</label>
+                <div class="layui-input-block">
+                    <select id="mid" name="mid" lay-verify="required" lay-reqtext="专业是必填项！">
+                        <option value="">请选择专业</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="col-md-3 forms">
             <!--            年级名称-->

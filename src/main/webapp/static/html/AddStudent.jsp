@@ -16,7 +16,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>添加学生</title>
 </head>
-<body onload="addCode();StuInfo()">
+<body onload="addCode();StuInfo();CollegeSelect();MajorSelect()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -75,6 +75,22 @@
                         <input type="text" id="tAge" name="tAge" lay-verify="required|age" autocomplete="off"
                                placeholder="请输入年龄"
                                class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学院名称：</label>
+                    <div class="layui-input-block">
+                        <select id="cid" name="cid" lay-verify="required" lay-filter="test">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业名称：</label>
+                    <div class="layui-input-block">
+                        <select id="mid" name="mid" lay-verify="required" lay-filter="test">
+                            <option value="">--请选择--</option>
+                        </select>
                     </div>
                 </div>
                 <!--                年级-->

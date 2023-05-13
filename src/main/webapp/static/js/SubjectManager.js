@@ -24,6 +24,59 @@ function Submanage() {
     generalmang();
 }
 
+function CollegeSelect() {
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        // form.render('select', 'quiz1');
+
+    })
+}
+
+
+
+function MajorSelect() {
+    var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+        text += collegeList.data.list[i].mname + "</option>";
+    }
+    $('#mid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        // form.render('select', 'quiz1');
+    })
+}
+
+function CollegeSelectReturn() {
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    return text;
+}
+function MajorSelectReturn() {
+    var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+        text += collegeList.data.list[i].mname + "</option>";
+    }
+    return text;
+}
+
 /**
  * @description 查看科任老师页面初始化
  * **/
@@ -73,6 +126,14 @@ function Addsub() {
             text += "<div class=\"layui-input-block\">";
             text += "<input type=\"text\" id=\"asub\" name=\"title\" placeholder=\"请输入添加科目名称\"  autocomplete=\"off\" class=\"layui-input\">";
             text += "</div></div>";
+            text += "<select name=\"cid\" id=\"cid1\" lay-filter=\"test\">";
+            text += "<option value=\"0\">请选择学院</option>";
+            text += CollegeSelectReturn();
+            text += "</select>";
+            text += "<select name=\"mid\" id=\"mid1\" lay-filter=\"test\">";
+            text += "<option value=\"0\">请选择专业</option>";
+            text += MajorSelectReturn();
+            text += "</select>";
             text += "<select name=\"city\" id=\"batu\" lay-filter=\"test\">";
             text += "<option value=\"0\">请选择年级(供参考使用)</option>";
             text += grade();
@@ -85,7 +146,7 @@ function Addsub() {
                 , title: ['添加科目', 'color:#ffffff;background-color:#009688;']
                 , content: text
                 , skin: 'demo-class'
-                , area: '330px'
+                , area: '500px'
                 , btn: ['提交', '取消']
                 , yes: function (index) {
                     addSubject(geaid);
@@ -110,6 +171,8 @@ function Addsub() {
  * **/
 function addSubject(geaid) {
     var classname = $("#asub").val();
+    var cid = $("#cid1").val();
+    var mid = $("#mid1").val();
     if (classname == "") {
         layer.msg("请正确输入", {
             icon: 5
@@ -123,6 +186,8 @@ function addSubject(geaid) {
         var info = {};
         info.subjectName = classname;
         info.gradeId = geaid;
+        info.cid = cid;
+        info.mid = mid;
         info.createMessage = JSON.parse(localStorage.Login).name;
         data.info = JSON.stringify(info);
         var table = Ajax(url, data);
@@ -145,16 +210,17 @@ function Subjects(classId) {
         for (var i = 0; i < list.length; i++) {
             if (list[i].id == gradeId) {
                 for (var j = 0; j < list[i].classes.length; j++) {
-                    if (list[i].classes[j].subjects != undefined) {
-                        for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
-                            if (subjectsId != list[i].classes[j].subjects[k].id) {
-                                subjectsId = list[i].classes[j].subjects[k].id;
-                                text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
-                                text += list[i].classes[j].subjects[k].subjectName + "</option>";
+                        if (list[i].classes[j].subjects != undefined) {
+                            for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
+                                if (subjectsId != list[i].classes[j].subjects[k].id) {
+                                    subjectsId = list[i].classes[j].subjects[k].id;
+                                    text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
+                                    text += list[i].classes[j].subjects[k].subjectName + "</option>";
+                                }
                             }
                         }
-                    }
-                    break;
+                        break;
+
                 }
                 break;
             }
@@ -233,19 +299,24 @@ function TeacherSub() {
             var gradeId = $("#Grades option:selected").val();
             var classId = $("#Class option:selected").val();
             var SubjectsId = $("#Subjects  option:selected").val();
+            var cid = $("#cid").val();
+            var mid = $("#mid").val();
             var data = {
                 "tableName": "TeacherClass",
                 "gradeId": gradeId,
                 "classId": classId,
                 "subjectId": SubjectsId,
+                "collegeId": cid,
+                "majorId": mid,
                 "currentPage": 1
             };
             var table = getpage(data);
+            debugger;
             if (table.code == 1) {
                 SubjectTeacher(table.data.list);
                 Refresh();
                 Page("test1", table.data.pageCount, table.data.dataCount);
-                TeacherSub();
+                // TeacherSub();
             }
 
         });
@@ -258,9 +329,10 @@ function TeacherSub() {
  */
 function GetGrades() {
     var text = "";
-    text += "<option value=\"0\">请选择班级</option>";
+    text += "<option value=\"0\">请选择年级</option>";
     text += grade();
     $("#Grades").html(text);
+    debugger;
     layui.use('form', function () {
         var form = layui.form;
         form.render();
@@ -294,7 +366,9 @@ function generalmang() {
         $("#subsea1").click(function () {
             var name = $("#name").val();
             var code = $("#code").val();
-            var data = {"tableName": "Subject", "code": code, "name": name, "currentPage": 1};
+            var cid = $("#cid").val();
+            var mid = $("#mid").val();
+            var data = {"tableName": "Subject", "code": code, "name": name,collegeId:cid,majorId:mid, "currentPage": 1};
             var table = getpage(data);
             if (table.code == 1) {
                 Tabsub(table.data.list);
@@ -524,7 +598,7 @@ function Page(id, limit, count) {
                         var name = $("#name").val();
                         var code = $("#code").val();
                         var data = {"tableName": "Subject", "code": code, "name": name, "currentPage": obj.curr};
-                        var table = getPage(data);
+                        var table = getpage(data);
                         if (table.code == 1) {
                             Tabsub(table.data.list);
                             Refresh();
@@ -543,11 +617,10 @@ function Page(id, limit, count) {
                             "subjectId": SubjectsId,
                             "currentPage": obj.curr
                         };
-                        var table = getPage(data);
+                        var table = getpage(data);
                         if (table.code == 1) {
                             SubjectTeacher(table.data.list);
                             Refresh();
-                            Page("test1", table.data.pageCount, table.data.dataCount);
                             TeacherSub();
                         }
 
@@ -566,6 +639,7 @@ function Page(id, limit, count) {
  *
  * */
 function SubjectTeacher(data) {
+    debugger;
     if (data != null) {
         var text = "";
         text += "<thead><tr>";
@@ -582,8 +656,8 @@ function SubjectTeacher(data) {
             text += "<td>" + data[i].teacherName + "</td>";
             text += "</tr>";
             text += "</tbody>";
-            $("#table").html(text);
         }
+        $("#table").html(text);
     }
 }
 

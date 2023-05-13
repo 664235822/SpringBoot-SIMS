@@ -84,4 +84,43 @@ public class UpdateDao {
     public void updateSubject(SubjectBean subjectInfo) throws Exception {
         updateMapper.updateSubject(subjectInfo);
     }
+
+    /*
+     * 更新学院
+     * @param 要更新的科目信息
+     */
+    public void updateCollege(CollegeBean collegeInfo) throws Exception {
+        updateMapper.updateCollege(collegeInfo);
+    }
+
+    /*
+     * 更新学院
+     * @param 要更新的科目信息
+     */
+    public void updateMajor(MajorBean majorInfo) throws Exception {
+        updateMapper.updateMajor(majorInfo);
+    }
+
+    /*
+     * 更新成绩
+     * @param
+     */
+    public void updateResult(ResultBean resultInfo) throws Exception {
+        resultInfo.setStatus("1");
+        updateMapper.updateResult(resultInfo);
+    }
+
+    /*
+     * 审核修改成绩
+     * @param
+     */
+    public void CheckUpdate(ResultBean resultInfo) throws Exception {
+        if("1".equals(resultInfo.getTarget())){
+            resultInfo.setStatus("0");
+            resultInfo.setResult(resultInfo.getActualResult());
+        }else {
+            resultInfo.setStatus("0");
+        }
+        updateMapper.updateResult(resultInfo);
+    }
 }

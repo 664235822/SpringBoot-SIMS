@@ -13,7 +13,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>添加年级</title>
 </head>
-<body onload="GradeInfo()" style="padding-top: 50px;">
+<body onload="CollegeSelect();MajorSelect();GradeInfo();" style="padding-top: 50px;">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -33,6 +33,26 @@
                     <input type="text" id="gradeName" name="" lay-verify="required" autocomplete="off"
                            placeholder="必填项不能为空！"
                            class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 forms">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px">学院名称：</label>
+                <div class="layui-input-block">
+                    <select id="cid" name="cid" lay-verify="required" lay-reqtext="学院是必填项！">
+                        <option value="">请选择学院</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 forms">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px">专业名称：</label>
+                <div class="layui-input-block">
+                    <select id="mid" name="mid" lay-verify="required" lay-reqtext="学院是必填项！">
+                        <option value="">请选择专业</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -66,5 +86,6 @@
     </div>
 </div>
 </body>
+
 
 </html>

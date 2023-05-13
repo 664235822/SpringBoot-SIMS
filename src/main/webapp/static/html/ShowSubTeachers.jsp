@@ -15,7 +15,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>查看科任老师信息</title>
 </head>
-<body onload="showteachifo()">
+<body onload="showteachifo();CollegeSelect();MajorSelect()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -31,6 +31,23 @@
             <!--        内联搜索框-->
             <form class="layui-form">
                 <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">学院：</label>
+                    </div>
+                    <div class="layui-inline">
+                        <select id="cid" name="cid" lay-verify="required" >
+                            <option value="">请选择学院</option>
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">专业：</label>
+                    </div>
+                    <div class="layui-inline">
+                        <select id="mid" name="mid" lay-verify="required" >
+                            <option value="">请选择专业</option>
+                        </select>
+                    </div>
+                    <br>
                     <label class="layui-form-label">搜索：</label>
                     <div class="layui-input-inline">
                         <select name="quiz1" lay-filter="test" id="Grades">

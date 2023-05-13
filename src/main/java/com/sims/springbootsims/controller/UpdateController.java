@@ -22,6 +22,7 @@ public class UpdateController {
             baseBean.setCode(BaseBean.SUCCESS);
             baseBean.setMessage("更新信息成功");
         } catch (Exception e) {
+            e.printStackTrace();
             baseBean.setCode(BaseBean.FAILED);
             baseBean.setMessage(e.getMessage());
         }

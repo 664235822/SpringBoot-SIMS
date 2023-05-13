@@ -1,9 +1,6 @@
 package com.sims.springbootsims.mapper;
 
-import com.sims.springbootsims.entity.ClassBean;
-import com.sims.springbootsims.entity.StudentBean;
-import com.sims.springbootsims.entity.SubjectBean;
-import com.sims.springbootsims.entity.TeacherBean;
+import com.sims.springbootsims.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -24,4 +21,10 @@ public interface UpdateMapper {
     public void updateClass(ClassBean classBean);
 
     public void updateSubject(SubjectBean subjectBean);
+
+    public void updateCollege(CollegeBean collegeBean);
+
+    public void updateMajor(MajorBean majorBean);
+
+    public void updateResult(ResultBean resultBean);
 }

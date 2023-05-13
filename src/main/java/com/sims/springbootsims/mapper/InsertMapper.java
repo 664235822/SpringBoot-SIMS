@@ -12,6 +12,10 @@ public interface InsertMapper {
 
     public void insertTeacher(TeacherBean teacherBean);
 
+    public void insertCollege(CollegeBean collegeBean);
+
+    public void insertMajor(MajorBean majorBean);
+
     public void insertStudent(StudentBean studentBean);
 
     public TeacherClassBean queryTeacherClass(int teacherId, int classId, int subjectId);

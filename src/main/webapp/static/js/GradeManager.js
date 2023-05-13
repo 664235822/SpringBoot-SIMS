@@ -37,6 +37,37 @@ function getClass(page) {
     return data;
 }
 
+
+function CollegeSelect(){
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render('select','quiz1');
+    })
+}
+function MajorSelect(){
+    var majorList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < majorList.data.list.length; i++) {
+        text += " <option value=\"" + majorList.data.list[i].mid + "\" >";
+        text += majorList.data.list[i].mname + "</option>";
+    }
+    $('#mid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.render('select','quiz1');
+    })
+}
+
 /**
  * @description 年级添加操作
  *
@@ -49,6 +80,8 @@ function gradeFunction() {
             var data = {};
             var Info = {};
             Info.gradeName = $("#gradeName").val();
+            Info.cid = $("#cid").val();
+            Info.mid = $("#mid").val();
             Info.createMessage = JSON.parse(localStorage.Login).name;
             data.info = JSON.stringify(Info);
             data.tableName = "Grade";

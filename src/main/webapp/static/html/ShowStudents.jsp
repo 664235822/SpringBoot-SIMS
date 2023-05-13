@@ -16,7 +16,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>管理学生</title>
 </head>
-<body onload="StuMoveClass()">
+<body onload="StuMoveClass();CollegeSelect();MajorSelect();">
 
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -27,23 +27,43 @@
 </nav>
 <!--          内容区-->
 <div class="container">
-    <div class="layui-row leaveTop">
+    <div class="layui-row leaveTop layui-form">
         <!--          模糊查询-->
-        <div class="layui-col-md3">
+        <div class="col-md-3">
             <label class="layui-form-label">姓名：</label>
             <div class="layui-input-block">
                 <input type="text" name="title" id="name" required="" lay-verify="required" placeholder="请输入姓名"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-col-md3">
+        <div class="col-md-3">
             <label class="layui-form-label">学号：</label>
             <div class="layui-input-block">
                 <input type="text" name="title" id="code" required="" lay-verify="required" placeholder="请输入学号"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-col-md3">
+        <div class="col-md-3">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px">学院名称：</label>
+                <div class="layui-input-block">
+                    <select id="cid" name="cid" lay-verify="required" lay-reqtext="学院是必填项！">
+                        <option value="">请选择学院</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px">专业名称：</label>
+                <div class="layui-input-block">
+                    <select id="mid" name="mid" lay-verify="required" lay-reqtext="专业是必填项！">
+                        <option value="">请选择专业</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
             <div class="layui-input-block moveleft">
                 <button type="button" id="Select" class="layui-btn pull-left  layui-btn-normal"><i class="layui-icon">&#xe615;</i>查询
                 </button>

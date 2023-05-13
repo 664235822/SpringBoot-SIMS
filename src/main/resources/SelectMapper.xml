@@ -13,8 +13,61 @@
             <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
+            <if test="collegeId != null and collegeId != ''">
+                and cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and mid  = #{majorId}
+            </if>
         </where>
         order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
+    </select>
+
+    <select id="queryCollegeList" resultType="com.sims.springbootsims.entity.CollegeBean">
+        select * from college
+        <where>
+            <if test="name != null and name != ''">
+                and cname like "%"#{name}"%"
+            </if>
+            <if test="code != null and code != ''">
+                and cid = #{code}
+            </if>
+        </where>
+        order by cid desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
+    </select>
+
+    <select id="queryAllCollegeList" resultType="com.sims.springbootsims.entity.CollegeBean">
+        select * from college
+        where cstatus = '1'
+        order by cid desc
+    </select>
+
+    <select id="queryAllMajorList" resultType="com.sims.springbootsims.entity.MajorBean">
+        select * from major
+        where mstatus = '1'
+        order by mid desc
+    </select>
+
+    <select id="queryMajorList" resultType="com.sims.springbootsims.entity.MajorBean">
+        select m.*,c.cname from major m left join college c on m.cid = c.cid
+        <where>
+            <if test="name != null and name != ''">
+                and mname like "%"#{name}"%"
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and m.cid = #{collegeId}
+            </if>
+            <if test="code != null and code != ''">
+                and m.mid = #{code}
+            </if>
+        </where>
+        order by mid desc
         <if test="currentPage != 0">
             limit ${(currentPage - 1) * 10} , 10
         </if>
@@ -23,10 +76,37 @@
         select * from Student
         <where>
             <if test="code != null and code != ''">
+                and code like "%" #{code} "%"
+            </if>
+            <if test="name != null and name != ''">
+                and name like "%"#{name}"%"
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and cid = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and mid = #{majorId}
+            </if>
+        </where>
+        order by id desc
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
+    </select>
+    <select id="queryStudentOnlyList9" resultType="java.lang.String">
+        select code from Student
+        <where>
+            <if test="code != null and code != ''">
                 and code like "%"#{code}"%"
             </if>
             <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and cid = #{collegeId}
+            </if>
+            <if test="code != null and code != ''">
+                and mid = #{code}
             </if>
         </where>
         order by id desc
@@ -47,6 +127,12 @@
             <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
+            <if test="collegeId != null and collegeId != ''">
+                and st.cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and st.mid  = #{majorId}
+            </if>
         </where>
         order by id desc
         <if test="currentPage != 0">
@@ -58,6 +144,12 @@
         <where>
             <if test="gradeId != 0">
                 and id = #{gradeId}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and mid  = #{majorId}
             </if>
         </where>
         order by id desc
@@ -74,6 +166,12 @@
             <if test="name != null and name != ''">
                 and className like "%"#{name}"%"
             </if>
+            <if test="collegeId != null and collegeId != ''">
+                and cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and mid  = #{majorId}
+            </if>
         </where>
         order by id desc
         <if test="currentPage != 0">
@@ -89,6 +187,12 @@
             </if>
             <if test="name != null and name != ''">
                 and subjectName like "%"#{name}"%"
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and su.cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and su.mid  = #{majorId}
             </if>
         </where>
         order by id desc
@@ -120,6 +224,12 @@
             <if test="subjectId != 0">
                 and su.id = #{subjectId}
             </if>
+            <if test="collegeId != null and collegeId != ''">
+                and su.cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and su.mid  = #{majorId}
+            </if>
         </where>
         order by id desc
         <if test="currentPage != 0">
@@ -142,14 +252,21 @@
             <if test="subjectId != 0">
                 and su.id = #{subjectId}
             </if>
+            <if test="collegeId != null and collegeId != ''">
+                and su.cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and su.mid  = #{majorId}
+            </if>
         </where>
     </select>
     <select id="queryResultList" resultType="com.sims.springbootsims.entity.ResultBean">
-        select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re
+        select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName,re.actualResult,t.name tid from Result re
         inner join Student st on re.sid = st.id
         inner join Class cl on st.classId = cl.id
         inner join Grade gr on cl.gradeId = gr.id
         inner join Subject su on re.subId = su.id
+        left join Teacher t on re.tid = t.code
         <where>
             <if test="code != null and code != ''">
                 and st.code like "%"#{code}"%"
@@ -166,11 +283,80 @@
             <if test="subjectId != 0">
                 and su.id = #{subjectId}
             </if>
+            <if test="collegeId != null and collegeId !=''">
+                and st.cid = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId !=''">
+                and st.mid = #{majorId}
+            </if>
+        </where>
+        <choose>
+            <when test="desc!=null and desc !=''">
+                order by result desc
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="currentPage != 0">
+            limit ${(currentPage - 1) * 10} , 10
+        </if>
+    </select>
+    <select id="queryResultListCheck" resultType="com.sims.springbootsims.entity.ResultBean">
+        select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName,re.actualResult,t.id tid,t.name tName from Result re
+        inner join Student st on re.sid = st.id
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join Subject su on re.subId = su.id
+        left join Teacher t on re.tid = t.code
+        <where>
+            re.status = '1'
+            <if test="code != null and code != ''">
+                and st.code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name != ''">
+                and st.name like "%"#{name}"%"
+            </if>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and st.cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and st.mid  = #{majorId}
+            </if>
         </where>
         order by id desc
         <if test="currentPage != 0">
             limit ${(currentPage - 1) * 10} , 10
         </if>
+    </select>
+    <select id="queryResultListEcharts" resultType="com.sims.springbootsims.entity.ResultBean">
+        select re.result,st.name from Result re
+        inner join Student st on re.sid = st.id
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join Subject su on re.subId = su.id
+        <where>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+        </where>
+        order by re.result desc
+        limit 1,7
     </select>
     <select id="queryResultCount" resultType="Integer">
         select count(*) as count from Result re
@@ -194,6 +380,77 @@
             <if test="subjectId != 0">
                 and su.id = #{subjectId}
             </if>
+            <if test="collegeId != null and collegeId !=''">
+                and st.cid = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId !=''">
+                and st.mid = #{majorId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryResultCount1" resultType="Integer">
+        select count(*) as count from Result re
+        inner join Student st on re.sid = st.id
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join Subject su on re.subId=su.id
+        <where>
+            re.status = '1'
+            <if test="code != null and code != ''">
+                and st.code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name != ''">
+                and st.name like "%"#{name}"%"
+            </if>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+            <if test="collegeId != null and collegeId !=''">
+                and st.cid = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId !=''">
+                and st.mid = #{majorId}
+            </if>
+        </where>
+    </select>
+    <select id="queryResultCountEcharts" resultType="Integer">
+        select count(*) as count from Result re
+        inner join Student st on re.sid = st.id
+        inner join Class cl on st.classId = cl.id
+        inner join Grade gr on cl.gradeId = gr.id
+        inner join Subject su on re.subId=su.id
+        <where>
+            <if test="gradeId != 0">
+                and gr.id = #{gradeId}
+            </if>
+            <if test="classId != 0">
+                and cl.id = #{classId}
+            </if>
+            <if test="subjectId != 0">
+                and su.id = #{subjectId}
+            </if>
+            <if test="pass == 1">
+                and result >=60 and result &lt; 80
+            </if>
+            <if test="pass == 2">
+                and result >=80
+            </if>
+            <if test="pass == 0">
+                and result &lt; 60
+            </if>
+            <if test="collegeId != null and collegeId !=''">
+                and st.cid = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId !=''">
+                and st.mid = #{majorId}
+            </if>
         </where>
     </select>
     <select id="queryAddResultList" resultType="com.sims.springbootsims.entity.StudentBean">
@@ -211,6 +468,12 @@
             </if>
             <if test="subjectId != 0">
                 and su.id = #{subjectId}
+            </if>
+            <if test="collegeId != null and collegeId !=''">
+                and st.cid = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId !=''">
+                and st.mid = #{majorId}
             </if>
         </where>
         order by id desc
@@ -233,6 +496,12 @@
             </if>
             <if test="subjectId != 0">
                 and su.id = #{subjectId}
+            </if>
+            <if test="collegeId != null and collegeId !=''">
+                and st.cid = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId !=''">
+                and st.mid = #{majorId}
             </if>
         </where>
     </select>
@@ -348,6 +617,30 @@
             </if>
             <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and cid  = #{collegeId}
+            </if>
+            <if test="majorId != null and majorId != ''">
+                and mid  = #{majorId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCollegeCount" resultType="Integer">
+        select count(*) as count from ${tableName}
+        <where>
+            <if test="name != null and name != ''">
+                and cname like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="queryMajorCount" resultType="Integer">
+        select count(*) as count from ${tableName}
+        <where>
+            <if test="name != null and name != ''">
+                and mname like "%"#{name}"%"
             </if>
         </where>
     </select>

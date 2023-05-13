@@ -53,6 +53,23 @@ public class UpdateService {
                 SubjectBean subjectInfo = JSON.parseObject(info, SubjectBean.class);
                 updateDao.updateSubject(subjectInfo);
                 break;
+            case "College":
+                CollegeBean collegeBean = JSON.parseObject(info, CollegeBean.class);
+                updateDao.updateCollege(collegeBean);
+                break;
+            case "Major":
+                MajorBean majorBean = JSON.parseObject(info, MajorBean.class);
+                updateDao.updateMajor(majorBean);
+                break;
+            case "ResultUpdate":
+                ResultBean resultBean = JSON.parseObject(info, ResultBean.class);
+                updateDao.updateResult(resultBean);
+                break;
+            case "CheckResult":
+                ResultBean checkUpdate = JSON.parseObject(info, ResultBean.class);
+                updateDao.CheckUpdate(checkUpdate);
+                break;
+
         }
     }
 }

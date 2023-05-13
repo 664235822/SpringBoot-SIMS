@@ -22,7 +22,7 @@
     <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
         <div class="layadmin-user-login-main layui-anim layui-anim-scale">
             <div class="layadmin-user-login-box layadmin-user-login-header">
-                <h2>学生信息管理系统</h2>
+                <h2>教务管理系统</h2>
             </div>
 
             <div class="layadmin-user-login-box layadmin-user-login-body layui-form">

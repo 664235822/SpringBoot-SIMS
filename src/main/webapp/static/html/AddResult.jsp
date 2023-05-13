@@ -15,7 +15,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>录入成绩</title>
 </head>
-<body onload="ResultInfo()">
+<body onload="ResultInfo();CollegeSelect();MajorSelect();">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -32,6 +32,17 @@
             <form class="layui-form">
                 <div class="layui-form-item">
                     <label class="layui-form-label">搜索：</label>
+                    <div class="layui-input-inline">
+                        <select name="college" id="cid" lay-filter="college">
+                            <option value="" selected="">请选择学院</option>
+
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="major" id="mid" lay-filter="major">
+                            <option value="" selected="">请选择专业</option>
+                        </select>
+                    </div>
                     <div class="layui-input-inline">
                         <select name="quiz1" id="Grades" lay-filter="test">
                             <option value="0" selected="">请选择年级</option>

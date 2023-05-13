@@ -2,7 +2,7 @@
  * 年级管理js
  * **/
 //不同页面的表格名
-var tableName="";
+var tableName = "";
 
 /**
  * @description 查看班级初始化
@@ -14,11 +14,44 @@ function ShowClass() {
     if (Class.code == 1) {
         ClassTable(grade.data.list, Class.data.list);
         Refresh();
-        tableName="showTable";
+        tableName = "showTable";
         Page("test1", Class.data.pageCount, Class.data.dataCount);
         ClassFunction();
     }
 }
+
+function CollegeSelect() {
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render('select', 'quiz1');
+
+    })
+}
+
+function MajorSelect() {
+    var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+        text += collegeList.data.list[i].mname + "</option>";
+    }
+    $('#mid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.render('select', 'quiz1');
+    })
+}
+
 /**
  * @description 新增班级初始化
  *
@@ -29,7 +62,7 @@ function ClassInfo() {
     if (Class.code == 1) {
         AddClassTable(grade.data.list, Class.data.list);
         Refresh();
-        tableName="addTable";
+        tableName = "addTable";
         Page("test1", Class.data.pageCount, Class.data.dataCount);
         AddClass(Class);
     }
@@ -57,14 +90,16 @@ function AddClass() {
         });
         //表单监听事件
         form.on('select(quiz1)', function (data) {
+            debugger;
             gradeId = data.value;
             for (var i = 0; i < GradeAll.data.length; i++) {
                 if (GradeAll.data[i].id == gradeId) {
-                   if(GradeAll.data[i].classes.length==0){
-                        num=GradeAll.data[i].gradeCode+"01";
-                   }else {
-                       num = parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length - 1].classCode) + 1;
-                   }
+                    if (GradeAll.data[i].classes.length == 0) {
+                        num = GradeAll.data[i].gradeCode + "01";
+                    } else {
+                        debugger;
+                        num = parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length - 1].classCode) + 1;
+                    }
                     $("#ClassCode").val(num);
                     break;
                 }
@@ -107,6 +142,8 @@ function erifydata(ClassName, GradeAll, gradeId, num) {
         Info.gradeId = gradeId;
         Info.classCode = num;
         Info.createMessage = JSON.parse(localStorage.Login).name;
+        Info.cid = $('#cid').val();
+        Info.mid = $('#mid').val();
         data.info = JSON.stringify(Info);
         data.tableName = "Class";
         var grande = Ajax("/insert", data);
@@ -132,9 +169,9 @@ function erifydata(ClassName, GradeAll, gradeId, num) {
  * @param  page 页数
  * @param data  访问到的数据
  */
-function getGrade(page) {
+function getGrade(page, cid, mid) {
     var url = "/select";
-    var data = Ajax(url, {'tableName': 'Grade', "gradeId": "", 'currentPage': page});
+    var data = Ajax(url, {'tableName': 'Grade', "gradeId": "", collegeId: cid, majorId: mid, 'currentPage': page});
     return data;
 }
 
@@ -161,11 +198,13 @@ function ClassFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
+            var cid = $("#cid").val();
+            var mid = $("#mid").val();
             var Class = getClass(1, code, name);
-            var grade = getGrade(0);
+            var grade = getGrade(0, cid, mid);
             if (Class.code == 1) {
                 ClassTable(grade.data.list, Class.data.list);
-                Refresh();
+                Refresh();//刷新
                 Page("test1", Class.data.pageCount, Class.data.dataCount);
                 ClassFunction();
             }
@@ -240,7 +279,7 @@ function Move(codeList) {
     var gradeId = 0;
     var text = "";
     text += " <div class=\"layui-form\">";
-    text +=" <input type=\"text\" id='MoveGradeId' required  lay-verify=\"required\" disabled placeholder=\"班级编号（选择年级后显示）\" autocomplete=\"off\" class=\"layui-input\">"
+    text += " <input type=\"text\" id='MoveGradeId' required  lay-verify=\"required\" disabled placeholder=\"班级编号（选择年级后显示）\" autocomplete=\"off\" class=\"layui-input\">"
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
@@ -277,12 +316,12 @@ function Move(codeList) {
         form.render();
         form.on('select(test)', function (data) {
             gradeId = data.value;
-            var num=0;
+            var num = 0;
             for (var i = 0; i < GradeAll.data.length; i++) {
                 if (GradeAll.data[i].id == gradeId) {
-                    if(GradeAll.data[i].classes.length==0){
-                        num=GradeAll.data[i].gradeCode+"01";
-                    }else {
+                    if (GradeAll.data[i].classes.length == 0) {
+                        num = GradeAll.data[i].gradeCode + "01";
+                    } else {
                         num = parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length - 1].classCode) + 1;
                     }
                     $("#MoveGradeId").val(num);
@@ -298,9 +337,13 @@ function Move(codeList) {
  * @description 修改班级名称
  * @param  code 年级编号
  */
+var classData;
 function ShowModify(code) {
+
     var Class = getClass(0, code, "");
+    classData = Class;
     var text = "";
+    text += "<div class='layui-form'>"
     text += "<div class=\"layui-form-item\">";
     text += "<label class=\"layui-form-label\">编号</label>";
     text += "<div class=\"layui-input-block\">";
@@ -311,6 +354,27 @@ function ShowModify(code) {
     text += "<div class=\"layui-input-block\">";
     text += "<input type=\"text\" name=\"title\" id='Classname' value=\"" + Class.data.list[0].className + "\" autocomplete=\"off\" class=\"layui-input\">";
     text += "</div></div>";
+
+    text += `<div class="layui-form-item">
+                    <label class="layui-form-label">学院：</label>
+                    <div class="layui-input-block">
+                        <select id="cid1" name="cid" >
+                            <option value="">请选择学院</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业：</label>
+                    <div class="layui-input-block">
+                        <select id="mid1" name="mid" >
+                            <option value="">请选择专业</option>
+                        </select>
+                    </div>
+                </div>`;
+    text += "</div>"
+
+
     layer.open({
         title: '更改班级名称',
         btn: ['确定', '取消'],
@@ -319,6 +383,41 @@ function ShowModify(code) {
         btnAlign: 'c',
         move: false,
         shade: [0.1, '#ffffff'],
+        success: function (layero, index) {
+            var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+            var text1 = '';
+            for (var i = 0; i < collegeList.data.list.length; i++) {
+                text1 += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+                text1 += collegeList.data.list[i].cname + "</option>";
+            }
+            var test1 = $('#cid1')
+            $('#cid1').append(text1);
+            Refresh();
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render('select', 'quiz1');
+
+            })
+
+            var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+            var text2 = '';
+            for (var i = 0; i < collegeList.data.list.length; i++) {
+                text2 += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+                text2 += collegeList.data.list[i].mname + "</option>";
+            }
+            var test2 = $('#mid1')
+            $('#mid1').append(text2);
+            Refresh();
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+                form.render('select', 'quiz1');
+            })
+            $('#cid1').val(classData.data.list[0].cid);
+            $('#mid1').val(classData.data.list[0].mid);
+            Refresh();
+
+        },
         yes: function (index) {
             var data = {};
             var url = "/update";
@@ -326,6 +425,8 @@ function ShowModify(code) {
             var info = {};
             info.classCode = Class.data.list[0].classCode;
             info.className = $("#Classname").val();
+            info.cid = $("#cid1").val();
+            info.mid = $("#mid1").val();
             data.info = JSON.stringify(info);
             var table = Ajax(url, data);
             Callback(table);
@@ -416,15 +517,15 @@ function Page(id, limit, count) {
             , jump: function (obj, first) {
                 //首次不执行
                 if (!first) {
-                    var name=$("#ClassName").val();
-                    var code=$("#ClassCode").val();
+                    var name = $("#ClassName").val();
+                    var code = $("#ClassCode").val();
                     var grade = getGrade(0);
-                    var Class = getClass(obj.curr,code,name);
+                    var Class = getClass(obj.curr, code, name);
                     if (Class.code == 1) {
-                        if(tableName=="showTable"){
+                        if (tableName == "showTable") {
                             ClassTable(grade.data.list, Class.data.list);
                         }
-                        if(tableName=="addTable"){
+                        if (tableName == "addTable") {
                             AddClassTable(grade.data.list, Class.data.list);
                         }
                         Refresh();

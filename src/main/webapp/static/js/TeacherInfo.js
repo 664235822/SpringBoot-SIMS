@@ -108,6 +108,8 @@ layui.use(['form'], function () {
         Info.address = Serch("tAddress");
         Info.introduction = Serch("tIntorduction");
         Info.pwd = Serch("tPwd");
+        Info.cid = Serch("cid");
+        Info.mid = Serch("mid");
         data.info = JSON.stringify(Info);
         var url = "/update";
         var Menu = Ajax(url, data);

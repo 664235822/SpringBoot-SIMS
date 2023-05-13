@@ -15,7 +15,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>班级管理</title>
 </head>
-<body onload="ShowClass()">
+<body onload="ShowClass();CollegeSelect();MajorSelect()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -25,13 +25,34 @@
 </nav>
 <!--          内容区-->
 <div class="container">
-    <div class="row">
+    <div class="row layui-form">
         <!--            表格-->
         <div class="demoTable" style="margin-top: 20px">
             <!--          模糊查询-->
             <div class="demoTable ">
                 <div class="layui-inline">
-                    <label class="layui-form-label">搜索：</label>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:100px">学院名称：</label>
+                        <div class="layui-input-block">
+                            <select id="cid" name="cid" lay-verify="required" lay-reqtext="学院是必填项！">
+                                <option value="">请选择学院</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:100px">专业名称：</label>
+                        <div class="layui-input-block">
+                            <select id="mid" name="mid" lay-verify="required" lay-reqtext="学院是必填项！">
+                                <option value="">请选择专业</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width: 100px">搜索班级：</label>
                 </div>
                 <div class="layui-inline">
                     <input class="layui-input" name="id" id="code" autocomplete="off" placeholder="请输入班级编号">
@@ -39,6 +60,7 @@
                 <div class="layui-inline">
                     <input class="layui-input" name="id" id="name" autocomplete="off" placeholder="请输入班级名称">
                 </div>
+
                 <div class="layui-inline">
                     <div class="layui-btn" id="Select" >搜索</div>
                 </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学生信息管理系统</title>
+    <title>教务管理系统</title>
     <link rel="icon" href="${pageContext.request.contextPath}/static/img/StudentManageSystom.ico" />
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/static/layui/css/layui.css" rel="stylesheet"/>
@@ -24,7 +24,7 @@
         <div class="layui-logo">
 <!--            <img src="${pageContext.request.contextPath}/static/img/logo.png"/>-->
             <a href="${pageContext.request.contextPath}/static/html/HomePage.jsp" target="ifm" style="font-size: 20px; color: white;">
-                <i class="layui-icon layui-icon-console" style="font-size: 28px; vertical-align: middle;"></i>学生信息管理系统</a>
+                <i class="layui-icon layui-icon-console" style="font-size: 20px; vertical-align: middle;"></i>  教务管理系统</a>
         </div>
         <ul class="layui-nav layui-layout-right" id="topnav">
             <li class="layui-nav-item">
@@ -58,10 +58,10 @@
     <!--    <iframe onload="setHeight()"  scrolling="no" class="ifm" src="${pageContext.request.contextPath}/static/html/AddStudent.jsp"></iframe>-->
 </div>
 <!-- 底部导航栏 -->
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <p class="text-center" style="height: 50px; line-height: 50px; margin: 0px;">
-        欢迎访问学生信息管理系统，更多信息请联系我们，我们的邮箱是2633944192@qq.com</p>
-</nav>
+<%--<nav class="navbar navbar-default navbar-fixed-bottom">--%>
+<%--    <p class="text-center" style="height: 50px; line-height: 50px; margin: 0px;">--%>
+<%--        欢迎访问教务管理系统，更多信息请联系我们，我们的邮箱是2589547855@qq.com</p>--%>
+<%--</nav>--%>
 </body>
 <script>
     //自适应高度

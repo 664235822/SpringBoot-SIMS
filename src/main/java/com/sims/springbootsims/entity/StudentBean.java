@@ -36,6 +36,26 @@ public class StudentBean {
     //科目名称
     private String subjectName;
 
+    private int cid;
+
+    private int mid;
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+
     public int getId() {
         return id;
     }

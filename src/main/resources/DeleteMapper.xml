@@ -32,6 +32,18 @@
         from TeacherClass
         where tId = #{id}
     </delete>
+
+    <delete id="deleteCollege" parameterType="Integer">
+        delete
+        from College
+        where cid = #{id}
+    </delete>
+
+    <delete id="deleteMajor" parameterType="Integer">
+        delete
+        from major
+        where mid = #{id}
+    </delete>
     <delete id="deleteTeacher" parameterType="String">
         delete
         from Teacher

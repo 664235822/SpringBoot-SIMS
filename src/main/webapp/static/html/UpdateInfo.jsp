@@ -86,6 +86,23 @@
                         </select>
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学院：</label>
+                    <div class="layui-input-block">
+                        <select id="cid" name="cid" >
+                            <option value="">请选择学院</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业：</label>
+                    <div class="layui-input-block">
+                        <select id="mid" name="mid" >
+                            <option value="">请选择专业</option>
+                        </select>
+                    </div>
+                </div>
                 <!--                科目-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">擅长科目：</label>

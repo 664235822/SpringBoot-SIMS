@@ -21,6 +21,24 @@ public class ClassBean {
     private int gradeId;
     //科目列表
     private List<SubjectBean> subjects;
+    private int cid;
+    private int mid;
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
 
     public int getId() {
         return id;

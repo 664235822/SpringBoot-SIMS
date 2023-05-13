@@ -47,6 +47,8 @@ function UpTeacher() {
     Info.address = Serch("tAddress");
     Info.introduction = Serch("tIntorduction");
     Info.pwd = Serch("tPwd");
+    Info.mid = Serch("mid");
+    Info.cid = Serch("cid");
     data.info = JSON.stringify(Info);
     var url = "/insert";
     var Menu = Ajax(url, data);
@@ -75,6 +77,37 @@ function UpTeacher() {
  * **/
 function Serch(id) {
     return $("#" + id).val();
+}
+
+function CollegeSelect(){
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render('select','quiz1');
+
+    })
+}
+function MajorSelect(){
+    var collegeList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = '';
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].mid + "\" >";
+        text += collegeList.data.list[i].mname + "</option>";
+    }
+    $('#mid').append(text);
+    Refresh();
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.render('select','quiz1');
+    })
 }
 
 /**
@@ -112,7 +145,9 @@ function TeacherFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
-            var data = {"tableName": "Teacher", "code": code, "name": name, "currentPage": 1};
+            var cid = $("#cid").val();
+            var mid = $("#mid").val();
+            var data = {"tableName": "Teacher", "code": code, "name": name,collegeId: cid,majorId:mid, "currentPage": 1};
             var table = getPage(data);
             if (table.code == 1) {
                 TeachresTable(table.data.list);
@@ -177,6 +212,20 @@ function TeacherFunction() {
  * @description 修改教师信息页面当前学生数据
  * **/
 function TeacherModify() {
+    var collegeList = Ajax("/select", {'tableName': "CollegeAll"});
+    var text = ''
+    for (var i = 0; i < collegeList.data.list.length; i++) {
+        text += " <option value=\"" + collegeList.data.list[i].cid + "\" >";
+        text += collegeList.data.list[i].cname + "</option>";
+    }
+    $('#cid').append(text);
+    var majorList = Ajax("/select", {'tableName': "MajorAll"});
+    var text = ''
+    for (var i = 0; i < majorList.data.list.length; i++) {
+        text += " <option value=\"" + majorList.data.list[i].mid + "\" >";
+        text += majorList.data.list[i].mname + "</option>";
+    }
+    $('#mid').append(text);
     if (localStorage.ModifyId != null) {
         var json2 = localStorage.ModifyId;
         var obj = JSON.parse(json2);
@@ -199,6 +248,8 @@ function TeacherModify() {
     $("#tAddress").val(list.address);
     $("#tIntorduction").val(list.introduction);
     $("#tPwd").val(list.pwd);
+    $("#cid").val(list.cid);
+    $("#mid").val(list.mid);
     $("#tEducation option:contains(" + list.education + ")").prop("selected", true);
     Refresh();
 }

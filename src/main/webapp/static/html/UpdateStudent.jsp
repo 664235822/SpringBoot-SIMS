@@ -15,7 +15,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/iframe.js"></script>
     <title>修改学生信息</title>
 </head>
-<body onload="Modify()">
+<body onload="CollegeSelect2();MajorSelect2();Modify();">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -26,7 +26,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 forms">
-            <form class="layui-form" method="post">
+            <form class="layui-form" >
                 <!--                姓名-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名：</label>
@@ -65,6 +65,24 @@
                         <input type="text" id="tAge" name="tAge" lay-verify="required|age" autocomplete="off"
                                placeholder="请输入年龄"
                                class="layui-input">
+                    </div>
+                </div>
+                <!--                学院名称-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学院名称：</label>
+                    <div class="layui-input-block">
+                        <select id="cid2" name="cid" lay-verify="required" lay-reqtext="学院是必填项！">
+                            <option value="">请选择状态</option>
+                        </select>
+                    </div>
+                </div>
+                <!--                学院名称-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学院名称：</label>
+                    <div class="layui-input-block">
+                        <select id="mid2" name="mid" lay-verify="required" lay-reqtext="学院是必填项！">
+                            <option value="">请选择状态</option>
+                        </select>
                     </div>
                 </div>
                 <!--                年级-->

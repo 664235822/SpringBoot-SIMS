@@ -110,4 +110,24 @@ public class DeleteDao {
             }
         }
     }
+
+    /*
+     * 删除学院信息
+     * @param 要删除行的id字段列表
+     */
+    public void deleteCollege(List<String> idList) throws Exception {
+        for (String id : idList) {
+            deleteMapper.deleteCollege(Integer.parseInt(id));
+        }
+    }
+
+    /*
+     * 删除专业信息
+     * @param 要删除行的id字段列表
+     */
+    public void deleteMajor(List<String> idList) throws Exception {
+        for (String id : idList) {
+            deleteMapper.deleteMajor(Integer.parseInt(id));
+        }
+    }
 }

@@ -14,6 +14,11 @@ public interface DeleteMapper {
 
     public void deleteTeacherClassBytId(int id);
 
+
+    public void deleteCollege(int id);
+
+    public void deleteMajor(int id);
+
     public void deleteTeacher(String code);
 
     public int queryStudentId(String code);
