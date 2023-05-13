@@ -41,7 +41,7 @@
 
     <delete id="deleteMajor" parameterType="Integer">
         delete
-        from major
+        from Major
         where mid = #{id}
     </delete>
     <delete id="deleteTeacher" parameterType="String">

@@ -15,12 +15,12 @@
     </insert>
 
     <insert id="insertCollege" parameterType="com.sims.springbootsims.entity.CollegeBean">
-        insert into college (cname,cstatus,cremark)
+        insert into College (cname,cstatus,cremark)
         values (#{cname}, #{cstatus}, #{cremark})
     </insert>
 
     <insert id="insertMajor" parameterType="com.sims.springbootsims.entity.MajorBean">
-        insert into major (mname,mstatus,mremark,cid)
+        insert into Major (mname,mstatus,mremark,cid)
         values (#{mname}, #{mstatus}, #{mremark},#{cid})
     </insert>
     <insert id="insertStudent" parameterType="com.sims.springbootsims.entity.StudentBean">

@@ -27,7 +27,7 @@
     </select>
 
     <select id="queryCollegeList" resultType="com.sims.springbootsims.entity.CollegeBean">
-        select * from college
+        select * from College
         <where>
             <if test="name != null and name != ''">
                 and cname like "%"#{name}"%"
@@ -43,19 +43,19 @@
     </select>
 
     <select id="queryAllCollegeList" resultType="com.sims.springbootsims.entity.CollegeBean">
-        select * from college
+        select * from College
         where cstatus = '1'
         order by cid desc
     </select>
 
     <select id="queryAllMajorList" resultType="com.sims.springbootsims.entity.MajorBean">
-        select * from major
+        select * from Major
         where mstatus = '1'
         order by mid desc
     </select>
 
     <select id="queryMajorList" resultType="com.sims.springbootsims.entity.MajorBean">
-        select m.*,c.cname from major m left join college c on m.cid = c.cid
+        select m.*,c.cname from Major m left join College c on m.cid = c.cid
         <where>
             <if test="name != null and name != ''">
                 and mname like "%"#{name}"%"
