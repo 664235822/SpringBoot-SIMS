@@ -14,7 +14,23 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/Login.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/Ajax.js"></script>
-    <title>登录</title>
+    <title>教务管理系统</title>
+    <style>
+        /* 使元素始终位于网页最下方中央 */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+
+        /* 使a标签的文字颜色始终为白色 */
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -76,6 +92,9 @@
 
             </div>
         </div>
+        <p class="footer"><a href="https://beian.miit.gov.cn">蜀ICP备2023027868号-1</a>
+            SmallPig1997版权所有
+        </p>
     </div>
 </div>
 </body>
