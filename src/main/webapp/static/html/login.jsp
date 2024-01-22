@@ -14,7 +14,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/Login.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/Ajax.js"></script>
-    <title>教务管理系统</title>
+    <title>灏钧软件开发工作室管理系统</title>
     <style>
         /* 使元素始终位于网页最下方中央 */
         .footer {
@@ -38,15 +38,15 @@
     <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
         <div class="layadmin-user-login-main layui-anim layui-anim-scale">
             <div class="layadmin-user-login-box layadmin-user-login-header">
-                <h2>教务管理系统</h2>
+                <h2>灏钧软件开发工作室管理系统</h2>
             </div>
 
             <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                 <!-- 分割线 -->
                 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                     <ul class="layui-tab-title">
-                        <li class="layui-this" name="3">学生</li>
-                        <li name="2">教师</li>
+                        <li class="layui-this" name="3">员工</li>
+                        <li name="2">经理</li>
                         <li name="1">管理员</li>
                     </ul>
                 </div>

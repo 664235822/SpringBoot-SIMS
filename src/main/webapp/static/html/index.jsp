@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>教务管理系统</title>
+    <title>灏钧软件开发工作室管理系统</title>
     <link rel="icon" href="${pageContext.request.contextPath}/static/img/StudentManageSystom.ico" />
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/static/layui/css/layui.css" rel="stylesheet"/>
@@ -24,7 +24,7 @@
         <div class="layui-logo">
 <!--            <img src="${pageContext.request.contextPath}/static/img/logo.png"/>-->
             <a href="${pageContext.request.contextPath}/static/html/HomePage.jsp" target="ifm" style="font-size: 20px; color: white;">
-                <i class="layui-icon layui-icon-console" style="font-size: 20px; vertical-align: middle;"></i>  教务管理系统</a>
+                <i class="layui-icon layui-icon-console" style="font-size: 20px; vertical-align: middle;"></i>  灏钧软件开发工作室管理系统</a>
         </div>
         <ul class="layui-nav layui-layout-right" id="topnav">
             <li class="layui-nav-item">
