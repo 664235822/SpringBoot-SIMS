@@ -24,7 +24,7 @@
         <div class="layui-logo">
 <!--            <img src="${pageContext.request.contextPath}/static/img/logo.png"/>-->
             <a href="${pageContext.request.contextPath}/static/html/HomePage.jsp" target="ifm" style="font-size: 20px; color: white;">
-                <i class="layui-icon layui-icon-console" style="font-size: 20px; vertical-align: middle;"></i>  灏钧软件开发工作室管理系统</a>
+                <i class="layui-icon layui-icon-console" style="font-size: 20px; vertical-align: middle;"></i>工作室管理系统</a>
         </div>
         <ul class="layui-nav layui-layout-right" id="topnav">
             <li class="layui-nav-item">
